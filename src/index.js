@@ -6,6 +6,7 @@ import App from './Components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import store from '../src/app/store';
+import './style/reset.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

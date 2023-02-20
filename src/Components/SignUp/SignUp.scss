@@ -1,0 +1,60 @@
+@use "../../style/vars";
+
+.SignUp {
+  background-image: linear-gradient(
+    250deg,
+    vars.$lightBlue 50%,
+    vars.$floralWhite 50%
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.SignUp-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  height: 500px;
+  width: 500px;
+  margin: auto;
+  margin-top: 5rem;
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #c7c7ca;
+}
+
+.SignUp-title {
+  margin: 2.5rem 0 1.2rem;
+  font-size: 1rem;
+  font-weight: normal;
+}
+.SignUp-input {
+  margin-bottom: 1.2rem;
+}
+.SignUp-input input {
+  background-color: #ebecf0;
+  border: 1px solid #d9d9db;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+.SignUp-button {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  background-color: vars.$darkBlue;
+  color: white;
+  font-weight: bold;
+  padding: 0.7rem 2rem;
+  border-radius: 5px;
+}
+.SignUp-button:hover{
+    cursor: pointer;
+}
+.SignUp-link {
+    color: #aeaeb0;
+    margin-top: 0.5rem;
+}
+
