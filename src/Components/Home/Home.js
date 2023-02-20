@@ -7,12 +7,11 @@ import Area3 from './Area3/Area3';
 function Home() {
 
     return (
-        <>
-            <Header />
+        <div className='home_container'>
             <Area1 />
             <Area2 />
             <Area3 />
-        </>
+        </div>
     );
 }
 
