@@ -1,11 +1,11 @@
 import "./SignUp.scss";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../feature/users.slice";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 function SignUp() {
-
+const isLogged = useSelector((state) => state.user.isLogged);
 const dispatch = useDispatch();
 // gestion des données du formulaire en local dans ce même composant
 const [formData, setFormData] = useState({
@@ -34,6 +34,7 @@ const handleSubmit = (event) => {
 
   return (
     <form className="SignUp" onSubmit={handleSubmit}>
+    {!isLogged && (
     <div className="SignUp-container">
     <h1 className="SignUp-title"> Créez votre compte </h1>
       <label htmlFor="prénom" className="SignUp-input">
@@ -86,6 +87,10 @@ const handleSubmit = (event) => {
       <p className="SignUp-link">Vous avez déjà un compte ?</p>
       </Link>
       </div>
+    )}
+ {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
+ il va falloir ici récupérer son id */}
+    {isLogged && (<Navigate to="/user/:id" replace />)}
     </form>
   );
 };
