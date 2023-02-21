@@ -1,0 +1,51 @@
+@use "../../style/vars";
+
+.Parametres{
+    background-color: white;
+    height: auto;
+    width: 350px;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #c7c7ca;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+.Parametres-title{
+    font-size: 1rem;
+    padding-top: 1rem;
+}
+.Parametres-input{
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+}
+.Parametres-input input {
+    background-color: #ebecf0;
+    border: 1px solid #d9d9db;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.5rem;
+  }
+.Parametres-button{
+    display: block;
+    margin: 1rem auto;
+    width: auto;
+    background-color: vars.$darkBlue;
+    color: white;
+    font-weight: bold;
+    padding: 0.7rem 2rem;
+    border-radius: 5px;
+}
+.Parametres-add{
+    display: inline-block;
+    margin-right: 1rem;
+}
+.Parametres-add__button{
+    border: none;
+    font-weight: bold;
+    border-radius: 30%;
+}
+.Parametres button:hover {
+    cursor: pointer;
+}
