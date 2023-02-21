@@ -4,6 +4,7 @@ import avatar from "./avatar.png"
 import { useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 
+
 function Header() {
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
