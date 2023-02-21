@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
 // voir ici avec le back quelle route appeler, celle-ci n'est pas présente dans le cdc
-      const response = await axios.post("http://localhost:3001/login", userData);
+      const response = await axios.post("http://localhost:3001/user/login", userData);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

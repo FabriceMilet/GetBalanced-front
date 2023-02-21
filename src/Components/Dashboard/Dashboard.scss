@@ -1,0 +1,15 @@
+@use "../../style/vars";
+
+.Dashboard-button{
+    display: block;
+    background-color: vars.$orange;
+    margin: 2.5rem 0 0 10rem;
+    border: none;
+    border-radius: 5px;
+    color: vars.$floralWhite;
+    font-weight: bold;
+    padding: 1rem 2.5rem;
+}
+.Dashboard-button--hidden{
+    visibility: hidden;
+}
