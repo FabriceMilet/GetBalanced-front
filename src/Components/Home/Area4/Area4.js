@@ -1,16 +1,16 @@
 import './Area4.scss';
+import collaboration from './collaboration.png'
 
 function Area4() {
 
     return (
         <div className="area4_container">
             <div className="area4_top_container">
-                <h2>blablabla blablabla blablablabla... blabla</h2>
+                <h2>Une collaboration facile grâce à Get Balanced</h2>
             </div>
-            <div className="area4_bottom_container">
-                <p className='area4_paragraphe'>lorem jdgonfobn dog jtoigh og idog oird dgiog do jrdoi jdfog
-                    gdl gndro gjdo rdgogi gjdiog dijog doig jrdio gdl gdogdr ogdr
-                    vjiod vrdoi jdfio jgird fdkrvbidfbvkd vdjdlsnvbljdv</p>
+            <div className="bottom_container">
+                <img className='logoArea1' src={collaboration} alt="logo d'illustration" />
+                <p className='area2_paragraphe'>Collaborer avec les membres de votre foyer est facile avec Get Balanced. Notre fonctionnalité de choix de tâche et de validation permet à chaque utilisateur de choisir une tâche et de la valider une fois terminée. Grâce à un système de couleur, vous pouvez rapidement visualiser la répartition des tâches déjà effectuées. La collaboration est une clé pour un foyer harmonieux et notre application vous aide à y parvenir.</p>
             </div>
         </div>
     );

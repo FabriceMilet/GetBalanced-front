@@ -35,10 +35,9 @@ $color-20: #fb4d3d;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
 }
 
-.area4_bottom_container{
+.bottom_container{
     height: 50%;
     display: flex;
     justify-content: space-around;
@@ -48,4 +47,8 @@ $color-20: #fb4d3d;
 .area4_paragraphe{
     width: 500px;
     justify-content: center;
+}
+
+.logoArea1{
+    width: 150px;
 }
