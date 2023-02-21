@@ -1,0 +1,54 @@
+// Palette de base
+$color-1: #f4d06f;
+$color-2: #ff8811;
+$color-3: #9dd9d2;
+$color-4: #fff8f0;
+$color-5: #392f5a;
+// Palette catégories
+$color-6: #60992d;
+$color-7: #8cae68;
+$color-8: #b3a091;
+$color-9: #d991ba;
+$color-10: #ebb9df;
+$color-11: #f5d5ed;
+// Palette users
+$color-12: #ba9a26;
+$color-13: #eac435;
+$color-14: #345995;
+$color-15: #8c2d7e;
+$color-16: #e40066;
+$color-17: #746785;
+$color-18: #03cea4;
+$color-19: #7f8e71;
+$color-20: #fb4d3d;
+
+
+
+.area2_container{
+    width: 100%;
+    height: 400px;
+}
+
+.top_container{
+    height: 50%;
+    background-color: $color-1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom_container{
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.area2_paragraphe{
+    width: 500px;
+    justify-content: center;
+}
+
+.logoArea1{
+    width: 150px;
+}
