@@ -1,13 +1,14 @@
 import "./Dashboard.scss";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../../feature/parametre.slice";
 import Parametres from '../Parametres/Parametres'
 
 function Dashboard() {
-  // etat local d'ouverture de modale
-  const [isOpen, openModal] = useState(false);
-
+  const isOpen = useSelector((state) => state.parametre.isOpen);
+  const planners = useSelector((state) => state.parametre.planners);
+  const dispatch = useDispatch();
   const handleClick = () => {
-    openModal(!isOpen);
+    dispatch(openModal());
   };
 
   return (
@@ -23,6 +24,16 @@ function Dashboard() {
         Créer un planning
       </button>
       {isOpen && (<Parametres />)}
+      <div className="Dashboard-planners">
+      {planners.map((planner) => (
+        <div className={
+          isOpen
+            ? "Dashboard-planner Dashboard-planner--hidden"
+            : "Dashboard-planner"
+        } key={planner.title}><h1>{planner.title}</h1> <p>{planner.description}</p> </div>
+      ))}
+      </div>
+
     </div>
   );
 }
