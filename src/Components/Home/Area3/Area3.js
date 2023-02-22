@@ -6,7 +6,7 @@ function Area3() {
     return (
         <div className="area3_container">
             <div className="area3_top_container">
-                <h2>Organisez votre foyer avec Get Balanced</h2>
+                <h2 className='top_container_title' >Organisez votre foyer avec <span className='animation'>Get Balanced</span></h2>
             </div>
 
             <div className="area3_bottom_container">

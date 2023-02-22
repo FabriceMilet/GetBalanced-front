@@ -6,7 +6,7 @@ function Area4() {
     return (
         <div className="area4_container">
             <div className="area4_top_container">
-                <h2>Une collaboration facile grâce à Get Balanced</h2>
+                <h2 className='top_container_title'>Une collaboration facile grâce à <span className='animation'>Get Balanced</span></h2>
             </div>
             <div className="bottom_container">
                 <img className='logoArea1' src={collaboration} alt="logo d'illustration" />

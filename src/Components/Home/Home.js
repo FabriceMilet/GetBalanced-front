@@ -37,6 +37,7 @@ function Home() {
                     if (!toggleElem3) {
                         setToggleElem3(true)
                     }
+                    console.log("A")
                 }
                 }>
                 <animated.div style={animation3}>
@@ -49,6 +50,7 @@ function Home() {
                     if (!toggleElem1) {
                         setToggleElem1(true)
                     }
+                    console.log("B")
                 }
                 }>
                 <animated.div style={animation}>
@@ -60,6 +62,7 @@ function Home() {
                     if (!toggleElem2) {
                         setToggleElem2(true)
                     }
+                    console.log("C")
                 }
                 }>
                 <animated.div style={animation2}>
