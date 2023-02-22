@@ -1,10 +1,10 @@
 import "./TaskModale.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, openModal, addPlanner} from "../../feature/parametre.slice";
+import { setFormData, openModal, addTask} from "../../feature/task.slice";
 
 export default function TaskModale() {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.parametre.formData);
+  const formData = useSelector((state) => state.task.formData);
   // const planners = useSelector((state) => state.parametre.planners);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
@@ -15,8 +15,9 @@ export default function TaskModale() {
 // on va chercher ici à faire apparaitre le tableau dans le dashboard et l'enregitrer en BDD
 const handleSubmit = (event) => {
   event.preventDefault();
-  dispatch(addPlanner(formData)).then(() => {
-    dispatch(setFormData({ title: "", description: "", invitation: "" }))});
+//   dispatch(addPlanner(formData)).then(() => {
+//     dispatch(setFormData({ title: "", description: "", invitation: "" }))});
+dispatch(setFormData({ title: "", description: ""}))
   dispatch(openModal());
 };
 
@@ -29,23 +30,23 @@ const handleSubmit = (event) => {
           <input
             type="text"
             name="title"
-            placeholder="Famille Belier"
+            placeholder="Faire la vaisselle"
             value={formData.title}
             onChange={handleChange}
             required
           />
         </label>
-        <label htmlFor="description" className="Parametres-input">
+        <label htmlFor="description" className="TaskModale-input">
           Description
           <input
             type="text"
             name="description"
-            placeholder="Gestion des tâches quotidiennes"
+            placeholder="Prévoir de racheter du liquide vaisselle"
             value={formData.description}
             onChange={handleChange}
           />
         </label>
-        <button type="submit" className="Parametres-button">
+        <button type="submit" className="TaskModale-button">
           Valider
         </button>
       </form>
