@@ -27,12 +27,13 @@
 .Dashboard-planner{
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: vars.$lightBlue;
     border: none;
     padding: 1.5rem;
     border-radius: 10px;
     width: 300px;
-    height: 200px;
+    height: auto;
     margin: 2rem 1.5rem 1.5rem 0;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     
@@ -42,6 +43,7 @@
 }
 .Dashboard-planner h1 {
     font-size: 1.5rem;
+    text-transform: uppercase;
 }
 .Dashboard-planner p {
     flex: 1;
@@ -50,4 +52,9 @@
     white-space: normal;
     word-wrap: break-word;
 }
-
+@keyframes slide-2{to{transform:translateY(3px)}}
+.Dashboard-arrow{
+    animation: slide-2 0.5s infinite alternate both cubic-bezier(1,-.01,0,.98);
+    margin: auto;
+    cursor: pointer;
+}

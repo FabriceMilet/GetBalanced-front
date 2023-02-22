@@ -5,7 +5,7 @@ import { setFormData, openModal, addPlanner} from "../../feature/parametre.slice
 export default function Parametres() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.parametre.formData);
-  const planners = useSelector((state) => state.parametre.planners);
+  // const planners = useSelector((state) => state.parametre.planners);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {
@@ -44,6 +44,7 @@ const handleSubmit = (event) => {
             placeholder="Famille Belier"
             value={formData.title}
             onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="description" className="Parametres-input">
@@ -101,3 +102,5 @@ key={`invitation-${index}`}
     </div>
   );
 }
+
+

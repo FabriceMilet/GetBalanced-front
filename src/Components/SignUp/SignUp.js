@@ -1,25 +1,18 @@
 import "./SignUp.scss";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../feature/users.slice";
 import { Link, Navigate } from 'react-router-dom';
+import { setFormData } from '../../feature/users.slice';
 
 function SignUp() {
 const isLogged = useSelector((state) => state.user.isLogged);
+const formData = useSelector((state) => state.user.formData);
 const dispatch = useDispatch();
-// gestion des données du formulaire en local dans ce même composant
-const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
 // correspondant à la variable name et sa valeur associée
 const handleChange = (event) => {
   const { name, value } = event.target;
-  setFormData({ ...formData, [name]: value });
+  dispatch(setFormData({ ...formData, [name]: value }));
 };
 // formData est envoyé en paramètre de createUser au slice userSlice
 const handleSubmit = (event) => {
@@ -27,7 +20,8 @@ const handleSubmit = (event) => {
   if (formData.password !== formData.confirmPassword) {
     alert("Les mots de passe ne correspondent pas");
   } else {
-    dispatch(createUser(formData));
+    dispatch(createUser(formData)).then(() => {
+      dispatch(setFormData({ firstname: "", lastname: "",email: "",password: "",confirmPassword: "" }))});
     console.log(formData);
     // on va devoir prévoir l'envoie vers la page profil ou dashboard 
   }}

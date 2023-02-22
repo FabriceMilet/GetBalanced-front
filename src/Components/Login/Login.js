@@ -1,27 +1,26 @@
 import './Login.scss';
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
 import { loginUser } from "../../feature/users.slice";
+import { setFormData } from '../../feature/users.slice';
 
 function Login() {
+  const dispatch = useDispatch();
 const isLogged = useSelector((state) => state.user.isLogged);
-const dispatch = useDispatch();
-// gestion des données du formulaire en local dans ce même composant
-const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+const formData = useSelector((state) => state.user.formData);
+
 // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
 // correspondant à la variable name et sa valeur associée
 const handleChange = (event) => {
   const { name, value } = event.target;
-  setFormData({ ...formData, [name]: value });
+  dispatch(setFormData({ ...formData, [name]: value }));
 };
+
 // formData est envoyé en paramètre de createUser au slice userSlice
 const handleSubmit = (event) => {
   event.preventDefault();
-    dispatch(loginUser(formData));
+    dispatch(loginUser(formData)).then(() => {
+      dispatch(setFormData({ email: "", password: ""}))});;
     console.log(formData);
   }
   return (
