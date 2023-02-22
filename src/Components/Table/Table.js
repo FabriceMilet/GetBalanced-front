@@ -1,12 +1,15 @@
-import './Table.scss';
+import "./Table.scss";
+import Week from "./Week/Week";
+import WeekScroll from "./WeekScroll/WeekScroll";
 
 function Table() {
 
-    return (
-        <h1 className="Table">
-        Table
-      </h1>
-    );
+  return (
+    <div className="Table">
+      <WeekScroll />
+      <Week />
+    </div>
+  );
 }
 
 export default Table;
