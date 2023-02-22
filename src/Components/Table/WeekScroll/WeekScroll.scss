@@ -1,0 +1,24 @@
+@use "../../../style/vars";
+
+.WeekScroll {
+  display: flex;
+  &-week {
+    margin: 0 2rem;
+    font-size: 2rem;
+    span {
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+  }
+  &-less {
+   cursor: pointer;
+   stroke: vars.$lightBlue;
+    fill: vars.$lightBlue;
+  }
+  &-more {
+    cursor: pointer;
+    stroke: vars.$lightBlue;
+    fill: vars.$lightBlue;
+   }
+
+}
