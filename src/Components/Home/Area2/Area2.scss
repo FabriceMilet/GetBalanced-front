@@ -65,33 +65,5 @@ $color-20: #fb4d3d;
     width: 150px;
 }
 
-// CSS pour mobile
-@media (max-width: 800px) {
-    .area2_container{
-    width: 100vw;
-    height: 700px;
-}
 
-.top_container_title{
-    display: block;
-    width: 70vw;
-    text-align: center;
-}
-
-.bottom_container{
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.area2_paragraphe{
-    width: 80vw;
-}
-
-.logoArea2{
-    width: 100px;
-} 
-}
 

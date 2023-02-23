@@ -1,8 +1,8 @@
-.header_container{
-    background-color: #392f5a;
-}
 
 .header{
+    position: fixed;
+    z-index: 1;
+    background-color: #392f5a;
     margin: auto;
     height: 60px;
     display: flex;
@@ -10,6 +10,7 @@
     align-items: center;
     padding-left: 3%;
     padding-right: 3%;
+    width: 100vw;
 }
 
 .header_nav{
@@ -63,12 +64,8 @@
     font-size: 12px;
   }
 
-  .header_container{
-    background-color: #392f5a;
-    width: 100%;
-}
-
   .header{
+
     margin: auto;
     height: 60px;
     display: flex;
@@ -112,7 +109,6 @@
   }
 
 .logoGetBalanced{
-    width: auto;
     height: auto;
     width: 100px;
 }

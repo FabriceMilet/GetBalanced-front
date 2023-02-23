@@ -5,3 +5,9 @@ font-weight: bold;
 body{
     background-color: #fff8f0;
 }
+
+@media (max-width: 800px) {
+    .App{
+        width: 100vw;
+    }
+}

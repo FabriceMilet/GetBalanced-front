@@ -1,7 +1,6 @@
 .area1_container{
     width: 100%;
-    min-height: 80vh;
-    max-height: 900px;
+    height: 1000px;
     background-image: linear-gradient(0.3turn, #9dd9d2 50%, rgba(0,0,255,0) 50%);
     background-size: 100% 100%;
     background-position: 0 50%;
@@ -48,35 +47,4 @@
 
 .laundry_logo{
     width: 250px;
-}
-
-
-
-
-// Css pour mobile
-@media (max-width: 800px) {
-    .area1_container{
-        width: 100vw;
-        min-height: 80vh;
-        max-height: 900px;
-        background-image: linear-gradient(0.3turn, #9dd9d2 50%, rgba(0,0,255,0) 50%);
-        background-size: 100% 100%;
-        background-position: 0 50%;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* left container */
-    .left_container{
-        width: 100%;
-        display: flex;
-        justify-content:space-between;
-        gap: 40px;
-        flex-direction: column;
-        align-items: center;
-        padding: 50px;
-    }
 }
