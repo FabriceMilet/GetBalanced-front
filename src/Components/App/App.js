@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import Home from '../Home/Home';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login';
-import Profile from '../Home/Home';
+import Profile from '../Profile/Profile';
 import Dashboard from '../Dashboard/Dashboard';
 import Table from '../Table/Table';
 import Err404 from '../Err404/Err404';
