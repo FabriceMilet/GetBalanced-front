@@ -26,7 +26,7 @@ $color-20: #fb4d3d;
 
 .area3_container{
     width: 100%;
-    height: 400px;
+    height: 600px;
 }
 
 .area3_top_container{
@@ -44,10 +44,45 @@ $color-20: #fb4d3d;
     align-items: center;
 }
 
-.area3_paragraphe{
+.area3_bottom_paragraphe{
     width: 500px;
+    justify-content: center;
 }
 
-.logoArea1{
+.area3_logo{
     width: 150px;
 }
+
+.area3_title_anim {
+    animation: color-change 3s infinite;
+  }
+  
+  @keyframes color-change {
+    0% { color: #d9fcae; }
+    33% { color: #c16200; }
+    66% { color: rgb(252, 73, 73); }
+    100% { color: #cbff8c; }
+    
+  }
+
+  @media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    .area3_top_title{
+        text-align: center;
+        width: 350px;
+    }
+
+    .area3_bottom_container{
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .area3_bottom_paragraphe{
+        font-size: 10px;
+        width: 80vw;
+    }
+
+    .area3_logo{
+        width: 100px;
+    }
+  }
