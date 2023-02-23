@@ -11,6 +11,7 @@ function Dashboard() {
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
+  
   const handleClick = () => {
     dispatch(openModal());
   };
@@ -22,7 +23,6 @@ function Dashboard() {
     event.preventDefault();
     setIsLarge(false)
   };
-
   const [isLarge, setIsLarge] = useState(
    false
   );

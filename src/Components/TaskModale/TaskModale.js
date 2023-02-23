@@ -5,6 +5,8 @@ import { setFormData, openModal, addTask} from "../../feature/task.slice";
 export default function TaskModale() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.task.formData);
+  // const hoy = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date())
+  // console.log("hoy", hoy);
   // const planners = useSelector((state) => state.parametre.planners);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
@@ -12,12 +14,11 @@ export default function TaskModale() {
     const { name, value } = event.target;
     dispatch(setFormData({ ...formData, [name]: value }));
   };
-// on va chercher ici à faire apparaitre le tableau dans le dashboard et l'enregitrer en BDD
+// on va chercher ici à faire apparaitre la tache dans le planning et l'enregitrer en BDD
 const handleSubmit = (event) => {
   event.preventDefault();
-//   dispatch(addPlanner(formData)).then(() => {
-//     dispatch(setFormData({ title: "", description: "", invitation: "" }))});
-dispatch(setFormData({ title: "", description: ""}))
+  dispatch(addTask(formData)).then(() => {
+    dispatch(setFormData({ title: "", description: "", date: "" }))});
   dispatch(openModal());
 };
 
@@ -46,6 +47,22 @@ dispatch(setFormData({ title: "", description: ""}))
             onChange={handleChange}
           />
         </label>
+
+        
+        {/* on ajoutera ce champ quand on fera un bouton supplémentaire non lié à la date
+        où on pourra choisir la date */}
+        
+        <label htmlFor="date" className="TaskModale-input">
+          Date
+          <input
+            type="date"
+            name="date"
+            placeholder="23/02/2023"
+            value={formData.date}
+            onChange={handleChange}
+          />
+        </label>
+
         <button type="submit" className="TaskModale-button">
           Valider
         </button>

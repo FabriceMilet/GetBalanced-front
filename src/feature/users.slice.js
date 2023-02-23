@@ -6,7 +6,8 @@ export const createUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       // voir ici avec le back quelle route appeler
-      const response = await axios.post("http://localhost:3005/user", JSON.stringify(userData));
+      const response = await axios.post("http://supafei-server.eddi.cloud:8080/user", userData);
+      console.log('réponse envoyée en createUser', userData); 
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -19,9 +20,10 @@ export const loginUser = createAsyncThunk(
     try {
       // voir ici avec le back quelle route appeler, celle-ci n'est pas présente dans le cdc
       const response = await axios.post(
-        "http://localhost:3005/user/login",
-        JSON.stringify(userData)
+        "http://supafei-server.eddi.cloud:8080/user/login",
+        userData
       );
+      console.log('réponse envoyée en login', userData); 
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

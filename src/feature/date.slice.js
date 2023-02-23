@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const dateSlice = createSlice({
   name: "date",
   initialState: {
-    date: new Date(),
+    date: new Date().getTime(),
+    // .getTime() pour régler le new Date () qui pose un problème de "serialization"
   },
   reducers: {
     setDateToMore: (state, action) => {

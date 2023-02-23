@@ -25,7 +25,8 @@ const handleSubmit = (event) => {
     console.log(formData);
     // on va devoir prévoir l'envoie vers la page profil ou dashboard 
   }}
-
+  
+  console.log("isLogged", isLogged);
   return (
     <form className="SignUp" onSubmit={handleSubmit}>
     {!isLogged && (
@@ -84,7 +85,7 @@ const handleSubmit = (event) => {
     )}
  {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-    {isLogged && (<Navigate to="/user/:id" replace />)}
+    {isLogged && (<Navigate to="/dashboard/:id" replace />)}
     </form>
   );
 };
