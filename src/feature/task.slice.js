@@ -5,15 +5,14 @@ export const addTask = createAsyncThunk(
   "task/addTask",
   async (formData, thunkAPI) => {
     try {
-        const response = formData
+      const response = formData;
       // voir ici avec le back quelle route appeler
-    //   const response = await axios.post(
-    //     "http://localhost:3001/planners",
-    //     formData
-    //   );
-    // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
+      //   const response = await axios.post(
+      //     "http://localhost:3001/planners",
+      //     formData
+      //   );
+      // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
       return response;
-
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -27,21 +26,16 @@ const taskSlice = createSlice({
     loading: false,
     error: null,
     isOpen: false,
-    dayOfWeek : null,
     formData: { title: "", description: "", date: "" },
-    tasks:[],
+    tasks: [],
   },
   reducers: {
     openModal: (state) => {
       state.isOpen = !state.isOpen;
     },
     setFormData: (state, action) => {
-        state.formData = action.payload;
-      },
-      setDayOfWeek: (state, action) => {
-        state.dayOfWeek = action.payload;
-      },
-
+      state.formData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,5 +54,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData, setDayOfWeek } = taskSlice.actions;
+export const { openModal, setFormData } = taskSlice.actions;
 export default taskSlice.reducer;
