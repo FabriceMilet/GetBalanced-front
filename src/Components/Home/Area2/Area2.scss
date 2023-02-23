@@ -63,3 +63,26 @@ $color-20: #fb4d3d;
     66% { color: rgb(252, 73, 73); }
     100% { color: #cbff8c; }
   }
+
+
+  @media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    .area2_top_title{
+        text-align: center;
+        width: 350px;
+    }
+
+    .area2_bottom_container{
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .area2_bottom_paragraphe{
+        font-size: 10px;
+        width: 80vw;
+    }
+
+    .area2_logo{
+        width: 100px;
+    }
+  }

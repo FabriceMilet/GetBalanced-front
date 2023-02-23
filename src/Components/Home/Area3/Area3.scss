@@ -64,3 +64,25 @@ $color-20: #fb4d3d;
     100% { color: #cbff8c; }
     
   }
+
+  @media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    .area3_top_title{
+        text-align: center;
+        width: 350px;
+    }
+
+    .area3_bottom_container{
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .area3_bottom_paragraphe{
+        font-size: 10px;
+        width: 80vw;
+    }
+
+    .area3_logo{
+        width: 100px;
+    }
+  }

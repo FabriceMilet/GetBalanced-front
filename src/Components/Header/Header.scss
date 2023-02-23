@@ -56,3 +56,11 @@
   width: 40px;
   cursor: pointer;
 }
+
+
+// Version mobile
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+.header_nav-link{
+  font-size: 12px;
+}
+}
