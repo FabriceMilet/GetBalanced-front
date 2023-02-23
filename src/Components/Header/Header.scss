@@ -1,16 +1,15 @@
-.header_container{
-    background-color: #392f5a;
-}
 
-.header{
-    max-width: 900px;
-    margin: auto;
+.header-container{
+    background-color: #392f5a;
+    width: 100vw;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 3%;
     padding-right: 3%;
+    position: fixed;
+    z-index: 1;
 }
 
 .header_nav{
@@ -20,6 +19,7 @@
     justify-content: space-between;
 }
 
+// Animation au survol des liens
 .header_nav-link {
     color: white;
     position: relative;
@@ -52,7 +52,15 @@
     width: 100px;
 }
 
-.headet_nav_logo{
+.header_nav_logo{
   width: 40px;
   cursor: pointer;
+}
+
+
+// Version mobile
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+.header_nav-link{
+  font-size: 12px;
+}
 }
