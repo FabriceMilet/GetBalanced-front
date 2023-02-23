@@ -16,15 +16,15 @@ function Home() {
     // Les animations qui sont déclenchées lors du passage du state de false a true. 
     const animation = useSpring({
         opacity: toggleElem1 ? 1 : 0,
-        transform: toggleElem1 ? "translateX(0)" : "translateX(-80%)"
+        //transform: toggleElem1 ? "translateX(0)" : "translateX(-80%)"
     })
     const animation2 = useSpring({
         opacity: toggleElem2 ? 1 : 0,
-        transform: toggleElem2 ? "translateX(0)" : "translateX(80%)"
+        //transform: toggleElem2 ? "translateX(0)" : "translateX(80%)"
     })
     const animation3 = useSpring({
         opacity: toggleElem3 ? 1 : 0,
-        transform: toggleElem3 ? "translateX(0)" : "translateX(80%)"
+        //transform: toggleElem3 ? "translateX(0)" : "translateX(80%)"
     })
 
     return (

@@ -6,22 +6,19 @@
     background-size: 100% 100%;
     background-position: 0 50%;
     background-repeat: no-repeat;
-}
-
-.area1_container{
     display: flex;
 }
 
-/* left container */
-.left_container{
+.area1_left_container{
     width: 50%;
     display: flex;
-    justify-content: center;
-    gap: 10%;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
     padding: 50px;
     // Pour corriger le centrage verticale :
-    margin-bottom: 40px;
+
 }
 
 .area1_title{
@@ -32,15 +29,15 @@
     text-shadow: 2px 2px rgb(255, 136, 17, 0.5);
 }
 
-.left_container_paragraphe{
+.area1_left_container_paragraphe{
     display: block;
     line-break: auto;
     width: 250px;
-    text-align:left;
+    text-align:center;
 }
 
 // Right container
-.right_container{
+.area1_right_container{
     width: 50%;
     display: flex;
     align-items: center;

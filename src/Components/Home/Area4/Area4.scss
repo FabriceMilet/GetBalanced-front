@@ -26,7 +26,7 @@ $color-20: #fb4d3d;
 
 .area4_container{
     width: 100%;
-    height: 400px;
+    height: 600px;
 }
 
 .area4_top_container{
@@ -37,18 +37,30 @@ $color-20: #fb4d3d;
     justify-content: center;
 }
 
-.bottom_container{
+.area4_bottom_container{
     height: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.area4_paragraphe{
+.area4_bottom_paragraphe{
     width: 500px;
     justify-content: center;
 }
 
-.logoArea1{
+.area4_logo{
     width: 150px;
 }
+
+.area4_title_anim {
+    animation: color-change 3s infinite;
+  }
+  
+  @keyframes color-change {
+    0% { color: #d9fcae; }
+    33% { color: #c16200; }
+    66% { color: rgb(252, 73, 73); }
+    100% { color: #cbff8c; }
+    
+  }
