@@ -1,7 +1,12 @@
 import './Profile.scss'
 import avatar from "./avatar.png"
+import { useSelector } from 'react-redux'
 
 export default function Profile() {
+
+
+  const userConnectedData = useSelector((state) => state.user);
+  console.log(userConnectedData)
 
   const handleSubmit = (e) => {
     e.preventDefault()
