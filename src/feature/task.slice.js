@@ -36,6 +36,10 @@ const taskSlice = createSlice({
     setFormData: (state, action) => {
       state.formData = action.payload;
     },
+    setTasks: (state, action) => {
+      // à vérifier ici, peut-être faire un .push
+      state.tasks = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,5 +58,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData } = taskSlice.actions;
+export const { openModal, setFormData, setTasks } = taskSlice.actions;
 export default taskSlice.reducer;
