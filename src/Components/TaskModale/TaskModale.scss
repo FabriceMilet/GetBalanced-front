@@ -1,0 +1,39 @@
+@use "../../style/vars";
+
+.TaskModale{
+    height: auto;
+    width: 350px;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+.TaskModale-title{
+    font-size: 2rem;
+    padding-top: 1rem;
+}
+.TaskModale-input{
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+}
+.TaskModale-input input {
+    background-color: #ebecf0;
+    border: 1px solid #d9d9db;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.5rem;
+  }
+.TaskModale-button{
+    display: block;
+    margin: 1rem auto;
+    width: auto;
+    background-color: vars.$darkBlue;
+    color: white;
+    font-weight: bold;
+    padding: 0.7rem 2rem;
+    border-radius: 5px;
+}
+.Parametres button:hover {
+    cursor: pointer;
+}

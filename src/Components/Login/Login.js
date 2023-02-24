@@ -21,8 +21,9 @@ const handleSubmit = (event) => {
   event.preventDefault();
     dispatch(loginUser(formData)).then(() => {
       dispatch(setFormData({ email: "", password: ""}))});;
-    console.log(formData);
+    console.log("formData", formData);
   }
+  console.log("isLogged", isLogged);
   return (
     <form className="Login" onSubmit={handleSubmit}>
     {!isLogged && (
@@ -53,7 +54,7 @@ const handleSubmit = (event) => {
       </div>)}
        {/* on veut renvoyer vers le dashboard si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-      {isLogged && (<Navigate to="/dashboard/:id" replace />)}
+      {isLogged && (<Navigate to="/dashboard/1" replace />)}
     </form>
   );
 }

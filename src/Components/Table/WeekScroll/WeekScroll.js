@@ -8,10 +8,10 @@ function WeekScroll() {
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.date.date);
   const handleDateChangeToMore = () => {
-    dispatch(setDateToMore(addWeeks(selectedDate, 1)));
+    dispatch(setDateToMore(addWeeks(selectedDate, 1).getTime()));
   };
   const handleDateChangeToless = () => {
-    dispatch(setDateToLess(subWeeks(selectedDate, 1)));
+    dispatch(setDateToLess(subWeeks(selectedDate, 1).getTime()));
   };
 
   return (
