@@ -1,4 +1,5 @@
 import "./Week.scss";
+import { useState } from "react";
 import { startOfWeek, addDays, format, isWithinInterval } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +20,12 @@ function Week() {
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = () => {
     dispatch(openModal());
+  };
+  //on gère ici l'ouverture de la tache pour voir apparaitre description et bouton modifier
+
+  const [isLarge, setIsLarge] = useState(false);
+  const clickToOpen = () => {
+    setIsLarge(true);
   };
 
   const daysOfWeek = [
@@ -60,8 +67,24 @@ function Week() {
               start: startOfweek,
               end: addDays(startOfweek, daysInWeek - 1),
             });
-            if (taskIsWithinWeek && i === taskDate.getDay()-1) {
-              return <div className="Week-task" key={task.title}><h1>{task.title}</h1><p>{task.description}</p></div>;
+            if (taskIsWithinWeek && i === taskDate.getDay() - 1) {
+              return (
+                <div className="Week-task" key={task.title}>
+                  <h1>{task.title}</h1>
+                  <svg className="Week-arrow" viewBox="0 0 24 24" width="24" height="24" fill="none">
+                    <path
+                      
+                      fill="#0A0A30"
+                      fillRule="evenodd"
+                      stroke="#0A0A30"
+                      strokeWidth="3"
+                      d="M17.358 12.632a.714.714 0 01-.092 1.006l-4.276 3.564a.712.712 0 01-.933 0L7.78 13.638a.714.714 0 11.915-1.097l3.078 2.565V7.375a.75.75 0 011.5 0v7.73l3.079-2.564a.714.714 0 011.006.091z"
+                      clipRule="evenodd"
+                      onClick={clickToOpen}
+                    />
+                  </svg>
+                </div>
+              );
             } else {
               return "";
             }

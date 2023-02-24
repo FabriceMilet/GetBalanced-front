@@ -20,7 +20,7 @@ const handleChange = (event) => {
 const handleSubmit = (event) => {
   event.preventDefault();
     dispatch(loginUser(formData)).then(() => {
-      dispatch(setFormData({ email: "", password: ""}))});;
+      dispatch(setFormData({ email: "", password: ""}))});
     console.log("formData", formData);
   }
   console.log("isLogged", isLogged);

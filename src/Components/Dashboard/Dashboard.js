@@ -68,7 +68,7 @@ function Dashboard() {
               
             >
               <path
-              className="Dashboard-arrow"
+                className="Dashboard-arrow"
                 fill="#0A0A30"
                 fillRule="evenodd"
                 stroke="#0A0A30"
