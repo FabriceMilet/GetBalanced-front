@@ -16,15 +16,15 @@ function Home() {
     // Les animations qui sont déclenchées lors du passage du state de false a true. 
     const animation = useSpring({
         opacity: toggleElem1 ? 1 : 0,
-        transform: toggleElem1 ? "translateX(0)" : "translateX(-80%)"
+        //transform: toggleElem1 ? "translateX(0)" : "translateX(-80%)"
     })
     const animation2 = useSpring({
         opacity: toggleElem2 ? 1 : 0,
-        transform: toggleElem2 ? "translateX(0)" : "translateX(80%)"
+        //transform: toggleElem2 ? "translateX(0)" : "translateX(80%)"
     })
     const animation3 = useSpring({
         opacity: toggleElem3 ? 1 : 0,
-        transform: toggleElem3 ? "translateX(0)" : "translateX(80%)"
+        //transform: toggleElem3 ? "translateX(0)" : "translateX(80%)"
     })
 
     return (
@@ -32,7 +32,7 @@ function Home() {
             <Area1 />
             {/* Waypoint déclanche un évènement lors du scroll. 
             si le state est sur false il le passe a true */}
-            <Waypoint bottomOffset="30%"
+            <Waypoint bottomOffset="50%"
                 onEnter={() => {
                     if (!toggleElem3) {
                         setToggleElem3(true)
@@ -44,7 +44,7 @@ function Home() {
                 </animated.div>
             </Waypoint>
 
-            <Waypoint bottomOffset="30%"
+            <Waypoint bottomOffset="50%"
                 onEnter={() => {
                     if (!toggleElem1) {
                         setToggleElem1(true)
@@ -55,7 +55,7 @@ function Home() {
                     <Area3 />
                 </animated.div>
             </Waypoint>
-            <Waypoint bottomOffset="30%"
+            <Waypoint bottomOffset="50%"
                 onEnter={() => {
                     if (!toggleElem2) {
                         setToggleElem2(true)
