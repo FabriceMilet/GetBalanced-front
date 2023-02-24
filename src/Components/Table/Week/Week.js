@@ -52,14 +52,17 @@ function Week() {
             +
           </button>
         </div>
-
+{/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
         <div datatype={i} className={dayContainerClasses}>
           {tasks.map((task) => {
+            // on transforme la date au bon format
             const taskDate = new Date(task.date);
+            // on veut savoir si la date de la tâche est bien dans l'intervalle de la semaine qui apparait à l'ecran
             const taskIsWithinWeek = isWithinInterval(taskDate, {
               start: startOfweek,
               end: addDays(startOfweek, daysInWeek - 1),
             });
+            // donc si la date est bien dans cet intervalle et si le jour de la semaine de la date correspond au jour affiché 
             if (taskIsWithinWeek && i === taskDate.getDay()-1) {
               return <div className="Week-task" key={task.title}><h1>{task.title}</h1><p>{task.description}</p></div>;
             } else {

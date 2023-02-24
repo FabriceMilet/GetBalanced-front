@@ -7,6 +7,7 @@ import { setFormData } from '../../feature/users.slice';
 function SignUp() {
 const isLogged = useSelector((state) => state.user.isLogged);
 const formData = useSelector((state) => state.user.formData);
+const {id} = useSelector((state) => state.user.userConnected);
 const dispatch = useDispatch();
 // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
 // correspondant à la variable name et sa valeur associée
@@ -22,7 +23,7 @@ const handleSubmit = (event) => {
   } else {
     dispatch(createUser(formData)).then(() => {
       dispatch(setFormData({ firstname: "", lastname: "",email: "",password: "",confirmPassword: "" }))});
-    console.log(formData);
+    // console.log(formData);
     // on va devoir prévoir l'envoie vers la page profil ou dashboard 
   }}
   
@@ -85,7 +86,7 @@ const handleSubmit = (event) => {
     )}
  {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-    {isLogged && (<Navigate to="/dashboard/:id" replace />)}
+    {isLogged && (<Navigate to="/user" replace />)}
     </form>
   );
 };
