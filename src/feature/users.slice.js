@@ -30,6 +30,24 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+// thunk qui envoie les modifs de l'utilisateur a la bdd 
+export const editUser = createAsyncThunk(
+  "user/editUser",
+  async (userEditData, thunkAPI) => {
+    console.log(userEditData)
+    try {
+      const response = await axios.post(
+        "",
+        userEditData
+      );
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 // création du slice
 const userSlice = createSlice({
   name: "user",
@@ -44,7 +62,7 @@ const userSlice = createSlice({
       password: "",
       confirmPassword: "",
     },
-    userConnected :{
+    userConnected: {
     }
   },
   reducers: {
@@ -75,6 +93,17 @@ const userSlice = createSlice({
         state.userConnected = action.payload
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editUser.pending, (state) => { // Test 
+        state.loading = true;
+      })
+      .addCase(editUser.fulfilled, (state, action) => { // Test
+        state.loading = false;
+        state.userConnected = action.payload
+      })
+      .addCase(editUser.rejected, (state, action) => { // Test
         state.loading = false;
         state.error = action.payload;
       });
