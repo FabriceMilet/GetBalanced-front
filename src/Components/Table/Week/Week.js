@@ -39,6 +39,7 @@ function Week() {
     const updatedTasks = tasks.map((task) =>
       task.title === taskTitle ? { ...task, isLarge: true } : task
     );
+    console.log("j'ai cliqué");
     setTasks(updatedTasks);
   };
 
@@ -90,7 +91,6 @@ function Week() {
                   <p className="Week-task__description">{task.description}</p>}
                   <svg className={task.isLarge ? "Week-task__arrow" : "Week-task__arrow-top"}  viewBox="0 0 24 24" width="24" height="24" fill="none">
                     <path
-                      
                       fill="#0A0A30"
                       fillRule="evenodd"
                       stroke="#0A0A30"
