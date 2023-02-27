@@ -6,26 +6,34 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
   openModifyModal,
+  getTasks,
   deleteTask,
   modifyTask,
 } from "../../../feature/task.slice";
 import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Week() {
+  // on commence par récupérer les taches du planning
+  useEffect(() => {
+    dispatch(getTasks())
+    // console.log('tasks récupées :', tasks);
+  },[]);
   const dispatch = useDispatch();
+  // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
   const isModifyOpen = useSelector((state) => state.task.isModifyOpen);
+  // on récupère la date du jour
   const selectedDate = useSelector((state) => state.date.date);
   // const tasks = useSelector((state) => state.task.tasks);
+  // on récupère les tâches liées au planning auxquels on ajoute l'id de l'user
   const tasks = useSelector((state) =>
     state.task.tasks.map((task) => ({ ...task, user: userConnected.id }))
   );
-
   // on récupère l'id de la tâche, à voir comment exactement lier le bon id à l'id qui nous intéresse
   // dans le but de supprimer une tâche
   // faire quelque chose comme cela mais cela reste en TODO, ce sera plus facile à tester avec les
@@ -81,9 +89,11 @@ function Week() {
   };
 
   // on cherche à gérer ici la supression de la tâche. TODO !
-  const handleDelete = () => {
-    dispatch(deleteTask("id"));
-    console.log("j'ai cliqué sur supprimer");
+  const handleDelete = (event) => {
+    const taskId = event.target.dataset.delete
+    // const task = tasks.find((task) => task.title === taskTitle);
+    dispatch(deleteTask(taskId));
+    // console.log("j'ai cliqué sur supprimer");
   };
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
@@ -160,6 +170,7 @@ function Week() {
                         <button
                           className="Week-task__button"
                           onClick={handleDelete}
+                          data-delete={task.id}
                         >
                           Supprimer
                         </button>

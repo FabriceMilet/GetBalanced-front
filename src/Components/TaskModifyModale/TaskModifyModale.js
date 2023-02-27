@@ -9,6 +9,7 @@ import {
 export default function TaskModifyModale() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.task.formData);
+  const tasks = useSelector((state) => state.task.tasks);
   // const hoy = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date())
   // console.log("hoy", hoy);
   // const planners = useSelector((state) => state.parametre.planners);
@@ -21,7 +22,12 @@ export default function TaskModifyModale() {
   // on va chercher ici à faire apparaitre la tache dans le planning et l'enregitrer en BDD
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(modifyTask(formData)).then(() => {
+    // je vais devoir récupérer la tâche à modifier
+    // peut-être faire un useRef ? TODO !!
+    // const taskId = event.target.dataset.checkbox;
+    // en attendant je mets ca seulement pour tester
+    const task = tasks[0]
+    dispatch(modifyTask(task)).then(() => {
       dispatch(setFormData({ title: "", description: "", date: "" }));
     });
     dispatch(openModifyModal());

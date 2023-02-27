@@ -1,6 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import axios from "axios";
 
+export const getTasks = createAsyncThunk(
+  "task/getTasks",
+  async (_, thunkAPI) => {
+    try {
+      const response = [{id : 1, title: 'faire les courses', description: 'bbbbbb', date: '2023-03-03'},
+      {id : 2, title: 'médecin Lucio', description: '17:30', date: '2023-03-01'},
+      {id : 3, title: 'test 3 ', description: 'bonjour', date: '2023-03-04'}];
+      // voir ici avec le back quelle route appeler
+      //   const response = await axios.get(
+      //     "http://localhost:3001/planners/:id/tasks"
+      //   );
+      // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const addTask = createAsyncThunk(
   "task/addTask",
   async (formData, thunkAPI) => {
@@ -20,9 +39,9 @@ export const addTask = createAsyncThunk(
 );
 export const modifyTask = createAsyncThunk(
   "task/modifyTask",
-  async (formData, thunkAPI) => {
+  async (task, thunkAPI) => {
     try {
-      const response = formData;
+      const response = task;
       // voir ici avec le back quelle route appeler
       //   const response = await axios.put(
       //     "http://localhost:3001/task/:id/planner/:id",
@@ -40,7 +59,7 @@ export const deleteTask = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = id;
-      console.log(id);
+      console.log('id de la tache à supprimer :', id);
       // voir ici avec le back quelle route appeler
       //   const response = await axios.delete(
       //     "http://localhost:3001/task/:id/planner/:id",
@@ -62,7 +81,7 @@ const taskSlice = createSlice({
     error: null,
     isOpen: false,
     isModifyOpen: false,
-    formData: { title: "", description: "", date: "", color:"" },
+    formData: { title: "", description: "", date: "", color: "" },
     tasks: [],
   },
   reducers: {
@@ -78,6 +97,18 @@ const taskSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getTasks.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(getTasks.fulfilled, (state, action) => {
+      state.loading = false;
+      // console.log('réponse de getTasks', action.payload);
+      state.tasks = action.payload
+    })
+    .addCase(getTasks.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
       .addCase(addTask.pending, (state) => {
         state.loading = true;
       })
@@ -95,10 +126,13 @@ const taskSlice = createSlice({
       })
       .addCase(modifyTask.fulfilled, (state, action) => {
         state.loading = false;
-        console.log('tâche modifiée:', action.payload);
-        // il va falloir remplacer l'ancienne tâche par la nouvelle
-        // je pense de la manière suivante donc besoin de trouver comment récup l'indice de la tâche
-        // state.tasks.slice("indice de l'élément à supprimer", 1, action.payload);
+        console.log("tâche à modifier:", action.payload);
+        // on récupère l'id de la tâche à modifier
+        const id = action.payload.id;
+        // on récupère l'indice de la tâche dans le tableau
+        const index = state.tasks.findIndex((task) => task.id === id);
+        // on remplace la tâche dans le tableau
+        state.tasks.splice(index-1, 1, action.payload);
       })
       .addCase(modifyTask.rejected, (state, action) => {
         state.loading = false;
@@ -109,10 +143,15 @@ const taskSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        console.log('tâche à supprimer :', action.payload);
-        // à voir ici quoi faire exactement, il va falloir remplacer l'ancienne tâche par la nouvelle
-        // peut-être faire un .splice et dans ce cas trouver comment récup l'inddice de la tâche
-        // state.tasks.splice("indice de l'élément à supprimer", 1);
+        console.log("tâche à supprimer :", action.payload);
+         // on récupère l'id de la tâche à modifier
+         const id = action.payload;
+         // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;
+         // car on revevra je pense toute la tâche
+         // on récupère l'indice de la tâche dans le tableau
+         const index = state.tasks.findIndex((task) => task.id === id);
+         // on supprime la tâche
+         state.tasks.splice(index-1, 1);
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
@@ -121,5 +160,6 @@ const taskSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData, setTasks, openModifyModal  } = taskSlice.actions;
+export const { openModal, setFormData, setTasks, openModifyModal } =
+  taskSlice.actions;
 export default taskSlice.reducer;
