@@ -1,4 +1,11 @@
 @use "../../style/vars";
+
+ .Dashboard{
+    position: absolute;
+    top: 50px;
+    width: 100vw;
+ }
+
 .Dashboard-planners {
     display: flex;
     margin: auto;

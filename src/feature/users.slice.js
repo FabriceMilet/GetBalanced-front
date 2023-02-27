@@ -5,9 +5,10 @@ export const createUser = createAsyncThunk(
   "user/createUser",
   async (userData, thunkAPI) => {
     try {
-      // voir ici avec le back quelle route appeler
-      const response = await axios.post("http://localhost:3001/user", userData);
-      return response.data;
+      const response = await axios.post("http://supafei-server.eddi.cloud:8080/user", userData);
+      // console.log('réponse envoyée en createUser', userData); 
+      // console.log("response.data",response.data)
+      return response.data
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -17,11 +18,30 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
     try {
-      // voir ici avec le back quelle route appeler, celle-ci n'est pas présente dans le cdc
       const response = await axios.post(
-        "http://localhost:3001/user/login",
+        "http://supafei-server.eddi.cloud:8080/user/login",
         userData
       );
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+// thunk qui envoie les modifs de l'utilisateur a la bdd 
+export const editUser = createAsyncThunk(
+  "user/editUser",
+  async (userEditData, thunkAPI) => {
+    console.log(userEditData)
+    try {
+      const response = await axios.post(
+        "",
+        userEditData
+      );
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -42,6 +62,8 @@ const userSlice = createSlice({
       password: "",
       confirmPassword: "",
     },
+    userConnected: {
+    }
   },
   reducers: {
     setFormData: (state, action) => {
@@ -53,9 +75,10 @@ const userSlice = createSlice({
       .addCase(createUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(createUser.fulfilled, (state) => {
+      .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
+        state.userConnected = action.payload
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;
@@ -64,11 +87,23 @@ const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(loginUser.fulfilled, (state) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
+        state.userConnected = action.payload
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(editUser.pending, (state) => { // Test 
+        state.loading = true;
+      })
+      .addCase(editUser.fulfilled, (state, action) => { // Test
+        state.loading = false;
+        state.userConnected = action.payload
+      })
+      .addCase(editUser.rejected, (state, action) => { // Test
         state.loading = false;
         state.error = action.payload;
       });

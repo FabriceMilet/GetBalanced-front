@@ -25,7 +25,7 @@ function Header() {
           </Link>
         </nav>
         : <nav className='header_nav'>
-          <Link to="/user/:id">
+          <Link to="/user">
             <img className='header_nav_logo' src={avatar} alt="logo profile" />
           </Link>
           <Link to="/">
