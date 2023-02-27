@@ -8,6 +8,7 @@ export const createUser = createAsyncThunk(
       const response = await axios.post("http://supafei-server.eddi.cloud:8080/user", userData);
       // console.log('réponse envoyée en createUser', userData); 
       // console.log("response.data",response.data)
+      // console.log('.env', env.API_BASE_URL);
       return response.data
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -78,6 +79,7 @@ const userSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
+        console.log('action.payload du create', action.payload);
         state.userConnected = action.payload
       })
       .addCase(createUser.rejected, (state, action) => {
@@ -90,7 +92,8 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
-        state.userConnected = action.payload
+        console.log('action.payload', action.payload);
+        state.userConnected = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

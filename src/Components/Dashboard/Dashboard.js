@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
+  const {id} = useSelector((state) => state.user.userConnected);
+  const userConnected = useSelector((state) => state.user.userConnected);
+  console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
@@ -54,6 +57,8 @@ function Dashboard() {
             }
             key={planner.title}
           >
+          {/* il va falloir ici récupérer l'id de la table  */}
+            {/* <Link to={`/table/${id}`}> */}
             <Link to="/table/1">
               <h1>{planner.title}</h1> <p>{planner.description}</p>
               {/* <button className="Dashboard-button" onClick={handleClick}>

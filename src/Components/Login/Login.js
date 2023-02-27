@@ -6,15 +6,16 @@ import { setFormData } from '../../feature/users.slice';
 
 function Login() {
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.user.isLogged);
-  const formData = useSelector((state) => state.user.formData);
 
-  // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
-  // correspondant à la variable name et sa valeur associée
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    dispatch(setFormData({ ...formData, [name]: value }));
-  };
+const isLogged = useSelector((state) => state.user.isLogged);
+const formData = useSelector((state) => state.user.formData);
+const {id} = useSelector((state) => state.user.userConnected);
+// on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
+// correspondant à la variable name et sa valeur associée
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  dispatch(setFormData({ ...formData, [name]: value }));
+};
 
   // formData est envoyé en paramètre de createUser au slice userSlice
   const handleSubmit = (event) => {
@@ -55,7 +56,7 @@ function Login() {
         </div>)}
       {/* on veut renvoyer vers le dashboard si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-      {isLogged && (<Navigate to="/dashboard/1" replace />)}
+      {isLogged && (<Navigate to="/dashboard" replace />)}
     </form>
   );
 }
