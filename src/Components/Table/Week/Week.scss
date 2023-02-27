@@ -63,6 +63,26 @@
     padding: 0.5rem 0.1rem;
     width: 85%;
     margin-bottom: 1rem;
+    &__closed {
+      display: flex;
+      justify-content: space-around;
+    }
+    &__description{
+      font-size: 1rem;
+      color: vars.$darkBlue;
+    }
+    &__buttons{
+      display: flex;
+      margin-top: .5rem;
+      justify-content: space-around;
+    }
+    &__button{
+      background-color: vars.$lightBlue;
+      border: none;
+      border-radius: 30px;
+      padding: .5rem;
+      cursor: pointer;
+    }
     &__arrow {
       display: flex;
       align-items: center;
@@ -71,8 +91,9 @@
       animation: slide-2 0.5s infinite alternate both cubic-bezier(1,-.01,0,.98);
     }
     &__arrow-top {
-        margin: 0;
-        cursor: auto;
+        margin: auto;
+        cursor: pointer;
+        transform: rotate(-180deg);
     }
   }
 }
