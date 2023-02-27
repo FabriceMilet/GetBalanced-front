@@ -23,8 +23,8 @@ export const loginUser = createAsyncThunk(
         "http://supafei-server.eddi.cloud:8080/user/login",
         userData
       );
-      console.log('réponse envoyée en login', userData); 
-      console.log(response.data);
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
