@@ -1,16 +1,35 @@
 import './Profile.scss'
 import avatar from "./avatar.png"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useRef } from 'react'
+import { editUser } from "../../feature/users.slice";
 
 export default function Profile() {
 
+  const dispatch = useDispatch();
+  // Je récupère les données de l'utilisateur et les mets en value
+  const userConnected = useSelector((state) => state.user.userConnected);
+  const { firstname, lastname, email } = userConnected;
 
-  const userConnectedData = useSelector((state) => state.user);
-  console.log(userConnectedData)
+  const inputFirstName = useRef();
+  const inputLastName = useRef();
+  const inputEmail = useRef();
+  const inputColor = useRef();
+  const inputBirthdate = useRef();
 
+  const color = "#EE5622";
+
+  // Fonction appelé au submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("submit OK")
+    const editFormData = {
+      firstname: inputFirstName.current.value,
+      lastname: inputLastName.current.value,
+      email: inputEmail.current.value,
+      color: inputColor.current.value,
+      birth: inputBirthdate.current.value
+    }
+    dispatch(editUser(editFormData))
   }
 
   return (
@@ -18,7 +37,7 @@ export default function Profile() {
 
       <header className="profile_header">
         <img src={avatar} alt="logo avatar" className="profile_avatar" />
-        <h3 className="profile_username">Killian Mbappé</h3>
+        <h3 className="profile_username">{firstname} {lastname}</h3>
       </header>
 
       <form className='profile_form' onSubmit={handleSubmit}>
@@ -28,7 +47,8 @@ export default function Profile() {
           <input className='profile_input'
             type="text"
             id="firstName"
-            value="prenom"
+            defaultValue={firstname}
+            ref={inputFirstName}
           />
         </div>
 
@@ -37,16 +57,8 @@ export default function Profile() {
           <input className='profile_input'
             type="text"
             id="lastName"
-            value="nom"
-          />
-        </div>
-
-        <div className='profile_input_container'>
-          <label htmlFor="dateOfBirth">Date de naissance:</label>
-          <input className='profile_input'
-            type="date"
-            id="dateOfBirth"
-            value="date de naissance"
+            defaultValue={lastname}
+            ref={inputLastName}
           />
         </div>
 
@@ -55,16 +67,27 @@ export default function Profile() {
           <input className='profile_input'
             type="email"
             id="email"
-            value="email"
+            defaultValue={email}
+            ref={inputEmail}
           />
         </div>
 
         <div className='profile_input_container'>
-          <label htmlFor="password">Mot de passe:</label>
+          <label htmlFor="color">Couleur préférée:</label>
           <input className='profile_input'
-            type="password"
-            id="password"
-            value="mot de passe"
+            type="color"
+            id="color"
+            defaultValue={color}
+            ref={inputColor}
+          />
+        </div>
+
+        <div className='profile_input_container'>
+          <label htmlFor="birthdate">Date de naissance:</label>
+          <input className='profile_input'
+            type="date"
+            id="birthdate"
+            ref={inputBirthdate}
           />
         </div>
 

@@ -30,61 +30,61 @@ const handleSubmit = (event) => {
   console.log("isLogged", isLogged);
   return (
     <form className="SignUp" onSubmit={handleSubmit}>
-    {!isLogged && (
-    <div className="SignUp-container">
-    <h1 className="SignUp-title"> Créez votre compte </h1>
-      <label htmlFor="prénom" className="SignUp-input">
-        <input
-          type="text"
-          name="firstname"
-          placeholder="Prénom"
-          value={formData.firstname}
-          onChange={handleChange}
-        />
-      </label>
-      <label htmlFor="nom" className="SignUp-input">
-        <input
-          type="text"
-          name="lastname"
-          placeholder="Nom"
-          value={formData.lastname}
-          onChange={handleChange}
-        />
-      </label>
-      <label htmlFor="email" className="SignUp-input">
-        <input
-          type="email"
-          name="email"
-          placeholder="Adresse Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </label>
-      <label htmlFor="Saisissez un mot de passe" className="SignUp-input">
-        <input
-          type="password"
-          name="password"
-          placeholder="Saisissez un mot de passe"
-          value={formData.password}
-          onChange={handleChange}
-        />
-      </label>
-      <label htmlFor="Confirmez le mot de passe" className="SignUp-input">
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirmez le mot de passe"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit" className="SignUp-button">S'inscrire</button>
-      <Link to="/login">
-      <p className="SignUp-link">Vous avez déjà un compte ?</p>
-      </Link>
-      </div>
-    )}
- {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
+      {!isLogged && (
+        <div className="SignUp-container">
+          <h1 className="SignUp-title"> Créez votre compte </h1>
+          <label htmlFor="prénom" className="SignUp-input">
+            <input
+              type="text"
+              name="firstname"
+              placeholder="Prénom"
+              value={formData.firstname}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="nom" className="SignUp-input">
+            <input
+              type="text"
+              name="lastname"
+              placeholder="Nom"
+              value={formData.lastname}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="email" className="SignUp-input">
+            <input
+              type="email"
+              name="email"
+              placeholder="Adresse Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="Saisissez un mot de passe" className="SignUp-input">
+            <input
+              type="password"
+              name="password"
+              placeholder="Saisissez un mot de passe"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </label>
+          <label htmlFor="Confirmez le mot de passe" className="SignUp-input">
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirmez le mot de passe"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+          </label>
+          <button type="submit" className="SignUp-button">S'inscrire</button>
+          <Link to="/login">
+            <p className="SignUp-link">Vous avez déjà un compte ?</p>
+          </Link>
+        </div>
+      )}
+      {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
  il va falloir ici récupérer son id */}
     {isLogged && (<Navigate to="/user" replace />)}
     </form>
