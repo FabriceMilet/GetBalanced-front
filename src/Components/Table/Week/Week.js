@@ -75,7 +75,6 @@ console.log(tasks);
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     const task = tasks.find((task) => task.id == taskId);
     // on récup la couleur de l'user et on associe la tache à cet user
-    
     // de même pour l'id, on gère les différents cas, 
     // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autres
     if (!task.userId) {
@@ -155,8 +154,7 @@ console.log(tasks);
                 <div
                   className="Week-task"
                   key={task.id}
-                  // TODO ! gérer cette histoire de categoryColor
-                  style={{ borderColor: task.borderColor,  borderTopColor: task.categoryColor, borderTopWidth: task.category ? '5px' : '1px' }}
+                  style={{ borderColor: task.borderColor, borderTopWidth: task.borderColor ? '5px' : '1px' }}
                 >
                   <div className="Week-task__closed">
                     <h1>{task.title}</h1>
@@ -170,6 +168,9 @@ console.log(tasks);
                     <div className="Week-task__open">
                       <p className="Week-task__description">
                         {task.description}
+                      </p>
+                      <p className="Week-task__category">
+                        {task.category}
                       </p>
                       <div className="Week-task__buttons">
                         <button
