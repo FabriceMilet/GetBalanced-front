@@ -23,24 +23,18 @@ function Week() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
+  console.log(userConnected.color);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
   const isModifyOpen = useSelector((state) => state.task.isModifyOpen);
   // on récupère la date du jour
   const selectedDate = useSelector((state) => state.date.date);
-  // const tasks = useSelector((state) => state.task.tasks);
-  // on récupère les tâches liées au planning auxquels on ajoute l'id de l'user
+  // on récupère les tâches liées au planning 
   const tasks = useSelector((state) =>
-    state.task.tasks.map((task) => ({ ...task, userId: userConnected.id }))
-  );
-  console.log(tasks);
-  // on récupère l'id de la tâche, à voir comment exactement lier le bon id à l'id qui nous intéresse
-  // dans le but de supprimer une tâche
-  // faire quelque chose comme cela mais cela reste en TODO, ce sera plus facile à tester avec les
-  // routes back
-  // const {id} = useSelector((state) => state.task.tasks);
-  // console.log(tasks);
+  state.task.tasks.map((task) => ({ ...task}))
+);
+console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = () => {
     dispatch(openModal());
@@ -78,20 +72,21 @@ function Week() {
 
   const handleClickOnCheckbox = (event) => {
     const taskId = event.target.dataset.checkbox;
-    // récupérer la tache qui a pour titre event.target.dataset.checkbox
-    // on changera cela avec l'id quand on aura les données du back
+    // récupérer la tache qui a pour id event.target.dataset.checkbox
     const task = tasks.find((task) => task.id == taskId);
-    
     // on récup la couleur de l'user et on associe la tache à cet user
-    task.borderColor = userConnected.color;
+    
     // de même pour l'id, on gère les différents cas, 
     // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autres
     if (!task.userId) {
       task.userId = userConnected.id;
+      task.borderColor = userConnected.color;
     } else if (task.userId && task.userId !== userConnected.id) {
       task.userId = userConnected.id;
+      task.borderColor = userConnected.color;
     } else {
       task.userId = null;
+      task.borderColor = 'black';
     }
     // on fait la modif dans le store
     dispatch(modifyTask(task));
