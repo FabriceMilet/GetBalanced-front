@@ -1,13 +1,22 @@
 import './Header.scss';
 import logoGetBalanced from "./test.svg"
 import avatar from "./avatar.png"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
+import { logoutUser } from "../../feature/users.slice";
 
 
 function Header() {
+
+  const dispatch = useDispatch();
+  const userConnected = useSelector((state) => state.user.userConnected);
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
+
+  console.log("user", userConnected)
+  const handleLogout = () => {
+    dispatch(logoutUser())
+  }
 
   return (
     <header className='header-container'>
@@ -29,7 +38,7 @@ function Header() {
             <img className='header_nav_logo' src={avatar} alt="logo profile" />
           </Link>
           <Link to="/">
-            <h4 className='header_nav-link animate dc'>Me déconnecter</h4>
+            <h4 onClick={handleLogout} className='header_nav-link animate dc'>Me déconnecter</h4>
           </Link>
 
         </nav>}
