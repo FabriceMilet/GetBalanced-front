@@ -5,9 +5,9 @@ export const getTasks = createAsyncThunk(
   "task/getTasks",
   async (_, thunkAPI) => {
     try {
-      const response = [{id : 1, title: 'faire les courses', description: 'bbbbbb', date: '2023-03-03'},
-      {id : 2, title: 'médecin Lucio', description: '17:30', date: '2023-03-01'},
-      {id : 3, title: 'test 3 ', description: 'bonjour', date: '2023-03-04'}];
+      const response = [{id : 1, title: 'faire les courses', description: 'bbbbbb', date: '2023-03-03', borderColor: null},
+      {id : 2, title: 'médecin Lucio', description: '17:30', date: '2023-03-01', borderColor: null},
+      {id : 3, title: 'test 3 ', description: 'bonjour', date: '2023-03-04', borderColor: null}];
       // voir ici avec le back quelle route appeler
       //   const response = await axios.get(
       //     "http://localhost:3001/planners/:id/tasks"
@@ -19,7 +19,6 @@ export const getTasks = createAsyncThunk(
     }
   }
 );
-
 export const addTask = createAsyncThunk(
   "task/addTask",
   async (formData, thunkAPI) => {
@@ -72,7 +71,6 @@ export const deleteTask = createAsyncThunk(
     }
   }
 );
-
 // création du slice
 const taskSlice = createSlice({
   name: "task",
@@ -83,13 +81,15 @@ const taskSlice = createSlice({
     isModifyOpen: false,
     formData: { title: "", description: "", date: "", color: "" },
     tasks: [],
+    taskToModify: {}
   },
   reducers: {
     openModal: (state) => {
       state.isOpen = !state.isOpen;
     },
-    openModifyModal: (state) => {
-      state.isModifyOpen = !state.isModifyOpen;
+    openModifyModal: (state, action) => {
+      state.taskToModify = action.payload;
+     state.isModifyOpen = !state.isModifyOpen;
     },
     setFormData: (state, action) => {
       state.formData = action.payload;
@@ -126,13 +126,13 @@ const taskSlice = createSlice({
       })
       .addCase(modifyTask.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("tâche à modifier:", action.payload);
+        // console.log("tâche modifiée:", action.payload);
         // on récupère l'id de la tâche à modifier
         const id = action.payload.id;
         // on récupère l'indice de la tâche dans le tableau
         const index = state.tasks.findIndex((task) => task.id === id);
         // on remplace la tâche dans le tableau
-        state.tasks.splice(index-1, 1, action.payload);
+        state.tasks.splice(index, 1, action.payload);
       })
       .addCase(modifyTask.rejected, (state, action) => {
         state.loading = false;
@@ -143,7 +143,7 @@ const taskSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("tâche à supprimer :", action.payload);
+         // console.log("tâche à supprimer :", action.payload);
          // on récupère l'id de la tâche à modifier
          const id = action.payload;
          // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;

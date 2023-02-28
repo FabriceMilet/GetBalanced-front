@@ -45,26 +45,29 @@ function Week() {
     dispatch(openModal());
   };
   //on va gérer ici l'apparition de la modale de modification des taches
-  const handleModify = () => {
-    dispatch(openModifyModal());
+  const handleModify = (event) => {
+    const taskId = event.target.dataset.modify;
+    // récupérer la tache qui a pour id event.target.dataset.modify
+    const task = tasks.find((task) => task.id == taskId );
+    dispatch(openModifyModal(task));
   };
 
   //on gère ici l'ouverture de la tache pour voir apparaitre description et bouton modifier
   // j'essaie de gérer indifféremment le clique sur une tâche par rapport à une autre
   // on fait ca en local, il y aura peut-etre besoin de le passer dans le store
-  const [openTaskTitle, setOpenTaskTitle] = useState(null);
+  const [openTaskId, setOpenTaskId] = useState(null);
   // on cherche également à savoir si la tache est déjà ouverte pour pouvoir la refermer
   const [isLarge, setIsLarge] = useState(false);
   const clickToOpen = (event) => {
-    const taskTitle = event.target.dataset.title;
-    if (isLarge && taskTitle === openTaskTitle) {
+    const taskId = event.target.dataset.id;
+    if (isLarge && taskId === openTaskId) {
       // La tâche est déjà ouverte et on clique sur la même tâche, donc on la ferme
       setIsLarge(false);
-      setOpenTaskTitle(null);
+      setOpenTaskId(null);
     } else {
       // La tâche est fermée ou on clique sur une autre tâche, donc on l'ouvre
       setIsLarge(true);
-      setOpenTaskTitle(taskTitle);
+      setOpenTaskId(taskId);
     }
   };
 
@@ -73,18 +76,19 @@ function Week() {
   // avec la couleur de l'user
 
   const handleClickOnCheckbox = (event) => {
-    const taskTitle = event.target.dataset.checkbox;
+    const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour titre event.target.dataset.checkbox
     // on changera cela avec l'id quand on aura les données du back
-    const task = tasks.find((task) => task.title === taskTitle);
+    const task = tasks.find((task) => task.id == taskId );
+    // console.log(task);
     // on récup la couleur de l'user et on associe la tache à cet user
-    task.color = userConnected.color;
+    task.borderColor = userConnected.color;
     // quand on aura l'id de la tache, on pourra également faire le suivant :
     // task.id = userConnected.id;
     //on fait la modif dans le store (NB: l'extrareducer n'est pas fini )
     dispatch(modifyTask(task));
-    console.log("tasks", tasks);
-    console.log("task trouvée", task);
+    // console.log("toutes les tasks", tasks);
+    // console.log("la task que je veux m'affecter :", task);
     // au click, associer la bordure de la tâche à cette couleur
   };
 
@@ -142,16 +146,15 @@ function Week() {
             });
             if (taskIsWithinWeek && i === taskDate.getDay() - 1) {
               // on regarde si le titre de la tâche correspond à l'evenement cliqué avec clickToOpen
-              const isTaskOpen = task.title === openTaskTitle;
+              const isTaskOpen = task.id == openTaskId;
               return (
-                // TODO vérifier la syntaxe pour incorporer du style direct dans jsx
-                <div className="Week-task" key={task.title} bordercolor={task.color}>
+                <div className="Week-task" key={task.id} style={{borderColor: task.borderColor}}>
                   <div className="Week-task__closed">
                     <h1>{task.title}</h1>
                     <input
                       type="checkbox"
                       // ici changer avec task.id quand on récuperera les vrais donnés du back
-                      data-checkbox={task.title}
+                      data-checkbox={task.id}
                       onClick={handleClickOnCheckbox}
                     ></input>
                   </div>
@@ -164,6 +167,7 @@ function Week() {
                         <button
                           className="Week-task__button"
                           onClick={handleModify}
+                          data-modify={task.id}
                         >
                           Modifier
                         </button>
@@ -193,7 +197,7 @@ function Week() {
                       strokeWidth="3"
                       d="M17.358 12.632a.714.714 0 01-.092 1.006l-4.276 3.564a.712.712 0 01-.933 0L7.78 13.638a.714.714 0 11.915-1.097l3.078 2.565V7.375a.75.75 0 011.5 0v7.73l3.079-2.564a.714.714 0 011.006.091z"
                       clipRule="evenodd"
-                      data-title={task.title}
+                      data-id={task.id}
                       onClick={clickToOpen}
                     />
                   </svg>

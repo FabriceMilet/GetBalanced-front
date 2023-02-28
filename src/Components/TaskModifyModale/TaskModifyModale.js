@@ -9,10 +9,7 @@ import {
 export default function TaskModifyModale() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.task.formData);
-  const tasks = useSelector((state) => state.task.tasks);
-  // const hoy = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date())
-  // console.log("hoy", hoy);
-  // const planners = useSelector((state) => state.parametre.planners);
+  const task = useSelector((state) => state.task.taskToModify);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {
@@ -22,14 +19,19 @@ export default function TaskModifyModale() {
   // on va chercher ici à faire apparaitre la tache dans le planning et l'enregitrer en BDD
   const handleSubmit = (event) => {
     event.preventDefault();
-    // je vais devoir récupérer la tâche à modifier
-    // peut-être faire un useRef ? TODO !!
-    // const taskId = event.target.dataset.checkbox;
-    // en attendant je mets ca seulement pour tester
-    const task = tasks[0]
-    dispatch(modifyTask(task)).then(() => {
-      dispatch(setFormData({ title: "", description: "", date: "" }));
-    });
+    // console.log('formData de ce que lon veut modifier',formData);
+    // console.log('task à modifier dans handlesubmit',task);
+    // on déverse task dans updatedTask et on y ajoute les valeurs de formData seulement si elles existent
+    // si elles n'existent pas, elles seront false donc les valeurs de task restent
+    const updatedTask = { 
+      ...task,
+      title: formData.title || task.title,
+      description: formData.description || task.description,
+      date: formData.date || task.date,
+      category: formData.category || task.category
+    };  
+    dispatch(modifyTask(updatedTask)).then(() => {
+      dispatch(setFormData({ title: "", description: "", date: "" }))});
     dispatch(openModifyModal());
   };
 
