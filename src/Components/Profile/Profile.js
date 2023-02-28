@@ -3,7 +3,7 @@ import avatar from "./avatar.png"
 import { useSelector, useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { editUser, deleteUser } from "../../feature/users.slice";
-import Modal from './Modal/Modal';
+import ValidModal from './ValidModal/validModal';
 
 
 export default function Profile() {
@@ -115,7 +115,7 @@ export default function Profile() {
         </form>
         <h4 onClick={handleModal} className='logout_button'>Supprimer son compte</h4>
       </div>
-      {isModalOpen && <Modal handleModal={handleModal} handleDelete={handleDelete} />}
+      {isModalOpen && <ValidModal handleModal={handleModal} handleDelete={handleDelete} />}
     </>
   )
 }

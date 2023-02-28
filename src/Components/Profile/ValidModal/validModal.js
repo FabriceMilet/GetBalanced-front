@@ -1,7 +1,7 @@
 import React from 'react'
-import "./Modal.scss"
+import "./validModal.scss"
 
-export default function Modal({ handleModal, handleDelete }) {
+export default function validModal({ handleModal, handleDelete }) {
     return (
         <div className="modal_fond">
             <div className='modal_container'>

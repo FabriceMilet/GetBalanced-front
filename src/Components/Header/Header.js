@@ -40,10 +40,8 @@ function Header() {
           <Link to="/">
             <h4 onClick={handleLogout} className='header_nav-link animate dc'>Me déconnecter</h4>
           </Link>
-
         </nav>}
     </header>
-
   );
 }
 
