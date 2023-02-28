@@ -47,7 +47,6 @@ export default function TaskModifyModale() {
             placeholder="Faire la vaisselle"
             value={formData.title}
             onChange={handleChange}
-            required
           />
         </label>
         <label htmlFor="description" className="TaskModale-input">
@@ -76,9 +75,8 @@ export default function TaskModifyModale() {
         </label>
 
         <label htmlFor="categorie" className="TaskModale-select">
-          {" "}
           Thème de la tâche</label>
-          <select className="TaskModale-select" name="category">
+          <select className="TaskModale-select" name="category" onChange={handleChange}>
             <option value="">Choississez un thème</option>
             <option value="Ménage ">Ménage </option>
             <option value="Cuisine">Cuisine</option>

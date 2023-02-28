@@ -62,6 +62,20 @@ const handleSubmit = (event) => {
             onChange={handleChange}
           />
         </label>
+        <label htmlFor="categorie" className="TaskModale-select">
+          Thème de la tâche</label>
+          <select className="TaskModale-select" name="category" onChange={handleChange}>
+            <option value="">Choississez un thème</option>
+            <option value="Ménage ">Ménage </option>
+            <option value="Cuisine">Cuisine</option>
+            <option value="Travaux extérieurs">Travaux extérieurs</option>
+            <option value="Bricolage">Bricolage</option>
+            <option value="Animaux">Animaux</option>
+            <option value="Enfants">Enfants</option>
+            <option value="Administratif">Administratif</option>
+            <option value="Courses ">Courses </option>
+            <option value="Autre">Autre</option>
+          </select>
 
         <button type="submit" className="TaskModale-button">
           Valider

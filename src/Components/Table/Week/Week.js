@@ -17,9 +17,9 @@ import { useState, useEffect } from "react";
 function Week() {
   // on commence par récupérer les taches du planning
   useEffect(() => {
-    dispatch(getTasks())
+    dispatch(getTasks());
     // console.log('tasks récupées :', tasks);
-  },[]);
+  }, []);
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
@@ -32,14 +32,15 @@ function Week() {
   // const tasks = useSelector((state) => state.task.tasks);
   // on récupère les tâches liées au planning auxquels on ajoute l'id de l'user
   const tasks = useSelector((state) =>
-    state.task.tasks.map((task) => ({ ...task, user: userConnected.id }))
+    state.task.tasks.map((task) => ({ ...task, userId: userConnected.id }))
   );
+  console.log(tasks);
   // on récupère l'id de la tâche, à voir comment exactement lier le bon id à l'id qui nous intéresse
   // dans le but de supprimer une tâche
   // faire quelque chose comme cela mais cela reste en TODO, ce sera plus facile à tester avec les
   // routes back
   // const {id} = useSelector((state) => state.task.tasks);
-
+  // console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = () => {
     dispatch(openModal());
@@ -48,7 +49,7 @@ function Week() {
   const handleModify = (event) => {
     const taskId = event.target.dataset.modify;
     // récupérer la tache qui a pour id event.target.dataset.modify
-    const task = tasks.find((task) => task.id == taskId );
+    const task = tasks.find((task) => task.id == taskId);
     dispatch(openModifyModal(task));
   };
 
@@ -79,13 +80,20 @@ function Week() {
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour titre event.target.dataset.checkbox
     // on changera cela avec l'id quand on aura les données du back
-    const task = tasks.find((task) => task.id == taskId );
-    // console.log(task);
+    const task = tasks.find((task) => task.id == taskId);
+    
     // on récup la couleur de l'user et on associe la tache à cet user
     task.borderColor = userConnected.color;
-    // quand on aura l'id de la tache, on pourra également faire le suivant :
-    // task.id = userConnected.id;
-    //on fait la modif dans le store (NB: l'extrareducer n'est pas fini )
+    // de même pour l'id, on gère les différents cas, 
+    // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autres
+    if (!task.userId) {
+      task.userId = userConnected.id;
+    } else if (task.userId && task.userId !== userConnected.id) {
+      task.userId = userConnected.id;
+    } else {
+      task.userId = null;
+    }
+    // on fait la modif dans le store
     dispatch(modifyTask(task));
     // console.log("toutes les tasks", tasks);
     // console.log("la task que je veux m'affecter :", task);
@@ -94,7 +102,7 @@ function Week() {
 
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
-    const taskId = event.target.dataset.delete
+    const taskId = event.target.dataset.delete;
     // const task = tasks.find((task) => task.title === taskTitle);
     dispatch(deleteTask(taskId));
     // console.log("j'ai cliqué sur supprimer");
@@ -103,7 +111,7 @@ function Week() {
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
     weekStartsOn: 1,
-    locale: fr,
+    // locale: fr,
   });
   const daysOfWeek = [
     "Lundi",
@@ -139,21 +147,25 @@ function Week() {
 
         <div datatype={i} className={dayContainerClasses}>
           {tasks.map((task) => {
-            const taskDate = new Date(task.date);
+            const taskDate = (new Date(task.date));
+          // console.log(taskDate.getDay())
             const taskIsWithinWeek = isWithinInterval(taskDate, {
               start: startOfweek,
-              end: addDays(startOfweek, daysInWeek - 1),
+              end: addDays(startOfweek, daysInWeek),
             });
-            if (taskIsWithinWeek && i === taskDate.getDay() - 1) {
-              // on regarde si le titre de la tâche correspond à l'evenement cliqué avec clickToOpen
+            if (taskIsWithinWeek && i  === taskDate.getDay()-1) {
+              // on regarde si l'id de la tâche correspond à l'evenement cliqué avec clickToOpen
               const isTaskOpen = task.id == openTaskId;
               return (
-                <div className="Week-task" key={task.id} style={{borderColor: task.borderColor}}>
+                <div
+                  className="Week-task"
+                  key={task.id}
+                  style={{ borderColor: task.borderColor }}
+                >
                   <div className="Week-task__closed">
                     <h1>{task.title}</h1>
                     <input
                       type="checkbox"
-                      // ici changer avec task.id quand on récuperera les vrais donnés du back
                       data-checkbox={task.id}
                       onClick={handleClickOnCheckbox}
                     ></input>
