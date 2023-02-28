@@ -5,9 +5,9 @@ export const getTasks = createAsyncThunk(
   "task/getTasks",
   async (_, thunkAPI) => {
     try {
-      const response = [{id : 1, title: 'faire les courses', description: 'bbbbbb', date: '2023-03-03', borderColor: null, userId: null, category: null},
-      {id : 2, title: 'médecin Lucio', description: '17:30', date: '2023-03-01', borderColor: null, userId: null, category: null},
-      {id : 3, title: 'test 3 ', description: 'bonjour', date: '2023-03-04', borderColor: null, userId: null, category: null}];
+      const response = [{id : 1, title: 'faire les courses', description: 'bbbbbb', date: '2023-03-03', borderColor: null, userId: null, category: null, categoryColor : null},
+      {id : 2, title: 'médecin Lucio', description: '17:30', date: '2023-03-01', borderColor: null, userId: null, category: null, categoryColor : null},
+      {id : 3, title: 'test 3 ', description: 'bonjour', date: '2023-03-04', borderColor: null, userId: null, category: null, categoryColor : null}];
       // voir ici avec le back quelle route appeler
       //   const response = await axios.get(
       //     "http://localhost:3001/planners/:id/tasks"
@@ -79,7 +79,8 @@ const taskSlice = createSlice({
     error: null,
     isOpen: false,
     isModifyOpen: false,
-    formData: { title: "", description: "", date: "", color: "", category:"" },
+    // à voir si besoin d'ajouter categoryColor
+    formData: { title: "", description: "", date: "", color: "", category:"", categoryColor:"" },
     tasks: [],
     taskToModify: {}
   },

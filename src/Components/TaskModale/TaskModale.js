@@ -17,6 +17,8 @@ export default function TaskModale() {
 // on va chercher ici à faire apparaitre la tache dans le planning et l'enregitrer en BDD
 const handleSubmit = (event) => {
   event.preventDefault();
+  //  à voir si la categoryColor peut être ajoutée ici
+  // formData.categoryColor = 'blue'
   dispatch(addTask(formData)).then(() => {
     dispatch(setFormData({ title: "", description: "", date: "" }))});
   dispatch(openModal());

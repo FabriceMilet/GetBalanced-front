@@ -1,6 +1,6 @@
 import "./Week.scss";
 // import { useState } from "react";
-import { startOfWeek, addDays, format, isWithinInterval } from "date-fns";
+import { startOfWeek, addDays, format, isWithinInterval, getISODay } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -148,14 +148,15 @@ console.log(tasks);
               start: startOfweek,
               end: addDays(startOfweek, daysInWeek),
             });
-            if (taskIsWithinWeek && i  === taskDate.getDay()-1) {
+            if (taskIsWithinWeek && i  === getISODay(taskDate)-1) {
               // on regarde si l'id de la tâche correspond à l'evenement cliqué avec clickToOpen
               const isTaskOpen = task.id == openTaskId;
               return (
                 <div
                   className="Week-task"
                   key={task.id}
-                  style={{ borderColor: task.borderColor }}
+                  // TODO ! gérer cette histoire de categoryColor
+                  style={{ borderColor: task.borderColor,  borderTopColor: task.categoryColor, borderTopWidth: task.category ? '5px' : '1px' }}
                 >
                   <div className="Week-task__closed">
                     <h1>{task.title}</h1>
