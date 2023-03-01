@@ -4,13 +4,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { editUser, deleteUser } from "../../feature/users.slice";
 import ValidModal from './ValidModal/validModal';
+import ColorsModal from './ColorsModal/ColorsModal';
 
 
 export default function Profile() {
 
   const dispatch = useDispatch();
-  // State de gestion d'ouverture de la modal
+  // State de gestion d'ouverture de la modal de validation
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // State de gestion d'ouverture de la modal de choix de couleur
+  const [isColorsModalOpen, setIsColorsModalOpen] = useState(false);
+
+  // State de gestion du choix de couleur
+  const [chosenColor, setChosenColor] = useState("#EE5622");
 
   // Je récupère les données de l'utilisateur et les mets en value
   const userConnected = useSelector((state) => state.user.userConnected);
@@ -19,7 +26,6 @@ export default function Profile() {
   const inputFirstName = useRef();
   const inputLastName = useRef();
   const inputEmail = useRef();
-  const inputColor = useRef();
   const inputBirthdate = useRef();
 
   const color = "#EE5622";
@@ -32,7 +38,7 @@ export default function Profile() {
       firstname: inputFirstName.current.value,
       lastname: inputLastName.current.value,
       email: inputEmail.current.value,
-      color: inputColor.current.value,
+      color: chosenColor,
       birth: inputBirthdate.current.value
     }
     dispatch(editUser(editFormData))
@@ -51,6 +57,17 @@ export default function Profile() {
     dispatch(deleteUser({}))
   }
 
+  const handleColors = () => {
+    if (isColorsModalOpen) {
+      setIsColorsModalOpen(false);
+    } else {
+      setIsColorsModalOpen(true);
+    }
+  }
+
+  const colorFunc = (color) => {
+    setChosenColor(color)
+  }
 
   return (
     <>
@@ -95,12 +112,12 @@ export default function Profile() {
 
           <div className='profile_input_container'>
             <label htmlFor="color">Couleur préférée:</label>
-            <input className='profile_input'
-              type="color"
-              id="color"
-              defaultValue={color}
-              ref={inputColor}
-            />
+            <button
+              style={{ backgroundColor: `${chosenColor}` }}
+              type="button" onClick={handleColors} id='color'
+              className='profile_input colors_button'>
+              changer sa couleur</button>
+            {isColorsModalOpen && <ColorsModal colorFunc={colorFunc} />}
           </div>
 
           <div className='profile_input_container'>
