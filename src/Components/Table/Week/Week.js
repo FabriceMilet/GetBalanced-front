@@ -1,7 +1,7 @@
 import "./Week.scss";
 // import { useState } from "react";
 import { startOfWeek, addDays, format, isWithinInterval, getISODay } from "date-fns";
-import { fr } from "date-fns/locale";
+// import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
@@ -23,7 +23,7 @@ function Week() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
-  console.log(userConnected.color);
+  // console.log(userConnected.color);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
@@ -34,10 +34,12 @@ function Week() {
   const tasks = useSelector((state) =>
   state.task.tasks.map((task) => ({ ...task}))
 );
-console.log(tasks);
+ // console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
-  const handleClick = () => {
-    dispatch(openModal());
+  const handleClick = (event) => {
+    // on récupère la date du jour où on veut ajouter une tâche
+    const date = event.target.dataset.date
+    dispatch(openModal(date));
   };
   //on va gérer ici l'apparition de la modale de modification des taches
   const handleModify = (event) => {
@@ -85,7 +87,7 @@ console.log(tasks);
       task.borderColor = userConnected.color;
     } else {
       task.userId = null;
-      task.borderColor = 'black';
+      task.borderColor = null;
     }
     // on fait la modif dans le store
     dispatch(modifyTask(task));
@@ -97,9 +99,8 @@ console.log(tasks);
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
     const taskId = event.target.dataset.delete;
-    // const task = tasks.find((task) => task.title === taskTitle);
+    
     dispatch(deleteTask(taskId));
-    // console.log("j'ai cliqué sur supprimer");
   };
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
@@ -122,19 +123,18 @@ console.log(tasks);
   for (let i = 0; i < daysInWeek; i++) {
     const day = addDays(startOfweek, i);
     const formattedDay = format(day, "d");
-
+    const dateOftheday = format(day, "yyyy-MM-dd") 
     // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
     const isLast = i === daysInWeek - 1;
     const dayContainerClasses = `Week-dayContainer ${
       isLast ? "Week-dayContainer-last" : ""
     }`;
-
     days.push(
       <div className="Week-day" key={i}>
         <div className="Week-dayName">
           <span>{daysOfWeek[i]}</span>
           {formattedDay}
-          <button onClick={handleClick} className="Week-button">
+          <button onClick={handleClick} className="Week-button" data-date={dateOftheday}>
             +
           </button>
         </div>
