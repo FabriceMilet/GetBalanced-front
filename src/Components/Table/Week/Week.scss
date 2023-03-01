@@ -67,25 +67,25 @@
       display: flex;
       justify-content: space-around;
     }
-    &__description{
+    &__description {
       font-size: 1rem;
       color: vars.$darkBlue;
     }
-    &__category{
+    &__category {
       font-size: 1.1rem;
       font-style: italic;
       color: vars.$darkBlue;
     }
-    &__buttons{
+    &__buttons {
       display: flex;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       justify-content: space-around;
     }
-    &__button{
+    &__button {
       background-color: vars.$lightBlue;
       border: none;
       border-radius: 30px;
-      padding: .5rem;
+      padding: 0.5rem 0.2rem;
       cursor: pointer;
     }
     &__arrow {
@@ -93,13 +93,26 @@
       align-items: center;
       margin: auto;
       cursor: pointer;
-      animation: slide-2 0.5s infinite alternate both cubic-bezier(1,-.01,0,.98);
+      animation: slide-2 0.5s infinite alternate both
+        cubic-bezier(1, -0.01, 0, 0.98);
     }
     &__arrow-top {
-        margin: auto;
-        cursor: pointer;
-        transform: rotate(-180deg);
+      margin: auto;
+      cursor: pointer;
+      transform: rotate(-180deg);
+    }
+    &__done {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        white 1px 2px,
+        vars.$lightBlue 1px 4px
+      );
+      filter: blur(1.3px);
     }
   }
 }
-@keyframes slide-2{to{transform:translateY(3px)}}
+@keyframes slide-2 {
+  to {
+    transform: translateY(3px);
+  }
+}

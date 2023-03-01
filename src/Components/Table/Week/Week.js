@@ -34,7 +34,7 @@ function Week() {
   const tasks = useSelector((state) =>
   state.task.tasks.map((task) => ({ ...task}))
 );
- // console.log(tasks);
+ console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
     // on récupère la date du jour où on veut ajouter une tâche
@@ -102,6 +102,20 @@ function Week() {
     
     dispatch(deleteTask(taskId));
   };
+  // on veut gérer le fait de concidérer une tâche comme faite
+  const handleDone = (event) => {
+    const taskId = event.target.dataset.done;
+    // récupérer la tache qui a pour id event.target.dataset.done
+    const task = tasks.find((task) => task.id == taskId);
+    console.log(task);
+    if (task.userId === null){alert("Vous devez vous assigner la tâche avant de la considérer comme terminée")}
+    else{task.done = true
+      // todo ! gérer le fait de fermer l'ouverture de la tache quand elle est faite
+      setIsLarge(false)
+    }
+    // on fait la modif dans le store
+    dispatch(modifyTask(task));
+  }
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
@@ -152,7 +166,7 @@ function Week() {
               const isTaskOpen = task.id == openTaskId;
               return (
                 <div
-                  className="Week-task"
+                  className={task.done ? "Week-task Week-task__done" : "Week-task"}
                   key={task.id}
                   style={{ borderColor: task.borderColor, borderTopWidth: task.borderColor ? '5px' : '1px' }}
                 >
@@ -179,6 +193,13 @@ function Week() {
                           data-modify={task.id}
                         >
                           Modifier
+                        </button>
+                        <button
+                          className="Week-task__button"
+                          onClick={handleDone}
+                          data-done={task.id}
+                        >
+                          Terminée
                         </button>
                         <button
                           className="Week-task__button"
