@@ -52,6 +52,9 @@
     color: vars.$darkBlue;
     margin-left: 1rem;
     cursor: pointer;
+    &:hover{
+      color: darken(vars.$darkBlue, 40%)
+    }
   }
   &-task {
     background-color: vars.$floralWhite;
@@ -78,16 +81,26 @@
     }
     &__buttons {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       margin-top: 0.5rem;
+      max-width: 100%;
       justify-content: space-around;
+      font-size: 1rem;
     }
     &__button {
       background-color: vars.$lightBlue;
       border: none;
+      width: 80%;
       border-radius: 30px;
+      margin-bottom: 0.5rem;
       padding: 0.5rem 0.2rem;
       cursor: pointer;
+      &:hover{
+        background-color: darken(vars.$lightBlue, 20%)
+      }
     }
+
     &__arrow {
       display: flex;
       align-items: center;

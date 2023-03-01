@@ -15,6 +15,7 @@ import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
 import { useState, useEffect } from "react";
 
 function Week() {
+  console.log("dotenv", process.env); 
   // on commence par récupérer les taches du planning
   useEffect(() => {
     dispatch(getTasks());
@@ -111,8 +112,8 @@ function Week() {
     if (task.userId === null){alert("Vous devez vous assigner la tâche avant de la considérer comme terminée")}
     else{task.done = true
       // todo ! gérer le fait de fermer l'ouverture de la tache quand elle est faite
-      setIsLarge(false)
     }
+    setIsLarge(false)
     // on fait la modif dans le store
     dispatch(modifyTask(task));
   }
@@ -199,7 +200,7 @@ function Week() {
                           onClick={handleDone}
                           data-done={task.id}
                         >
-                          Terminée
+                          Terminer
                         </button>
                         <button
                           className="Week-task__button"
