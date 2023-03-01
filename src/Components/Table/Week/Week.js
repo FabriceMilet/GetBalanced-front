@@ -1,7 +1,7 @@
 import "./Week.scss";
 // import { useState } from "react";
 import { startOfWeek, addDays, format, isWithinInterval, getISODay } from "date-fns";
-import { fr } from "date-fns/locale";
+// import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
@@ -34,10 +34,12 @@ function Week() {
   const tasks = useSelector((state) =>
   state.task.tasks.map((task) => ({ ...task}))
 );
-console.log(tasks);
+ // console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
-  const handleClick = () => {
-    dispatch(openModal());
+  const handleClick = (event) => {
+    // on récupère la date du jour où on veut ajouter une tâche
+    const date = event.target.dataset.date
+    dispatch(openModal(date));
   };
   //on va gérer ici l'apparition de la modale de modification des taches
   const handleModify = (event) => {
@@ -121,19 +123,18 @@ console.log(tasks);
   for (let i = 0; i < daysInWeek; i++) {
     const day = addDays(startOfweek, i);
     const formattedDay = format(day, "d");
-
+    const dateOftheday = format(day, "yyyy-MM-dd") 
     // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
     const isLast = i === daysInWeek - 1;
     const dayContainerClasses = `Week-dayContainer ${
       isLast ? "Week-dayContainer-last" : ""
     }`;
-
     days.push(
       <div className="Week-day" key={i}>
         <div className="Week-dayName">
           <span>{daysOfWeek[i]}</span>
           {formattedDay}
-          <button onClick={handleClick} className="Week-button">
+          <button onClick={handleClick} className="Week-button" data-date={dateOftheday}>
             +
           </button>
         </div>

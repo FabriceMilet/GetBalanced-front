@@ -81,10 +81,12 @@ const taskSlice = createSlice({
     isModifyOpen: false,
     formData: { title: "", description: "", date: "", color: "", category:"" },
     tasks: [],
-    taskToModify: {}
+    taskToModify: {},
+    dateOfNewTask: ""
   },
   reducers: {
-    openModal: (state) => {
+    openModal: (state, action) => {
+      state.dateOfNewTask = action.payload;
       state.isOpen = !state.isOpen;
     },
     openModifyModal: (state, action) => {
@@ -146,7 +148,6 @@ const taskSlice = createSlice({
          // console.log("tâche à supprimer :", action.payload);
          // on récupère l'id de la tâche à modifier
          const id = action.payload;
-         console.log('id de la tâche à supprimeer',id );
          // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;
          // car on renvevra je pense toute la tâche
          // on récupère l'indice de la tâche dans le tableau
