@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function Table() {
   // pour test
   const userConnected = useSelector((state) => state.user.userConnected);
-  console.log('from dashboard :', userConnected);
+  console.log("from dashboard :", userConnected);
   return (
     <div className="Table">
       <WeekScroll />
