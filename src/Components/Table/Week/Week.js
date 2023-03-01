@@ -23,7 +23,7 @@ function Week() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
-  console.log(userConnected.color);
+  // console.log(userConnected.color);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
@@ -85,7 +85,7 @@ console.log(tasks);
       task.borderColor = userConnected.color;
     } else {
       task.userId = null;
-      task.borderColor = 'black';
+      task.borderColor = null;
     }
     // on fait la modif dans le store
     dispatch(modifyTask(task));
@@ -97,9 +97,8 @@ console.log(tasks);
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
     const taskId = event.target.dataset.delete;
-    // const task = tasks.find((task) => task.title === taskTitle);
+    
     dispatch(deleteTask(taskId));
-    // console.log("j'ai cliqué sur supprimer");
   };
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns

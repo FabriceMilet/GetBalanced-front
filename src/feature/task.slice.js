@@ -146,12 +146,13 @@ const taskSlice = createSlice({
          // console.log("tâche à supprimer :", action.payload);
          // on récupère l'id de la tâche à modifier
          const id = action.payload;
+         console.log('id de la tâche à supprimeer',id );
          // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;
-         // car on revevra je pense toute la tâche
+         // car on renvevra je pense toute la tâche
          // on récupère l'indice de la tâche dans le tableau
-         const index = state.tasks.findIndex((task) => task.id === id);
+         const index = state.tasks.findIndex((task) => task.id == id);
          // on supprime la tâche
-         state.tasks.splice(index-1, 1);
+         state.tasks.splice(index, 1);
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
