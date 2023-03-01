@@ -15,6 +15,7 @@ export const createUser = createAsyncThunk(
     }
   }
 );
+
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
@@ -35,11 +36,42 @@ export const loginUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "user/editUser",
   async (userEditData, thunkAPI) => {
-    console.log(userEditData)
     try {
-      const response = await axios.post(
-        "",
+      const response = await axios.put(
+        `http://supafei-server.eddi.cloud:8080/user/${userEditData.id}`,
         userEditData
+      );
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (userDeleteData, thunkAPI) => {
+    try {
+      const response = await axios.delete(
+        `http://supafei-server.eddi.cloud:8080/user/${userDeleteData.id}`,
+        userDeleteData
+      );
+      // console.log('réponse envoyée en login', userData); 
+      // console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+export const logoutUser = createAsyncThunk(
+  "user/logoutUser",
+  async (userLogoutData, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `http://supafei-server.eddi.cloud:8080/user/logout`,
+        userLogoutData
       );
       // console.log('réponse envoyée en login', userData); 
       // console.log(response.data);
@@ -79,7 +111,7 @@ const userSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
-        console.log('action.payload du create', action.payload);
+        //console.log('action.payload du create', action.payload);
         state.userConnected = action.payload
       })
       .addCase(createUser.rejected, (state, action) => {
@@ -92,21 +124,45 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogged = true;
-        console.log('action.payload', action.payload);
+        // console.log('action.payload', action.payload);
         state.userConnected = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(editUser.pending, (state) => { // Test 
+      .addCase(editUser.pending, (state) => { // Test edit ERR401
         state.loading = true;
       })
-      .addCase(editUser.fulfilled, (state, action) => { // Test
+      .addCase(editUser.fulfilled, (state, action) => { // Test edit ERR401
         state.loading = false;
         state.userConnected = action.payload
       })
-      .addCase(editUser.rejected, (state, action) => { // Test
+      .addCase(editUser.rejected, (state, action) => { // Test edit ERR401
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteUser.pending, (state) => { // Test delete ERR401
+        state.loading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => { // Test delete ERR401
+        state.loading = false;
+        state.isLogged = false;
+        state.userConnected = action.payload;
+      })
+      .addCase(deleteUser.rejected, (state, action) => { // Test delete ERR401
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(logoutUser.pending, (state) => { // Test logout ERR401
+        state.loading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => { // Test logout ERR401
+        state.loading = false;
+        state.isLogged = false;
+        state.userConnected = {};
+      })
+      .addCase(logoutUser.rejected, (state, action) => { // Test logout ERR401
         state.loading = false;
         state.error = action.payload;
       });
