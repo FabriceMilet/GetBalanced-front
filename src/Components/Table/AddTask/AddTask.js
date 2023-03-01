@@ -4,7 +4,7 @@ import { openModal } from "../../../feature/task.slice";
 
 function AddTask() {
   const dispatch = useDispatch();
-  const handleClick = (event) => {
+  const handleClick = () => {
     dispatch(openModal());
   };
   return (
