@@ -2,6 +2,7 @@ import "./Table.scss";
 import Week from "./Week/Week";
 import WeekScroll from "./WeekScroll/WeekScroll";
 import { useSelector } from "react-redux";
+import AddTask from "./AddTask/AddTask";
 
 function Table() {
   // pour test
@@ -9,7 +10,10 @@ function Table() {
   console.log("from dashboard :", userConnected);
   return (
     <div className="Table">
-      <WeekScroll />
+      <div className="Table-header">
+        <WeekScroll />
+        <AddTask />
+      </div>
       <Week />
     </div>
   );
