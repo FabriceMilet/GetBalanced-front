@@ -7,22 +7,23 @@ import { setFormData } from '../../feature/users.slice';
 function Login() {
   const dispatch = useDispatch();
 
-const isLogged = useSelector((state) => state.user.isLogged);
-const formData = useSelector((state) => state.user.formData);
-const {id} = useSelector((state) => state.user.userConnected);
-// on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
-// correspondant à la variable name et sa valeur associée
-const handleChange = (event) => {
-  const { name, value } = event.target;
-  dispatch(setFormData({ ...formData, [name]: value }));
-};
+  const isLogged = useSelector((state) => state.user.isLogged);
+  const formData = useSelector((state) => state.user.formData);
+  const { id } = useSelector((state) => state.user.userConnected);
+  // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
+  // correspondant à la variable name et sa valeur associée
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    dispatch(setFormData({ ...formData, [name]: value }));
+  };
 
   // formData est envoyé en paramètre de createUser au slice userSlice
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginUser(formData)).then(() => {
-      dispatch(setFormData({ email: "", password: ""}))});
-    console.log("formData", formData);
+      dispatch(setFormData({ email: "", password: "" }))
+    });
+    //console.log("formData", formData);
   }
   console.log("isLogged", isLogged);
   return (

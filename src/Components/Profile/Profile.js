@@ -21,29 +21,26 @@ export default function Profile() {
 
   // Je récupère les données de l'utilisateur et les mets en value
   const userConnected = useSelector((state) => state.user.userConnected);
-  const { firstname, lastname, email } = userConnected;
 
   const inputFirstName = useRef();
   const inputLastName = useRef();
   const inputEmail = useRef();
   const inputBirthdate = useRef();
 
-  const color = "#EE5622";
-
   // Fonction appelé au submit
   const handleSubmit = (e) => {
     e.preventDefault()
     const editFormData = {
-      id: userConnected.id,
+      id: userConnected.addOneUser.id,
       firstname: inputFirstName.current.value,
       lastname: inputLastName.current.value,
       email: inputEmail.current.value,
       color: chosenColor,
       birth: inputBirthdate.current.value
     }
+    console.log(editFormData)
     dispatch(editUser(editFormData))
   }
-
 
   const handleModal = () => {
     if (isModalOpen) {
@@ -75,7 +72,7 @@ export default function Profile() {
 
         <header className="profile_header">
           <img src={avatar} alt="logo avatar" className="profile_avatar" />
-          <h3 className="profile_username">{firstname} {lastname}</h3>
+          {/* {userConnected && <h3 className="profile_username">{userConnected.user.firstname} {userConnected.user.lastname}</h3>} */}
         </header>
 
         <form className='profile_form' onSubmit={handleSubmit}>
@@ -85,7 +82,7 @@ export default function Profile() {
             <input className='profile_input'
               type="text"
               id="firstName"
-              defaultValue={firstname}
+              defaultValue={"userConnected.user.firstname"}
               ref={inputFirstName}
             />
           </div>
@@ -95,7 +92,7 @@ export default function Profile() {
             <input className='profile_input'
               type="text"
               id="lastName"
-              defaultValue={lastname}
+              defaultValue={"userConnected.user.lastname"}
               ref={inputLastName}
             />
           </div>
@@ -105,7 +102,7 @@ export default function Profile() {
             <input className='profile_input'
               type="email"
               id="email"
-              defaultValue={email}
+              defaultValue={"userConnected.user.email"}
               ref={inputEmail}
             />
           </div>
@@ -130,7 +127,9 @@ export default function Profile() {
           </div>
           <button className='profile_button_submit' type="submit">Enregistrer</button>
         </form>
+
         <h4 onClick={handleModal} className='logout_button'>Supprimer son compte</h4>
+
       </div>
       {isModalOpen && <ValidModal handleModal={handleModal} handleDelete={handleDelete} />}
     </>
