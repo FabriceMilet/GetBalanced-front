@@ -1,4 +1,4 @@
-import "./Week.scss";
+import "./Day.scss";
 import {
   startOfWeek,
   addDays,
@@ -6,7 +6,6 @@ import {
   isWithinInterval,
   getISODay,
 } from "date-fns";
-// import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
@@ -19,7 +18,7 @@ import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
 import { useState, useEffect } from "react";
 
-function Week() {
+function Day() {
   // on commence par récupérer les taches du planning
   useEffect(() => {
     dispatch(getTasks());
@@ -75,7 +74,6 @@ function Week() {
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
   const handleClickOnCheckbox = (event) => {
-    console.log(userConnected.color);
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     const task = tasks.find((task) => task.id == taskId);
@@ -86,7 +84,7 @@ function Week() {
       task.userId = userConnected.id;
       task.borderColor = userConnected.color;
     } else if (task.userId && task.userId !== userConnected.id) {
-      task.userId = userConnected.userFound.id;
+      task.userId = userConnected.id;
       task.borderColor = userConnected.color;
     } else {
       task.userId = null;
@@ -112,11 +110,11 @@ function Week() {
       );
     } else {
       task.done = true;
-    // on fait la modif dans le store
+       // on fait la modif dans le store
     dispatch(modifyTask(task));
     }
-    
   };
+
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
     weekStartsOn: 1,
@@ -138,26 +136,21 @@ function Week() {
     const day = addDays(startOfweek, i);
     const formattedDay = format(day, "d");
     const dateOftheday = format(day, "yyyy-MM-dd");
-    // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
-    const isLast = i === daysInWeek - 1;
-    const dayContainerClasses = `Week-dayContainer ${
-      isLast ? "Week-dayContainer-last" : ""
-    }`;
     days.push(
-      <div className="Week-day" key={i}>
-        <div className="Week-dayName">
+      <div className="Day-day" key={i} >
+        <div className="Day-dayName">
           <span>{daysOfWeek[i]}</span>
           {formattedDay}
           <button
             onClick={handleClick}
-            className="Week-button"
+            className="Day-button"
             data-date={dateOftheday}
           >
             +
           </button>
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
-        <div datatype={i} className={dayContainerClasses}>
+        <div datatype={i} className="Day-dayContainer">
           {tasks.map((task) => {
             const taskDate = new Date(task.date);
             // console.log(taskDate.getDay())
@@ -171,7 +164,7 @@ function Week() {
               return (
                 <div
                   className={
-                    task.done ? "Week-task Week-task__done" : "Week-task"
+                    task.done ? "Day-task Day-task__done" : "Day-task"
                   }
                   key={task.id}
                   style={{
@@ -179,7 +172,7 @@ function Week() {
                     borderTopWidth: task.borderColor ? "5px" : "1px",
                   }}
                 >
-                  <div className="Week-task__closed">
+                  <div className="Day-task__closed">
                     <h1>{task.title}</h1>
                     <input
                       type="checkbox"
@@ -188,28 +181,28 @@ function Week() {
                     ></input>
                   </div>
                   {isTaskOpen && (
-                    <div className="Week-task__open">
-                      <p className="Week-task__description">
+                    <div className="Day-task__open">
+                      <p className="Day-task__description">
                         {task.description}
                       </p>
-                      <p className="Week-task__category">{task.category}</p>
-                      <div className="Week-task__buttons">
+                      <p className="Day-task__category">{task.category}</p>
+                      <div className="Day-task__buttons">
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleModify}
                           data-modify={task.id}
                         >
                           Modifier
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDone}
                           data-done={task.id}
                         >
                           Terminer
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDelete}
                           data-delete={task.id}
                         >
@@ -220,7 +213,7 @@ function Week() {
                   )}
                   <svg
                     className={
-                      isTaskOpen ? "Week-task__arrow-top" : "Week-task__arrow"
+                      isTaskOpen ? "Day-task__arrow-top" : "Day-task__arrow"
                     }
                     viewBox="0 0 24 24"
                     width="24"
@@ -250,12 +243,17 @@ function Week() {
   }
 
   return (
-    <div className="Week">
+    <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}
-      {!isOpen && !isModifyOpen && <div className="Week-days">{days}</div>}
-    </div>
+      {!isOpen && !isModifyOpen &&  
+      <div className="Day-days">
+      {days}
+      </div>
+      }
+    </div>   
   );
 }
 
-export default Week;
+export default Day;
+

@@ -12,5 +12,8 @@
         font-weight: bold;
         color: vars.$floralWhite;
         cursor: pointer;
+        &:hover{
+            background-color: darken(vars.$orange, 10%)
+          }
     }
 }

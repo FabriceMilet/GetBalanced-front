@@ -12,7 +12,7 @@ const dateSlice = createSlice({
     },
     setDateToLess: (state, action) => {
       state.date = action.payload;
-    },
+    }
   },
 });
 
