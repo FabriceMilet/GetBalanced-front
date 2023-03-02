@@ -28,14 +28,11 @@ export const modifyTask = createAsyncThunk(
   "task/modifyTask",
   async (task, thunkAPI) => {
     try {
-      const response = task;
-      // voir ici avec le back quelle route appeler
-      //   const response = await axios.put(
-      //     "http://localhost:3001/task/:id/planner/:id",
-      //     formData
-      //   );
-      // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
-      return response;
+        const response = await axios.put(
+          `${apiUrl}/task/:idTask/planner/:idPlanner`,
+          task
+        );
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -45,15 +42,12 @@ export const deleteTask = createAsyncThunk(
   "task/deleteTask",
   async (id, thunkAPI) => {
     try {
-      const response = id;
       console.log("id de la tache à supprimer :", id);
-      // voir ici avec le back quelle route appeler
-      //   const response = await axios.delete(
-      //     "http://localhost:3001/task/:id/planner/:id",
-      //     formData
-      //   );
-      // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
-      return response;
+        const response = await axios.delete(
+          `${apiUrl}/task/:id`,
+          id
+        );
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -134,10 +128,9 @@ const taskSlice = createSlice({
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
         // console.log("tâche à supprimer :", action.payload);
-        // on récupère l'id de la tâche à modifier
-        const id = action.payload;
+        // on récupère l'id de la tâche à supprimer
+        const id = action.payload.id;
         // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;
-        // car on renvevra je pense toute la tâche
         // on récupère l'indice de la tâche dans le tableau
         const index = state.tasks.findIndex((task) => task.id == id);
         // on supprime la tâche

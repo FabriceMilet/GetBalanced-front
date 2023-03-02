@@ -14,6 +14,21 @@ export const addPlanner = createAsyncThunk(
     }
   }
 );
+
+export const deletePlanner = createAsyncThunk(
+  "parametre/deletePlanner",
+  async (id, thunkAPI) => {
+    try {
+        const response = await axios.delete(
+          `${apiUrl}/planner/:id`,
+          id
+        );
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 // création du slice
 const parametreSlice = createSlice({
   name: "parametre",
@@ -43,6 +58,23 @@ const parametreSlice = createSlice({
         state.planners.push(action.payload);
       })
       .addCase(addPlanner.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deletePlanner.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deletePlanner.fulfilled, (state, action) => {
+        state.loading = false;
+        // console.log("planner à supprimer :", action.payload);
+        // on récupère l'id du planner à supprimer
+        const id = action.payload.id;
+        // on récupère l'indice du planner dans le tableau
+        const index = state.planners.findIndex((planner) => planner.id == id);
+        // on supprime le planner
+        state.planners.splice(index, 1);
+      })
+      .addCase(deletePlanner.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
