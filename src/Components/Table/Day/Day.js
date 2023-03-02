@@ -16,7 +16,7 @@ import {
 } from "../../../feature/task.slice";
 import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 function Day() {
   // on commence par récupérer les taches du planning
@@ -26,7 +26,7 @@ function Day() {
   }, []);
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
-  const userConnected = useSelector((state) => state.user.userConnected);
+  const userConnected = useSelector((state) => state.user.userConnected).user;
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
@@ -109,30 +109,12 @@ function Day() {
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
       );
     } else {
-      // todo ! gérer le fait de fermer l'ouverture de la tache quand elle est faite
-    setIsLarge(false);
       task.done = true;
        // on fait la modif dans le store
     dispatch(modifyTask(task));
     }
-   
-   
   };
-  
-  // on fait une ref sur le parent des jours à faire défiler
-  // const dayRef = useRef(null)
 
-  // const handleScroll = (event) => {
-  //   console.log('je scroll');
-  //   const { scrollLeft } = event.target
-  //   const daysContainer = dayRef.current
-  //   const days = daysContainer.querySelectorAll('.Day-day')
-  
-  //   // Déplacer les div en fonction du scroll
-  //   days.forEach((day) => {
-  //     day.style.transform = `translateX(-${scrollLeft}px)`
-  //   })
-  // }
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
     weekStartsOn: 1,
@@ -261,7 +243,6 @@ function Day() {
   }
 
   return (
-    // onScroll={handleScroll} ref={dayRef} à voir si on ajoute cela pour gérer le scroll
     <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}

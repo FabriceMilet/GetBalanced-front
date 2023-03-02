@@ -27,7 +27,7 @@ function Week() {
   }, []);
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
-  const userConnected = useSelector((state) => state.user.userConnected);
+  const userConnected = useSelector((state) => state.user.userConnected).user;
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
@@ -75,7 +75,7 @@ function Week() {
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
   const handleClickOnCheckbox = (event) => {
-    console.log(userConnected.userFound.color);
+    console.log(userConnected.color);
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     const task = tasks.find((task) => task.id == taskId);
@@ -83,11 +83,11 @@ function Week() {
     // de même pour l'id, on gère les différents cas,
     // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
     if (!task.userId) {
+      task.userId = userConnected.id;
+      task.borderColor = userConnected.color;
+    } else if (task.userId && task.userId !== userConnected.id) {
       task.userId = userConnected.userFound.id;
-      task.borderColor = userConnected.userFound.color;
-    } else if (task.userId && task.userId !== userConnected.userFound.id) {
-      task.userId = userConnected.userFound.id;
-      task.borderColor = userConnected.userFound.color;
+      task.borderColor = userConnected.color;
     } else {
       task.userId = null;
       task.borderColor = null;
@@ -112,10 +112,8 @@ function Week() {
       );
     } else {
       task.done = true;
-      setIsLarge(false);
     // on fait la modif dans le store
     dispatch(modifyTask(task));
-      // todo ! gérer le fait de fermer l'ouverture de la tache quand elle est faite
     }
     
   };
