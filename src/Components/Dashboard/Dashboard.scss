@@ -1,27 +1,25 @@
 @use "../../style/vars";
 .Dashboard{
-    position: absolute;
-    top: 50px;
-    width: 100vw;
+    padding: 7%;
 }
+
 .Dashboard-planners {
     display: flex;
     margin: auto;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin-left: 10rem;
 }
 
 .Dashboard-button{
     display: block;
     background-color: vars.$orange;
-    margin: 2.5rem 0 0 10rem;
     border: none;
     border-radius: 5px;
     color: vars.$floralWhite;
     font-weight: bold;
     padding: 1rem 2.5rem;
 }
+
 .Dashboard-button:hover{
     cursor: pointer;
 }
@@ -41,7 +39,7 @@
     height: auto;
     margin: 2rem 1.5rem 1.5rem 0;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    
+
 }
 .Dashboard-planner--hidden{
     visibility: hidden;

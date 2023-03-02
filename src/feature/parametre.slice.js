@@ -1,24 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const addPlanner = createAsyncThunk(
   "parametre/addPlanner",
   async (formData, thunkAPI) => {
     try {
-      const response = formData
-      // voir ici avec le back quelle route appeler
-      //   const response = await axios.post(
-      //     "http://localhost:3001/planners",
-      //     formData
-      //   );
-      // quand je ferai appel à l'api, ne pas oublier de remettre return response.data
-      return response;
-
+      // il va falloir récup l'id mais formData ne le contient pas, à voir ..
+      const response = await axios.post(`${apiUrl}/planner/user/58`, formData);
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
 );
-
 // création du slice
 const parametreSlice = createSlice({
   name: "parametre",

@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
-  const { id } = useSelector((state) => state.user.userConnected);
-  const userConnected = useSelector((state) => state.user.userConnected);
+  // const { id } = useSelector((state) => state.user.userConnected);
+  // const userConnected = useSelector((state) => state.user.userConnected);
   //console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
