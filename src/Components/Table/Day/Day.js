@@ -1,4 +1,4 @@
-import "./Week.scss";
+import "./Day.scss";
 import {
   startOfWeek,
   addDays,
@@ -6,7 +6,6 @@ import {
   isWithinInterval,
   getISODay,
 } from "date-fns";
-// import { fr } from "date-fns/locale";
 import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
@@ -17,9 +16,9 @@ import {
 } from "../../../feature/task.slice";
 import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-function Week() {
+function Day() {
   // on commence par récupérer les taches du planning
   useEffect(() => {
     dispatch(getTasks());
@@ -75,7 +74,6 @@ function Week() {
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
   const handleClickOnCheckbox = (event) => {
-    console.log(userConnected.userFound.color);
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     const task = tasks.find((task) => task.id == taskId);
@@ -83,11 +81,11 @@ function Week() {
     // de même pour l'id, on gère les différents cas,
     // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
     if (!task.userId) {
-      task.userId = userConnected.userFound.id;
-      task.borderColor = userConnected.userFound.color;
-    } else if (task.userId && task.userId !== userConnected.userFound.id) {
-      task.userId = userConnected.userFound.id;
-      task.borderColor = userConnected.userFound.color;
+      task.userId = userConnected.id;
+      task.borderColor = userConnected.color;
+    } else if (task.userId && task.userId !== userConnected.id) {
+      task.userId = userConnected.id;
+      task.borderColor = userConnected.color;
     } else {
       task.userId = null;
       task.borderColor = null;
@@ -111,14 +109,30 @@ function Week() {
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
       );
     } else {
-      task.done = true;
-      setIsLarge(false);
-    // on fait la modif dans le store
-    dispatch(modifyTask(task));
       // todo ! gérer le fait de fermer l'ouverture de la tache quand elle est faite
+    setIsLarge(false);
+      task.done = true;
+       // on fait la modif dans le store
+    dispatch(modifyTask(task));
     }
-    
+   
+   
   };
+  
+  // on fait une ref sur le parent des jours à faire défiler
+  // const dayRef = useRef(null)
+
+  // const handleScroll = (event) => {
+  //   console.log('je scroll');
+  //   const { scrollLeft } = event.target
+  //   const daysContainer = dayRef.current
+  //   const days = daysContainer.querySelectorAll('.Day-day')
+  
+  //   // Déplacer les div en fonction du scroll
+  //   days.forEach((day) => {
+  //     day.style.transform = `translateX(-${scrollLeft}px)`
+  //   })
+  // }
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
     weekStartsOn: 1,
@@ -140,26 +154,21 @@ function Week() {
     const day = addDays(startOfweek, i);
     const formattedDay = format(day, "d");
     const dateOftheday = format(day, "yyyy-MM-dd");
-    // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
-    const isLast = i === daysInWeek - 1;
-    const dayContainerClasses = `Week-dayContainer ${
-      isLast ? "Week-dayContainer-last" : ""
-    }`;
     days.push(
-      <div className="Week-day" key={i}>
-        <div className="Week-dayName">
+      <div className="Day-day" key={i} >
+        <div className="Day-dayName">
           <span>{daysOfWeek[i]}</span>
           {formattedDay}
           <button
             onClick={handleClick}
-            className="Week-button"
+            className="Day-button"
             data-date={dateOftheday}
           >
             +
           </button>
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
-        <div datatype={i} className={dayContainerClasses}>
+        <div datatype={i} className="Day-dayContainer">
           {tasks.map((task) => {
             const taskDate = new Date(task.date);
             // console.log(taskDate.getDay())
@@ -173,7 +182,7 @@ function Week() {
               return (
                 <div
                   className={
-                    task.done ? "Week-task Week-task__done" : "Week-task"
+                    task.done ? "Day-task Day-task__done" : "Day-task"
                   }
                   key={task.id}
                   style={{
@@ -181,7 +190,7 @@ function Week() {
                     borderTopWidth: task.borderColor ? "5px" : "1px",
                   }}
                 >
-                  <div className="Week-task__closed">
+                  <div className="Day-task__closed">
                     <h1>{task.title}</h1>
                     <input
                       type="checkbox"
@@ -190,28 +199,28 @@ function Week() {
                     ></input>
                   </div>
                   {isTaskOpen && (
-                    <div className="Week-task__open">
-                      <p className="Week-task__description">
+                    <div className="Day-task__open">
+                      <p className="Day-task__description">
                         {task.description}
                       </p>
-                      <p className="Week-task__category">{task.category}</p>
-                      <div className="Week-task__buttons">
+                      <p className="Day-task__category">{task.category}</p>
+                      <div className="Day-task__buttons">
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleModify}
                           data-modify={task.id}
                         >
                           Modifier
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDone}
                           data-done={task.id}
                         >
                           Terminer
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDelete}
                           data-delete={task.id}
                         >
@@ -222,7 +231,7 @@ function Week() {
                   )}
                   <svg
                     className={
-                      isTaskOpen ? "Week-task__arrow-top" : "Week-task__arrow"
+                      isTaskOpen ? "Day-task__arrow-top" : "Day-task__arrow"
                     }
                     viewBox="0 0 24 24"
                     width="24"
@@ -252,12 +261,18 @@ function Week() {
   }
 
   return (
-    <div className="Week">
+    // onScroll={handleScroll} ref={dayRef} à voir si on ajoute cela pour gérer le scroll
+    <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}
-      {!isOpen && !isModifyOpen && <div className="Week-days">{days}</div>}
-    </div>
+      {!isOpen && !isModifyOpen &&  
+      <div className="Day-days">
+      {days}
+      </div>
+      }
+    </div>   
   );
 }
 
-export default Week;
+export default Day;
+

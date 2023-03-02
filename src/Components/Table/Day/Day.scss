@@ -1,24 +1,21 @@
 @use "../../../style/vars";
 
-.Week {
+.Day {
   background-color: vars.$lightBlue;
   border-radius: 40px;
-  padding: 1rem;
-  display: flex;
-  // max-width: 80%;
-  justify-content: center;
   margin-top: 1rem;
-  margin-bottom: 1rem;
-
-  &-days {
+  
+  &-days{
     display: flex;
-    height: 80vh;
-    max-width: 100%;
   }
   &-day {
+    background-color: vars.$lightBlue;
     display: flex;
     flex-direction: column;
-    margin: 1.5rem 0.8rem 0 0.8rem;
+    align-items: center; 
+    padding-top: 1rem;
+    width: 100%;
+    min-height: 100vh;
   }
   &-dayName {
     flex-grow: 1;
@@ -27,27 +24,26 @@
     justify-content: center;
     align-items: center;
     background-color: vars.$yellow;
+    width: 80vw;
     border-radius: 15px;
-    padding: 0.5rem 3rem;
+    padding: 2% 3%;
     span {
-      margin-right: 0.5rem;
+      margin-right: 2%;
     }
   }
-
   &-dayContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-grow: 3;
-    border-right: 1px solid rgb(73, 191, 202);
     height: 100%;
     margin-top: 1rem;
-    margin-right: -0.8rem;
-  }
-  &-dayContainer-last {
-    border-right: none;
+    width: 95vw;
   }
   &-button {
     background-color: vars.$yellow;
     border: none;
-    font-size: 2rem;
+    font-size: 150%;
     font-weight: bold;
     color: vars.$darkBlue;
     margin-left: 1rem;
@@ -60,22 +56,22 @@
     background-color: vars.$floralWhite;
     border: 1px solid black;
     border-radius: 20px;
-    font-size: 0.7rem;
+    font-size: 70%;
     font-weight: normal;
     text-align: center;
     padding: 0.5rem 0.1rem;
-    width: 85%;
+    width: 70vw;
     margin-bottom: 1rem;
     &__closed {
       display: flex;
       justify-content: space-around;
     }
     &__description {
-      font-size: 1rem;
+      font-size: 70%;
       color: vars.$darkBlue;
     }
     &__category {
-      font-size: 1.1rem;
+      font-size: 80%;
       font-style: italic;
       color: vars.$darkBlue;
     }
@@ -86,7 +82,7 @@
       margin-top: 0.5rem;
       max-width: 100%;
       justify-content: space-around;
-      font-size: 1rem;
+      font-size: 100%;
     }
     &__button {
       background-color: vars.$lightBlue;
@@ -129,8 +125,8 @@
     transform: translateY(3px);
   }
 }
-@media only screen and (max-width: 480px) {
-  .Week {
+@media only screen and (min-width: 481px) {
+  .Day{
     display: none;
   }
 }
