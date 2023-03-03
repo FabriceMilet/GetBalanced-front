@@ -1,8 +1,5 @@
 .Table {
-  position: absolute;
-  top: 50px;
-  width: 100vw;
-  margin-top: 1.5rem;
+  padding: 85px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,12 +11,11 @@
     cursor: pointer;
   }
   &-header {
-    //je cherche à fixer horizontalement au scroll mais ne fonctionne pas
-    overflow-x: hidden;
     display: flex;
+    margin-bottom: 1rem;
   }
   &-container{
-    max-width: 100vw;
+    width: 100vw;
+    overflow-x: auto;
   }
 }
-
