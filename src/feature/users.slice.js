@@ -49,7 +49,7 @@ export const loginUser = createAsyncThunk(
     try {
       console.log("userData login", userData)
       const response = await axios.post(
-        `${apiUrl}/user/login`,
+        "http://supafei-server.eddi.cloud:8080/user/login",
         userData
       );
 
@@ -101,22 +101,6 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
-export const logoutUser = createAsyncThunk(
-  "user/logoutUser",
-  async (userLogoutData, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        `http://supafei-server.eddi.cloud:8080/user/logout`,
-        userLogoutData
-      );
-      // console.log('réponse envoyée en login', userData); 
-      // console.log(response.data);
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
-  }
-);
 // création du slice
 const userSlice = createSlice({
   name: "user",
@@ -137,6 +121,10 @@ const userSlice = createSlice({
   reducers: {
     setFormData: (state, action) => {
       state.formData = action.payload;
+    },
+    userLogout: (state, action) => {
+      state.isLogged = false;
+      state.userConnected = {};
     },
   },
   extraReducers: (builder) => {
@@ -189,18 +177,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(logoutUser.pending, (state) => { // Test logout ERR401
-        state.loading = true;
-      })
-      .addCase(logoutUser.fulfilled, (state, action) => { // Test logout ERR401
-        state.loading = false;
-        state.isLogged = false;
-        state.userConnected = {};
-      })
-      .addCase(logoutUser.rejected, (state, action) => { // Test logout ERR401
-        state.loading = false;
-        state.error = action.payload;
-      })
       .addCase(userCheckToken.pending, (state) => { // Test rechargement
         state.loading = true;
       })
@@ -217,7 +193,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setFormData, refreshUserConnected } = userSlice.actions;
+export const { setFormData, refreshUserConnected, userLogout } = userSlice.actions;
 export default userSlice.reducer;
 
 
