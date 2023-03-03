@@ -26,7 +26,8 @@ export const createUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     console.log("userData creatAccount", userData)
     try {
-      const response = await axios.post(`${apiUrl}/user`, userData);
+      // http://supafei-server.eddi.cloud:8080
+      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/user`, userData);
       // console.log('réponse envoyée en createUser', userData); 
       // console.log("response.data",response.data);
       // console.log('.env', env.API_BASE_URL);
@@ -49,7 +50,8 @@ export const loginUser = createAsyncThunk(
     try {
       console.log("userData login", userData)
       const response = await axios.post(
-        `${apiUrl}/user/login`,
+        // http://supafei-server.eddi.cloud:8080
+        `http://supafei-server.eddi.cloud:8080/user/login`,
         userData
       );
 
@@ -90,7 +92,7 @@ export const deleteUser = createAsyncThunk(
   async (userDeleteData, thunkAPI) => {
     try {
       const response = await axios.delete(
-        `http://supafei-server.eddi.cloud:8080/user/${userDeleteData.id}`,
+        `${apiUrl}/user/${userDeleteData.id}`,
         userDeleteData
       );
       // console.log('réponse envoyée en login', userData); 
@@ -106,7 +108,7 @@ export const logoutUser = createAsyncThunk(
   async (userLogoutData, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://supafei-server.eddi.cloud:8080/user/logout`,
+        `${apiUrl}/user/logout`,
         userLogoutData
       );
       // console.log('réponse envoyée en login', userData); 
