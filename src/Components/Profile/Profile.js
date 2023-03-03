@@ -9,6 +9,9 @@ import ColorsModal from './ColorsModal/ColorsModal';
 
 export default function Profile() {
 
+  // Je récupère les données de l'utilisateur et les mets en value
+  const userConnected = useSelector((state) => state.user.userConnected);
+
   const dispatch = useDispatch();
   // State de gestion d'ouverture de la modal de validation
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,9 +22,6 @@ export default function Profile() {
   // State de gestion du choix de couleur
   const [chosenColor, setChosenColor] = useState("#EE5622");
 
-  // Je récupère les données de l'utilisateur et les mets en value
-  const userConnected = useSelector((state) => state.user.userConnected);
-
   const inputFirstName = useRef();
   const inputLastName = useRef();
   const inputEmail = useRef();
@@ -31,14 +31,15 @@ export default function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const editFormData = {
-      id: userConnected.addOneUser.id,
-      firstname: inputFirstName.current.value,
-      lastname: inputLastName.current.value,
-      email: inputEmail.current.value,
-      color: chosenColor,
-      birth: inputBirthdate.current.value
+      data: {
+        firstname: inputFirstName.current.value,
+        lastname: inputLastName.current.value,
+        email: inputEmail.current.value,
+        color: chosenColor,
+        birthdate: inputBirthdate.current.value,
+      },
+      id: userConnected.user.id
     }
-    console.log(editFormData)
     dispatch(editUser(editFormData))
   }
 

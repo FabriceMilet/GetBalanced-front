@@ -23,7 +23,6 @@ function App() {
     if (!token) {
       return
     }
-    console.log("refresh", token)
     dispatch(userCheckToken(token))
 
   }, []);
