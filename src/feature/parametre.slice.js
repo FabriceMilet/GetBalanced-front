@@ -1,6 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
+const userId = localStorage.getItem('id')
+const token = localStorage.getItem('token')
+
+export const getPlanners = createAsyncThunk(
+  "parametre/getPlanners",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://supafei-server.eddi.cloud:8080/planner/user/${userId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+        }
+      });
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const addPlanner = createAsyncThunk(
   "parametre/addPlanner",
@@ -8,7 +26,11 @@ export const addPlanner = createAsyncThunk(
     try {
       // il va falloir récup l'id mais formData ne le contient pas, à voir ..
       // http://supafei-server.eddi.cloud:8080
-      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/33`, formData);
+      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/${userId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+        }
+      });
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -21,8 +43,12 @@ export const deletePlanner = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
         const response = await axios.delete(
-          `${apiUrl}/planner/:id`,
-          id
+          `${apiUrl}/planner/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+            }
+          }
         );
       return response.data;
     } catch (err) {
@@ -37,7 +63,7 @@ const parametreSlice = createSlice({
     loading: false,
     error: null,
     isOpen: false,
-    formData: { title: "", description: "", invitation: "" },
+    formData: { name: "", description: "", invitation: "" },
     planners: [],
   },
   reducers: {
@@ -50,6 +76,18 @@ const parametreSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getPlanners.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(getPlanners.fulfilled, (state, action) => {
+      state.loading = false;
+      // console.log('réponse de getPlanners', action.payload);
+      state.planners = action.payload;
+    })
+    .addCase(getPlanners.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
       .addCase(addPlanner.pending, (state) => {
         state.loading = true;
       })
@@ -67,9 +105,9 @@ const parametreSlice = createSlice({
       })
       .addCase(deletePlanner.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("planner à supprimer :", action.payload);
         // on récupère l'id du planner à supprimer
         const id = action.payload.id;
+        console.log("id", action.payload);
         // on récupère l'indice du planner dans le tableau
         const index = state.planners.findIndex((planner) => planner.id == id);
         // on supprime le planner

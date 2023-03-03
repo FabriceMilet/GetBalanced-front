@@ -27,7 +27,7 @@ export default function TaskModale() {
     // console.log(formData.date);
     event.preventDefault();
     dispatch(addTask(formData)).then(() => {
-      dispatch(setFormData({ title: "", description: "", date: "" }));
+      dispatch(setFormData({ name: "", description: "", date: "" }));
     });
     dispatch(openModal());
   };
@@ -40,9 +40,9 @@ export default function TaskModale() {
           Titre
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Faire la vaisselle"
-            value={formData.title}
+            value={formData.name}
             onChange={handleChange}
             required
           />

@@ -13,6 +13,8 @@ export const userCheckToken = createAsyncThunk(
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         });
+        // je le fais ici car mon login ne fonctionne pas, à remettre seulement au login normalement
+        localStorage.setItem('id', response.data.user.id);
       console.log("response refresh", response.data)
       return response.data
     } catch (err) {
@@ -57,7 +59,7 @@ export const loginUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      
+      localStorage.setItem('id', response.data.user.id);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
