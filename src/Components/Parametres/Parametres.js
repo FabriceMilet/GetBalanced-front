@@ -18,7 +18,7 @@ const handleSubmit = (event) => {
   // console.log(formData);
   // console.log(planners);
   dispatch(addPlanner(formData)).then(() => {
-    dispatch(setFormData({ title: "", description: "", invitation: "" }))});
+    dispatch(setFormData({ name: "", description: "", invitation: "" }))});
   dispatch(openModal());
 };
 
@@ -40,9 +40,9 @@ const handleSubmit = (event) => {
           Titre
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Famille Belier"
-            value={formData.title}
+            value={formData.name}
             onChange={handleChange}
             required
           />
