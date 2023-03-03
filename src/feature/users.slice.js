@@ -34,7 +34,8 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      console.log("response", response.data)
+      localStorage.setItem('id', response.data.user.id);
+
       return response.data
     } catch (err) {
       console.log("erreur", err)
@@ -55,7 +56,7 @@ export const loginUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('id', response.data.user.id)
+      localStorage.setItem('id', response.data.user.id);
 
       return response.data;
     } catch (err) {
