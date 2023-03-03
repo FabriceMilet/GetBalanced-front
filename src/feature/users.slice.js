@@ -209,6 +209,7 @@ const userSlice = createSlice({
         state.userConnected = action.payload;
       })
       .addCase(userCheckToken.rejected, (state, action) => { // Test rechargement
+        state.isLogged = false;
         state.loading = false;
         state.error = action.payload;
       });
