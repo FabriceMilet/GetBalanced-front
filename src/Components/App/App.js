@@ -8,8 +8,28 @@ import Dashboard from '../Dashboard/Dashboard';
 import Table from '../Table/Table';
 import Err404 from '../Err404/Err404';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { userCheckToken } from "../../feature/users.slice";
+
+
 
 function App() {
+
+  const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return
+    }
+    console.log("refresh", token)
+    dispatch(userCheckToken(token))
+
+  }, []);
+
   return (
     <div className="App">
       <Header />

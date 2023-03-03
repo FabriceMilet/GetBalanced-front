@@ -7,11 +7,8 @@ import { logoutUser } from "../../feature/users.slice";
 
 function Header() {
   const dispatch = useDispatch();
-  const userConnected = useSelector((state) => state.user.userConnected);
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
-
-  console.log("user", userConnected);
   const handleLogout = () => {
     dispatch(logoutUser());
   };
