@@ -57,7 +57,6 @@ export const loginUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

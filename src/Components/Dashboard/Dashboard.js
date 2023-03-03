@@ -9,12 +9,12 @@ import { setFormData } from "../../feature/parametre.slice";
 function Dashboard() {
   // const { id } = useSelector((state) => state.user.userConnected);
   // const userConnected = useSelector((state) => state.user.userConnected);
-  //console.log('from dashboard :', userConnected);
+  // console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
-
+  console.log("planners", planners)
   const handleClick = () => {
     dispatch(openModal());
   };
@@ -54,6 +54,7 @@ function Dashboard() {
       {isOpen && <Parametres />}
       <div className="Dashboard-planners">
         {planners.map((planner) => (
+          
           // ici il faudra changer le /1 en une route paramétré avec l'id
           <div
             className={
@@ -61,12 +62,12 @@ function Dashboard() {
                 ? "Dashboard-planner Dashboard-planner--hidden"
                 : "Dashboard-planner"
             }
-            key={planner.title}
+            key={planner.id}
           >
             {/* il va falloir ici récupérer l'id de la table  */}
             {/* <Link to={`/table/${id}`}> */}
             <Link to="/table/1">
-              <h1>{planner.title}</h1> <p>{planner.description}</p>
+              <h1>{planner.name}</h1> <p>{planner.description}</p>
               {/* <button className="Dashboard-button" onClick={handleClick}>
               Modifier
             </button> */}
@@ -109,8 +110,8 @@ function Dashboard() {
                   Valider
                 </button>
               </form>
-              {/* ici, avec les vrais routes back, changer .title par.id, de même pour la key */}
-              <button onClick={handleDelete} data-delete={planner.title}> Supprimer ce planning </button>
+              {/* ici, avec les vrais routes back, changer .name par.id, de même pour la key */}
+              <button onClick={handleDelete} data-delete={planner.name}> Supprimer ce planning </button>
               </>
             }
           </div>
