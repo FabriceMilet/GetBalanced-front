@@ -1,14 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const apiUrl = process.env.REACT_APP_API_URL;
+// reste à s'occupper du .env
+// const apiUrl = process.env.REACT_APP_API_URL;
+const token = localStorage.getItem('token');
+const userId = localStorage.getItem('id');
 
 export const addPlanner = createAsyncThunk(
   "parametre/addPlanner",
   async (formData, thunkAPI) => {
     try {
-      // il va falloir récup l'id mais formData ne le contient pas, à voir ..
-      // http://supafei-server.eddi.cloud:8080
-      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/33`, formData);
+      // console.log("token",token);
+      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/${userId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+        }
+      });
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -21,7 +27,7 @@ export const deletePlanner = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
         const response = await axios.delete(
-          `${apiUrl}/planner/:id`,
+          `http://supafei-server.eddi.cloud:8080/planner/${userId}`,
           id
         );
       return response.data;
@@ -37,7 +43,7 @@ const parametreSlice = createSlice({
     loading: false,
     error: null,
     isOpen: false,
-    formData: { title: "", description: "", invitation: "" },
+    formData: { name: "", description: "", invitation: "" },
     planners: [],
   },
   reducers: {
@@ -55,7 +61,7 @@ const parametreSlice = createSlice({
       })
       .addCase(addPlanner.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log(action.payload);
+        // console.log("ce qui va etre push dans extrareducer",action.payload);
         state.planners.push(action.payload);
       })
       .addCase(addPlanner.rejected, (state, action) => {
