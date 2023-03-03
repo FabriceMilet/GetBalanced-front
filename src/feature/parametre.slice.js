@@ -7,7 +7,8 @@ export const addPlanner = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       // il va falloir récup l'id mais formData ne le contient pas, à voir ..
-      const response = await axios.post(`${apiUrl}/planner/user/58`, formData);
+      // http://supafei-server.eddi.cloud:8080
+      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/33`, formData);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

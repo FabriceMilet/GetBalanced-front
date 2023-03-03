@@ -1,7 +1,7 @@
 import "./Dashboard.scss";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../feature/parametre.slice";
+import { openModal, deletePlanner } from "../../feature/parametre.slice";
 import Parametres from "../Parametres/Parametres";
 import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
@@ -31,6 +31,12 @@ function Dashboard() {
   );
   const clickToOpen = () => {
     setIsLarge(true)
+  }
+  const handleDelete = (event) => {
+    const plannerId = event.target.dataset.delete;
+    // récupérer le planner qui a pour id event.target.dataset.delete
+    const planner = planners.find((planner) => planner.id == plannerId);
+    dispatch(deletePlanner(planner))
   }
 
   return (
@@ -70,7 +76,6 @@ function Dashboard() {
               width="24"
               height="24"
               fill="none"
-
             >
               <path
                 className="Dashboard-arrow"
@@ -84,6 +89,7 @@ function Dashboard() {
               />
             </svg>
             {isLarge &&
+            <>
               <form className="Parametres-form" onSubmit={handleSubmit}>
                 <label
                   htmlFor="Envoyer un mail d'invitation"
@@ -103,6 +109,9 @@ function Dashboard() {
                   Valider
                 </button>
               </form>
+              {/* ici, avec les vrais routes back, changer .title par.id, de même pour la key */}
+              <button onClick={handleDelete} data-delete={planner.title}> Supprimer ce planning </button>
+              </>
             }
           </div>
         ))}
