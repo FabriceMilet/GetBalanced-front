@@ -20,13 +20,8 @@ export const getPlanners = createAsyncThunk(
     }
   }
 );
-
 // reste à s'occupper du .env
 // const apiUrl = process.env.REACT_APP_API_URL;
-const token = localStorage.getItem('token');
-const userId = localStorage.getItem('id');
-
-
 export const addPlanner = createAsyncThunk(
   "parametre/addPlanner",
   async (formData, thunkAPI) => {
