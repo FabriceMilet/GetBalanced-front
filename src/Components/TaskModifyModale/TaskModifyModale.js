@@ -36,6 +36,7 @@ export default function TaskModifyModale() {
   };
 
   return (
+    <div className="TaskModale-background">
     <div className="TaskModale">
       <h1 className="TaskModale-title">Modifier une tâche</h1>
       <form className="TaskModale-form" onSubmit={handleSubmit}>
@@ -94,6 +95,7 @@ export default function TaskModifyModale() {
           Valider
         </button>
       </form>
+    </div>
     </div>
   );
 }
