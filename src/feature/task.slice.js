@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
+
 
 export const getTasks = createAsyncThunk(
   "task/getTasks",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`${apiUrl}/task/planner/:id`);
+      const { id } = useParams()
+      const response = await axios.get(`${apiUrl}/task/planner/${id}`);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -17,7 +20,8 @@ export const addTask = createAsyncThunk(
   "task/addTask",
   async (formData, thunkAPI) => {
     try {
-      const response = await axios.post(`${apiUrl}/task/planner/:id`, formData);
+      const { id } = useParams()
+      const response = await axios.post(`${apiUrl}/task/planner/${id}`, formData);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -29,7 +33,7 @@ export const modifyTask = createAsyncThunk(
   async (task, thunkAPI) => {
     try {
         const response = await axios.put(
-          `${apiUrl}/task/:idTask/planner/:idPlanner`,
+          `${apiUrl}/task/${task.id}`,
           task
         );
       return response.data;
@@ -44,7 +48,7 @@ export const deleteTask = createAsyncThunk(
     try {
       console.log("id de la tache à supprimer :", id);
         const response = await axios.delete(
-          `${apiUrl}/task/:id`,
+          `${apiUrl}/task/${id}`,
           id
         );
       return response.data;
@@ -61,7 +65,7 @@ const taskSlice = createSlice({
     error: null,
     isOpen: false,
     isModifyOpen: false,
-    formData: { title: "", description: "", date: "", color: "", category: "" },
+    formData: { name: "", description: "", date: "", color: "", category: "" },
     tasks: [],
     taskToModify: {},
     dateOfNewTask: "",

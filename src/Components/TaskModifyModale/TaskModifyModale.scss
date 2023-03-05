@@ -1,11 +1,24 @@
 @use "../../style/vars";
 
 .TaskModale{
+    background-color: vars.$lightBlue;
+    border-radius: 30px;
     height: auto;
     width: 350px;
     margin: auto;
     text-align: center;
     padding-bottom: 1rem;
+}
+.TaskModale-background{
+    position: fixed;
+    top: 0px;
+    backdrop-filter: blur(5px);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .TaskModale-title{
     font-size: 2rem;

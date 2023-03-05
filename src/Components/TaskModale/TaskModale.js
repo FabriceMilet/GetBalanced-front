@@ -27,12 +27,13 @@ export default function TaskModale() {
     // console.log(formData.date);
     event.preventDefault();
     dispatch(addTask(formData)).then(() => {
-      dispatch(setFormData({ title: "", description: "", date: "" }));
+      dispatch(setFormData({ name: "", description: "", date: "" }));
     });
     dispatch(openModal());
   };
 
   return (
+    <div className="TaskModale-background">
     <div className="TaskModale">
       <h1 className="TaskModale-title">Ajouter une tâche</h1>
       <form className="TaskModale-form" onSubmit={handleSubmit}>
@@ -40,9 +41,9 @@ export default function TaskModale() {
           Titre
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Faire la vaisselle"
-            value={formData.title}
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -95,6 +96,7 @@ export default function TaskModale() {
           Valider
         </button>
       </form>
+    </div>
     </div>
   );
 }
