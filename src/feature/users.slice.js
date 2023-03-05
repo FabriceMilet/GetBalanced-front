@@ -5,7 +5,6 @@ const apiUrl = process.env.REACT_APP_API_URL
 export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
   async (token, thunkAPI) => {
-    console.log("checkToken", token)
     try {
       const response = await axios.get("http://supafei-server.eddi.cloud:8080/token",
         {
@@ -37,7 +36,8 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      console.log("response", response.data)
+      localStorage.setItem('id', response.data.user.id);
+
       return response.data
     } catch (err) {
       console.log("erreur", err)
@@ -70,11 +70,13 @@ export const loginUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "user/editUser",
   async (userEditData, thunkAPI) => {
+    console.log("data", userEditData.data)
+    console.log("id", userEditData.id)
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
         `http://supafei-server.eddi.cloud:8080/user/${userEditData.id}`,
-        userEditData,
+        userEditData.data,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -85,6 +87,7 @@ export const editUser = createAsyncThunk(
       // console.log(response.data);
       return response.data;
     } catch (err) {
+      console.log(err)
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }

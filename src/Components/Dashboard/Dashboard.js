@@ -13,15 +13,17 @@ import { setFormData } from "../../feature/parametre.slice";
 function Dashboard() {
   // const { id } = useSelector((state) => state.user.userConnected);
   // const userConnected = useSelector((state) => state.user.userConnected);
-  //console.log('from dashboard :', userConnected);
+  // console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPlanners());
   }, []);
   console.log(planners);
+
   const handleClick = () => {
     dispatch(openModal());
   };
@@ -74,6 +76,9 @@ function Dashboard() {
       {isOpen && <Parametres />}
       <div className="Dashboard-planners">
         {planners.map((planner) => (
+
+          // ici il faudra changer le /1 en une route paramétré avec l'id
+
           <div
             className={
               isOpen
@@ -139,6 +144,32 @@ function Dashboard() {
                 onClick={clickToOpen}
               />
             </svg>
+
+            {isLarge &&
+            <>
+              <form className="Parametres-form" onSubmit={handleSubmit}>
+                <label
+                  htmlFor="Envoyer un mail d'invitation"
+                  className="Parametres-input"
+                >
+                  Envoyez un mail au membre que vous souhaitez inviter à votre
+                  planning
+                  <input
+                    type="email"
+                    name="invitation"
+                    placeholder="p.martin@gmail.com"
+                    value={formData.invitation}
+                    onChange={handleChange}
+                  />
+                </label>
+                <button type="submit" className="Parametres-button">
+                  Valider
+                </button>
+              </form>
+              {/* ici, avec les vrais routes back, changer .name par.id, de même pour la key */}
+              <button onClick={handleDelete} data-delete={planner.name}> Supprimer ce planning </button>
+              </>
+            }
           </div>
         ))}
       </div>

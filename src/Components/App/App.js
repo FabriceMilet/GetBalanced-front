@@ -18,14 +18,11 @@ function App() {
 
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       return
     }
-    console.log("refresh", token)
     dispatch(userCheckToken(token))
 
   }, []);
