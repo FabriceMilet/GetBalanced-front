@@ -25,17 +25,18 @@ export default function TaskModifyModale() {
     // si elles n'existent pas, elles seront false donc les valeurs de task restent
     const updatedTask = { 
       ...task,
-      title: formData.title || task.title,
+      name: formData.name || task.name,
       description: formData.description || task.description,
       date: formData.date || task.date,
       category: formData.category || task.category
     };  
     dispatch(modifyTask(updatedTask)).then(() => {
-      dispatch(setFormData({ title: "", description: "", date: "" }))});
+      dispatch(setFormData({ name: "", description: "", date: "" }))});
     dispatch(openModifyModal());
   };
 
   return (
+    <div className="TaskModale-background">
     <div className="TaskModale">
       <h1 className="TaskModale-title">Modifier une tâche</h1>
       <form className="TaskModale-form" onSubmit={handleSubmit}>
@@ -43,9 +44,9 @@ export default function TaskModifyModale() {
           Titre
           <input
             type="text"
-            name="title"
+            name="name"
             placeholder="Faire la vaisselle"
-            value={formData.title}
+            value={formData.name}
             onChange={handleChange}
           />
         </label>
@@ -94,6 +95,7 @@ export default function TaskModifyModale() {
           Valider
         </button>
       </form>
+    </div>
     </div>
   );
 }

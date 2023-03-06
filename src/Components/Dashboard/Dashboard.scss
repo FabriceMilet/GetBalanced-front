@@ -5,10 +5,9 @@
 
 .Dashboard-planners {
     display: flex;
-    margin: auto;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    justify-content: flex-start;  
 }
+
 
 .Dashboard-button{
     display: block;
@@ -18,6 +17,10 @@
     color: vars.$floralWhite;
     font-weight: bold;
     padding: 1rem 2.5rem;
+    cursor: pointer;
+    &:hover{
+        background-color: darken(vars.$orange, 7%)
+    }
 }
 
 .Dashboard-button:hover{
@@ -36,10 +39,8 @@
     padding: 1.5rem;
     border-radius: 10px;
     width: 300px;
-    height: auto;
     margin: 2rem 1.5rem 1.5rem 0;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-
 }
 .Dashboard-planner--hidden{
     visibility: hidden;
@@ -61,3 +62,10 @@
     margin: auto;
     cursor: pointer;
 }
+.Dashboard-arrow-top{
+    margin: auto;
+    cursor: pointer;
+    transform: rotate(-180deg);
+}
+
+ 

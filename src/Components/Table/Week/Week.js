@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 function Week() {
   // on commence par récupérer les taches du planning
   useEffect(() => {
-    dispatch(getTasks());
+    dispatch(getTasks())
     // console.log('tasks récupées :', tasks);
   }, []);
   const dispatch = useDispatch();
@@ -179,7 +179,7 @@ function Week() {
                   }}
                 >
                   <div className="Week-task__closed">
-                    <h1>{task.title}</h1>
+                    <h1>{task.name}</h1>
                     <input
                       type="checkbox"
                       data-checkbox={task.id}
