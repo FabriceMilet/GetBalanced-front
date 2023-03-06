@@ -110,8 +110,8 @@ function Day() {
       );
     } else {
       task.done = true;
-       // on fait la modif dans le store
-    dispatch(modifyTask(task));
+      // on fait la modif dans le store
+      dispatch(modifyTask(task));
     }
   };
 
@@ -246,12 +246,12 @@ function Day() {
     <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}
-      {!isOpen && !isModifyOpen &&  
-      <div className="Day-days">
-      {days}
-      </div>
+      {!isOpen && !isModifyOpen &&
+        <div className="Day-days">
+          {days}
+        </div>
       }
-    </div>   
+    </div>
   );
 }
 

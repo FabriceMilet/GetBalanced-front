@@ -112,10 +112,10 @@ function Week() {
       );
     } else {
       task.done = true;
-    // on fait la modif dans le store
-    dispatch(modifyTask(task));
+      // on fait la modif dans le store
+      dispatch(modifyTask(task));
     }
-    
+
   };
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
@@ -140,9 +140,8 @@ function Week() {
     const dateOftheday = format(day, "yyyy-MM-dd");
     // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
     const isLast = i === daysInWeek - 1;
-    const dayContainerClasses = `Week-dayContainer ${
-      isLast ? "Week-dayContainer-last" : ""
-    }`;
+    const dayContainerClasses = `Week-dayContainer ${isLast ? "Week-dayContainer-last" : ""
+      }`;
     days.push(
       <div className="Week-day" key={i}>
         <div className="Week-dayName">
