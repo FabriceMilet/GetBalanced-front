@@ -7,7 +7,7 @@ import "./SuccesModal.scss"
 export default function SuccesModal() {
 
     const succes = useSelector((state) => state.user.succes);
-    const error = useSelector((state) => state.user.error);
+    const error = useSelector((state) => state.user.erreur);
 
     const [modalOpen, setModalOpen] = useState(false)
 

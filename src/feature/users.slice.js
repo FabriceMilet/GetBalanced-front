@@ -116,6 +116,7 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
+    erreur: null,
     succes: null,
     isLogged: false,
     formData: {
@@ -136,7 +137,7 @@ const userSlice = createSlice({
       state.isLogged = false;
       state.userConnected = {};
       state.succes = "Vous êtes déconnecté !";
-      state.error = null;
+      state.erreur = null;
     },
   },
   extraReducers: (builder) => {
@@ -158,7 +159,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.succes = "vous êtes connecté !";
-        state.error = null;
+        state.erreur = null;
         state.loading = false;
         state.isLogged = true;
         // console.log('action.payload', action.payload);
@@ -166,7 +167,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.succes = null;
-        state.error = "Erreur lors de la connexion";
+        state.erreur = "Erreur lors de la connexion";
         state.loading = false;
         state.error = action.payload;
       })

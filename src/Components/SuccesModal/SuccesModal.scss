@@ -11,6 +11,7 @@
     align-items: center;
     animation: fade-in 2s;
     white-space: nowrap;
+    overflow-x: hidden;
 }
 
   
@@ -27,6 +28,7 @@
       align-items: center;
       animation: fade-in 2s;
       white-space: nowrap;
+      overflow-x: hidden;
     }
 
     /* Définir l'animation de fondu en entrée */
