@@ -10,20 +10,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   openModal,
   openModifyModal,
-  getTasks,
   deleteTask,
   modifyTask,
 } from "../../../feature/task.slice";
 import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Day() {
-  // on commence par récupérer les taches du planning
-  useEffect(() => {
-    dispatch(getTasks());
-    // console.log('tasks récupées :', tasks);
-  }, []);
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected).user;
@@ -34,10 +28,10 @@ function Day() {
   // on récupère la date du jour
   const selectedDate = useSelector((state) => state.date.date);
   // on récupère les tâches liées au planning
-  const tasks = useSelector((state) =>
-    state.task.tasks.map((task) => ({ ...task }))
-  );
-  console.log(tasks);
+  // const tasks = useSelector((state) =>
+  //   state.task.tasks.map((task) => ({ ...task }))
+  // );
+  // console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
     // on récupère la date du jour où on veut ajouter une tâche
@@ -45,12 +39,12 @@ function Day() {
     dispatch(openModal(date));
   };
   //on va gérer ici l'apparition de la modale de modification des taches
-  const handleModify = (event) => {
-    const taskId = event.target.dataset.modify;
-    // récupérer la tache qui a pour id event.target.dataset.modify
-    const task = tasks.find((task) => task.id == taskId);
-    dispatch(openModifyModal(task));
-  };
+  // const handleModify = (event) => {
+  //   const taskId = event.target.dataset.modify;
+  //   // récupérer la tache qui a pour id event.target.dataset.modify
+  //   const task = tasks.find((task) => task.id == taskId);
+  //   dispatch(openModifyModal(task));
+  // };
 
   //on gère ici l'ouverture de la tache pour voir apparaitre description et bouton modifier
   // j'essaie de gérer indifféremment le clique sur une tâche par rapport à une autre
@@ -73,47 +67,47 @@ function Day() {
   // on cherche à gérer ici l'attribution d'une tâche, c'est à dire indiquer dans le
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
-  const handleClickOnCheckbox = (event) => {
-    const taskId = event.target.dataset.checkbox;
-    // récupérer la tache qui a pour id event.target.dataset.checkbox
-    const task = tasks.find((task) => task.id == taskId);
-    // on récup la couleur de l'user et on associe la tache à cet user
-    // de même pour l'id, on gère les différents cas,
-    // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
-    if (!task.userId) {
-      task.userId = userConnected.id;
-      task.borderColor = userConnected.color;
-    } else if (task.userId && task.userId !== userConnected.id) {
-      task.userId = userConnected.id;
-      task.borderColor = userConnected.color;
-    } else {
-      task.userId = null;
-      task.borderColor = null;
-    }
-    // on fait la modif dans le store
-    dispatch(modifyTask(task));
-  };
+  // const handleClickOnCheckbox = (event) => {
+  //   const taskId = event.target.dataset.checkbox;
+  //   // récupérer la tache qui a pour id event.target.dataset.checkbox
+  //   const task = tasks.find((task) => task.id == taskId);
+  //   // on récup la couleur de l'user et on associe la tache à cet user
+  //   // de même pour l'id, on gère les différents cas,
+  //   // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
+  //   if (!task.userId) {
+  //     task.userId = userConnected.id;
+  //     task.borderColor = userConnected.color;
+  //   } else if (task.userId && task.userId !== userConnected.id) {
+  //     task.userId = userConnected.id;
+  //     task.borderColor = userConnected.color;
+  //   } else {
+  //     task.userId = null;
+  //     task.borderColor = null;
+  //   }
+  //   // on fait la modif dans le store
+  //   dispatch(modifyTask(task));
+  // };
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
     const taskId = event.target.dataset.delete;
     dispatch(deleteTask(taskId));
   };
   // on veut gérer le fait de concidérer une tâche comme faite
-  const handleDone = (event) => {
-    const taskId = event.target.dataset.done;
-    // récupérer la tache qui a pour id event.target.dataset.done
-    const task = tasks.find((task) => task.id == taskId);
-    console.log(task);
-    if (task.userId === null) {
-      alert(
-        "Vous devez vous assigner la tâche avant de la considérer comme terminée"
-      );
-    } else {
-      task.done = true;
-       // on fait la modif dans le store
-    dispatch(modifyTask(task));
-    }
-  };
+  // const handleDone = (event) => {
+  //   const taskId = event.target.dataset.done;
+  //   // récupérer la tache qui a pour id event.target.dataset.done
+  //   const task = tasks.find((task) => task.id == taskId);
+  //   console.log(task);
+  //   if (task.userId === null) {
+  //     alert(
+  //       "Vous devez vous assigner la tâche avant de la considérer comme terminée"
+  //     );
+  //   } else {
+  //     task.done = true;
+  //      // on fait la modif dans le store
+  //   dispatch(modifyTask(task));
+  //   }
+  // };
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
@@ -151,7 +145,7 @@ function Day() {
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
         <div datatype={i} className="Day-dayContainer">
-          {tasks.map((task) => {
+          {/* {tasks.map((task) => {
             const taskDate = new Date(task.date);
             // console.log(taskDate.getDay())
             const taskIsWithinWeek = isWithinInterval(taskDate, {
@@ -236,7 +230,7 @@ function Day() {
             } else {
               return "";
             }
-          })}
+          })} */}
         </div>
       </div>
     );

@@ -19,17 +19,13 @@ export default function TaskModifyModale() {
   // on va chercher ici à faire apparaitre la tache dans le planning et l'enregitrer en BDD
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log('formData de ce que lon veut modifier',formData);
-    // console.log('task à modifier dans handlesubmit',task);
-    // on déverse task dans updatedTask et on y ajoute les valeurs de formData seulement si elles existent
-    // si elles n'existent pas, elles seront false donc les valeurs de task restent
-    const updatedTask = { 
-      ...task,
-      name: formData.name || task.name,
-      description: formData.description || task.description,
-      date: formData.date || task.date,
-      category: formData.category || task.category
-    };  
+    // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedTask ={}
+    for (const [key, value] of Object.entries(formData)) {
+      if (value !== task[key] && value !== '') {
+        updatedTask[key] = value;
+      }
+    }
     dispatch(modifyTask(updatedTask)).then(() => {
       dispatch(setFormData({ name: "", description: "", date: "" }))});
     dispatch(openModifyModal());
