@@ -25,7 +25,7 @@ function Login() {
     });
     //console.log("formData", formData);
   }
-  console.log("isLogged", isLogged);
+  // console.log("isLogged", isLogged);
   return (
     <form className="Login" onSubmit={handleSubmit}>
       {!isLogged && (

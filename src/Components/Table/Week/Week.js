@@ -38,7 +38,7 @@ function Week() {
   const tasks = useSelector((state) =>
     state.task.tasks.map((task) => ({ ...task }))
   );
-  console.log(tasks);
+  //console.log(tasks);
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
     // on récupère la date du jour où on veut ajouter une tâche

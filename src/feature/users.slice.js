@@ -12,8 +12,8 @@ export const userCheckToken = createAsyncThunk(
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         });
-        // je le fais ici car mon login ne fonctionne pas, à remettre seulement au login normalement
-        localStorage.setItem('id', response.data.user.id);
+      // je le fais ici car mon login ne fonctionne pas, à remettre seulement au login normalement
+      localStorage.setItem('id', response.data.user.id);
       console.log("response refresh", response.data)
       return response.data
     } catch (err) {
@@ -36,7 +36,7 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('id', response.data.user.id);
+      //localStorage.setItem('id', response.data.user.id);
 
       return response.data
     } catch (err) {
@@ -50,9 +50,9 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
     try {
-      console.log("userData login", userData)
+      //console.log("userData login", userData)
+      console.log("YES le code va bien jusqu'ici !")
       const response = await axios.post(
-
         "http://supafei-server.eddi.cloud:8080/user/login",
         userData
       );
@@ -62,6 +62,7 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem('id', response.data.user.id);
       return response.data;
     } catch (err) {
+      console.log("ERREUR ! : ", err)
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -115,6 +116,7 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
+    succes: null,
     isLogged: false,
     formData: {
       firstname: "",
