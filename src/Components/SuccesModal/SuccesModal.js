@@ -1,36 +1,43 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import "./SuccesModal.scss"
 
 
 export default function SuccesModal() {
 
-    const Succes = useSelector((state) => state.user.succes);
-    const Error = useSelector((state) => state.user.error);
-
+    const succes = useSelector((state) => state.user.succes);
+    const error = useSelector((state) => state.user.error);
 
     const [modalOpen, setModalOpen] = useState(false)
 
-    const toggleModal = () => {
+    // Un useEffect qui suit l'évolution des variables erreur et succes dans le state.
+    // Si un des deux est créé, la popUp s'exécute avec une condition pour vérifier si c'est un succès ou une erreur.
+    useEffect(() => {
+        if (succes) {
+            toggleModal();
+        } else if (error) {
+            toggleModal();
+        } else {
+            return
+        }
+    }, [succes, error]);
+
+    // une fonction qui affiche la pop Up 2s
+    const toggleModal = (message) => {
         setModalOpen(true)
         setTimeout(() => {
             setModalOpen(false);
-        }, 2000);
+        }, 1900);
     }
 
     return (
         <>
             {modalOpen === true &&
-                <div className={`errorModal_container ${modalOpen ? 'fade-in' : ''}`}>
-                    <h5>l'erreur !</h5>
+                <div className={`${succes ? 'succesModal_container' : 'errorModal_container'}`}>
+                    <h5>{succes ? succes : error}</h5>
                 </div>
             }
-
-            <div className='succesModal_container'>
-                <h5>le succès !</h5>
-            </div>
-            <button className='boutton' onClick={toggleModal} type='button'>Boutton</button>
         </>
     )
 }

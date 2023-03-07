@@ -1,7 +1,7 @@
 .errorModal_container{
     width: 200px;
     height: 50px;
-    background-color: red;
+    background-color: rgb(255, 82, 82);
     position: fixed;
     top: 100px;
     right: 0;
@@ -9,28 +9,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
- /* Définir la transition */
-.errorModal_container.fade-in {
     animation: fade-in 2s;
-  }
-
-  /* Définir l'animation de fondu en entrée */
- @keyframes fade-in {
-    0% { opacity: 0;
-    width: 0%; }
-    15% {opacity: 100%;
-    width: 200px;}
-    85% {opacity: 100%;
-    width: 200px;}
-    100% { opacity: 0;
-    width: 0%; }
-  }
-
-.boutton{
-    position: fixed;
-    top: 200px;
-    right: 200px;
+    white-space: nowrap;
 }
- 
+
+  
+  .succesModal_container{
+      width: 200px;
+      height: 50px;
+      background-color: rgb(82, 255, 140);
+      position: fixed;
+      top: 100px;
+      right: 0;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fade-in 2s;
+      white-space: nowrap;
+    }
+
+    /* Définir l'animation de fondu en entrée */
+   @keyframes fade-in {
+      0% { opacity: 0;
+      width: 0%; }
+      15% {opacity: 100%;
+      width: 200px;}
+      85% {opacity: 100%;
+      width: 200px;}
+      100% { opacity: 0;
+      width: 0%; }
+    }

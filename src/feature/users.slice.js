@@ -135,6 +135,8 @@ const userSlice = createSlice({
     userLogout: (state, action) => {
       state.isLogged = false;
       state.userConnected = {};
+      state.succes = "Vous êtes déconnecté !";
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -155,12 +157,16 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.succes = "vous êtes connecté !";
+        state.error = null;
         state.loading = false;
         state.isLogged = true;
         // console.log('action.payload', action.payload);
         state.userConnected = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.succes = null;
+        state.error = "Erreur lors de la connexion";
         state.loading = false;
         state.error = action.payload;
       })

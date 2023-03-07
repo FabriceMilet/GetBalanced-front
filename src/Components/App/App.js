@@ -31,6 +31,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <SuccesModal />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
