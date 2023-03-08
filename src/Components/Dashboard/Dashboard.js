@@ -11,14 +11,13 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
+  // useEffect(() => {
+  //   dispatch(getPlanners());
+  // }, []);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPlanners());
-  }, []);
 
   const handleClick = () => {
     dispatch(openModal());
