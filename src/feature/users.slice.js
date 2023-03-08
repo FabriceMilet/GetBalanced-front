@@ -75,16 +75,16 @@ export const loginUser = createAsyncThunk(
 // thunk qui envoie les modifs de l'utilisateur a la bdd 
 export const editUser = createAsyncThunk(
   "user/editUser",
-  async (userEditData, thunkAPI) => {
-    console.log("data", userEditData.data)
-    console.log("id", userEditData.id)
+  async ({updatedFormData, id}, thunkAPI) => {
+    console.log("data", updatedFormData)
+    console.log("id", id)
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
 
-        `${apiUrl}/user/${userEditData.id}`,
+        `${apiUrl}/user/${id}`,
 
-        userEditData.data,
+        updatedFormData,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
