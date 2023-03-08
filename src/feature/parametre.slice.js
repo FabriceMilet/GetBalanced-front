@@ -10,7 +10,6 @@ export const getPlanners = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       console.log(userId);
-
       const response = await axios.get(`${apiUrl}/planner/user/${userId}`,{
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête

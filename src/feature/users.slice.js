@@ -40,7 +40,7 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      //localStorage.setItem('id', response.data.user.id);
+      localStorage.setItem('id', response.data.user.id);
 
       return response.data
     } catch (err) {
@@ -81,9 +81,7 @@ export const editUser = createAsyncThunk(
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
-
         `${apiUrl}/user/${id}`,
-
         updatedFormData,
         {
           headers: {
@@ -124,7 +122,6 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
-
 // création du slice
 const userSlice = createSlice({
   name: "user",
