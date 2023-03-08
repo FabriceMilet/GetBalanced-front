@@ -11,9 +11,6 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
-  // const { id } = useSelector((state) => state.user.userConnected);
-  // const userConnected = useSelector((state) => state.user.userConnected);
-  // console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
@@ -22,7 +19,6 @@ function Dashboard() {
   useEffect(() => {
     dispatch(getPlanners());
   }, []);
-  console.log(planners);
 
   const handleClick = () => {
     dispatch(openModal());
@@ -31,14 +27,17 @@ function Dashboard() {
     const { name, value } = event.target;
     dispatch(setFormData({ ...formData, [name]: value }));
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setIsLarge(false);
-  };
+ 
   //on gère ici l'ouverture du planning pour voir apparaitre le formulaire d'invit et bouton supprimer
   // j'essaie de gérer indifféremment le clique sur un planning par rapport à un autre
   const [openPlannerId, setOpenPlannerId] = useState(null);
   const [isLarge, setIsLarge] = useState(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // ici, il va falloir gérer l'envoie de l'invitation et mettre la ligne suivante dans un .then
+    dispatch(setFormData({ name: "", description: "", date: "" }))
+    setIsLarge(false);
+  };
   // on cherche également à savoir si la tache est déjà ouverte pour pouvoir la refermer
   const clickToOpen = (event) => {
     const plannerId = event.target.dataset.id;
@@ -77,8 +76,6 @@ function Dashboard() {
       <div className="Dashboard-planners">
         {planners.map((planner) => (
 
-          // ici il faudra changer le /1 en une route paramétré avec l'id
-
           <div
             className={
               isOpen
@@ -87,13 +84,8 @@ function Dashboard() {
             }
             key={planner.id}
           >
-            {/* il va falloir ici récupérer l'id de la table  */}
-            {/* <Link to={`/table/${id}`}> */}
-            <Link to="/table/1">
+            <Link to={`/table/${planner.id}`}>
               <h1>{planner.name}</h1> <p>{planner.description}</p>
-              {/* <button className="Dashboard-button" onClick={handleClick}>
-              Modifier
-            </button> */}
             </Link>
             {(planner.id == openPlannerId) && (
               <>
@@ -121,8 +113,7 @@ function Dashboard() {
                   data-delete={planner.id}
                   className="Parametres-button"
                 >
-                  {" "}
-                  Supprimer ce planning{" "}
+                  Supprimer ce planning
                 </button>
               </>
             )}
@@ -170,6 +161,7 @@ function Dashboard() {
                 <button onClick={handleDelete} data-delete={planner.name}> Supprimer ce planning </button>
               </>
             }
+
           </div>
         ))}
       </div>
