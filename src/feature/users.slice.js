@@ -4,7 +4,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // création de la fonction qui post les données du nouvel utilisateur
 export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
-  async (token, thunkAPI) => {
+  async (_, thunkAPI) => {
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.get(`${apiUrl}/token`,
         {
@@ -13,8 +14,10 @@ export const userCheckToken = createAsyncThunk(
           }
         });
 
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('id', response.data.user.id);
+      console.log("response", response.data)
+
+      //localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('id', response.data.user.id);
 
       console.log("response refresh", response.data)
       return response.data
@@ -59,11 +62,11 @@ export const loginUser = createAsyncThunk(
 
         `${apiUrl}/user/login`,
         userData
-        );
-        // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('id', response.data.user.id);
-        console.log('response.data', response.data);
+      );
+      // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('id', response.data.user.id);
+      console.log('response.data', response.data);
 
       return response.data;
     } catch (err) {
@@ -75,7 +78,7 @@ export const loginUser = createAsyncThunk(
 // thunk qui envoie les modifs de l'utilisateur a la bdd 
 export const editUser = createAsyncThunk(
   "user/editUser",
-  async ({updatedFormData, id}, thunkAPI) => {
+  async ({ updatedFormData, id }, thunkAPI) => {
     console.log("data", updatedFormData)
     console.log("id", id)
     try {
