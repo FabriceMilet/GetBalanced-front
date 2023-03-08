@@ -11,6 +11,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { userCheckToken } from "../../feature/users.slice";
+import SuccesModal from '../SuccesModal/SuccesModal';
 
 
 
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <SuccesModal />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
@@ -37,6 +39,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/table/:id" element={<Table />} />
         <Route path="*" element={<Err404 />} />
+        <Route path="/succesModal" element={<SuccesModal />} />
       </Routes>
     </div>
   );

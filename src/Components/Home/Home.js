@@ -32,7 +32,7 @@ function Home() {
             <Area1 />
             {/* Waypoint déclanche un évènement lors du scroll. 
             si le state est sur false il le passe a true */}
-            <Waypoint bottomOffset="50%"
+            <Waypoint bottomOffset="30%"
                 onEnter={() => {
                     if (!toggleElem3) {
                         setToggleElem3(true)
@@ -44,7 +44,7 @@ function Home() {
                 </animated.div>
             </Waypoint>
 
-            <Waypoint bottomOffset="50%"
+            <Waypoint bottomOffset="30%"
                 onEnter={() => {
                     if (!toggleElem1) {
                         setToggleElem1(true)
@@ -55,7 +55,7 @@ function Home() {
                     <Area3 />
                 </animated.div>
             </Waypoint>
-            <Waypoint bottomOffset="50%"
+            <Waypoint bottomOffset="30%"
                 onEnter={() => {
                     if (!toggleElem2) {
                         setToggleElem2(true)

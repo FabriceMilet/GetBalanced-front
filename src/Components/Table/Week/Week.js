@@ -29,11 +29,13 @@ function Week() {
   // on récupère la date du jour
   const selectedDate = useSelector((state) => state.date.date);
   // on récupère les tâches liées au planning
+
   const tasks = useSelector((state) => state.task.tasks);
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
   console.log('tasks from week', tasks);
+
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
     // on récupère la date du jour où on veut ajouter une tâche
@@ -120,6 +122,7 @@ function Week() {
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
       );
     } else {
+
       newTask.done = true;
        // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
     const updatedTask ={}
@@ -132,6 +135,9 @@ function Week() {
     // on fait la modif dans le store
     dispatch(modifyTask({updatedTask, id}));
     }
+
+
+
   };
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
@@ -156,9 +162,8 @@ function Week() {
     const dateOftheday = format(day, "yyyy-MM-dd");
     // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
     const isLast = i === daysInWeek - 1;
-    const dayContainerClasses = `Week-dayContainer ${
-      isLast ? "Week-dayContainer-last" : ""
-    }`;
+    const dayContainerClasses = `Week-dayContainer ${isLast ? "Week-dayContainer-last" : ""
+      }`;
     days.push(
       <div className="Week-day" key={i}>
         <div className="Week-dayName">

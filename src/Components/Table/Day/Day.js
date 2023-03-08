@@ -28,10 +28,13 @@ function Day() {
   // on récupère la date du jour
   const selectedDate = useSelector((state) => state.date.date);
   // on récupère les tâches liées au planning
+
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
   // console.log(tasks);
+
+
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
     // on récupère la date du jour où on veut ajouter une tâche
@@ -93,6 +96,7 @@ function Day() {
     dispatch(deleteTask(taskId));
   };
   // on veut gérer le fait de concidérer une tâche comme faite
+
   // const handleDone = (event) => {
   //   const taskId = event.target.dataset.done;
   //   // récupérer la tache qui a pour id event.target.dataset.done
@@ -108,6 +112,7 @@ function Day() {
   //   dispatch(modifyTask(task));
   //   }
   // };
+
 
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
@@ -240,12 +245,12 @@ function Day() {
     <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}
-      {!isOpen && !isModifyOpen &&  
-      <div className="Day-days">
-      {days}
-      </div>
+      {!isOpen && !isModifyOpen &&
+        <div className="Day-days">
+          {days}
+        </div>
       }
-    </div>   
+    </div>
   );
 }
 

@@ -12,8 +12,10 @@ export const userCheckToken = createAsyncThunk(
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         });
+
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('id', response.data.user.id);
+
       console.log("response refresh", response.data)
       return response.data
     } catch (err) {
@@ -28,7 +30,9 @@ export const createUser = createAsyncThunk(
     console.log("userData creatAccount", userData)
     try {
       // http://supafei-server.eddi.cloud:8080
+
       const response = await axios.post(`${apiUrl}/user`, userData);
+
       // console.log('réponse envoyée en createUser', userData); 
       // console.log("response.data",response.data);
       // console.log('.env', env.API_BASE_URL);
@@ -36,7 +40,7 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('id', response.data.user.id);
+      //localStorage.setItem('id', response.data.user.id);
 
       return response.data
     } catch (err) {
@@ -49,8 +53,10 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
     try {
-      console.log("userData login", userData)
+      //console.log("userData login", userData)
+      console.log("YES le code va bien jusqu'ici !")
       const response = await axios.post(
+
         `${apiUrl}/user/login`,
         userData
         );
@@ -58,8 +64,10 @@ export const loginUser = createAsyncThunk(
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('id', response.data.user.id);
         console.log('response.data', response.data);
+
       return response.data;
     } catch (err) {
+      console.log("ERREUR ! : ", err)
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -73,7 +81,9 @@ export const editUser = createAsyncThunk(
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
+
         `${apiUrl}/user/${userEditData.id}`,
+
         userEditData.data,
         {
           headers: {
@@ -94,11 +104,19 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (userDeleteData, thunkAPI) => {
     try {
+      const token = localStorage.getItem('token')
+      console.log("token : ", token)
+      console.log("id : ", userDeleteData.id)
       const response = await axios.delete(
-        `${apiUrl}/user/${userDeleteData.id}`,
-        userDeleteData
+        `http://barbaraouisse-server.eddi.cloud:8080/user/${userDeleteData.id}`,
+        userDeleteData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+          }
+        }
       );
-      // console.log('réponse envoyée en login', userData); 
+      // console.log('réponse envoyée en login', userData);  ${apiUrl}/user/${userDeleteData.id}
       // console.log(response.data);
       return response.data;
     } catch (err) {
@@ -113,6 +131,8 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
+    erreur: null,
+    succes: null,
     isLogged: false,
     formData: {
       firstname: "",
@@ -131,6 +151,8 @@ const userSlice = createSlice({
     userLogout: (state, action) => {
       state.isLogged = false;
       state.userConnected = {};
+      state.succes = "Vous êtes déconnecté !";
+      state.erreur = null;
     },
   },
   extraReducers: (builder) => {
@@ -142,21 +164,29 @@ const userSlice = createSlice({
         state.loading = false;
         state.isLogged = true;
         state.userConnected = action.payload
+        state.succes = "Création de compte OK !";
+        state.erreur = null;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.succes = null;
+        state.erreur = "Problème de création de compte"
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.succes = "vous êtes connecté !";
+        state.erreur = null;
         state.loading = false;
         state.isLogged = true;
         // console.log('action.payload', action.payload);
         state.userConnected = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.succes = null;
+        state.erreur = "Erreur lors de la connexion";
         state.loading = false;
         state.error = action.payload;
       })
@@ -164,10 +194,14 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(editUser.fulfilled, (state, action) => { // Test edit ERR401
+        state.succes = "Modification validée ! !";
+        state.erreur = null;
         state.loading = false;
-        state.userConnected = action.payload
+        state.userConnected = action.payload;
       })
       .addCase(editUser.rejected, (state, action) => { // Test edit ERR401
+        state.succes = null;
+        state.erreur = "erreur de modification de compte";
         state.loading = false;
         state.error = action.payload;
       })
