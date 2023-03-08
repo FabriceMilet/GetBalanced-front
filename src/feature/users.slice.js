@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const apiUrl = process.env.REACT_APP_API_URL
+//const apiUrl = process.env.REACT_APP_API_URL
 // création de la fonction qui post les données du nouvel utilisateur
 export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
@@ -94,15 +94,21 @@ export const editUser = createAsyncThunk(
     }
   }
 );
+
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
-  async (userDeleteData, thunkAPI) => {
+  async (data, thunkAPI) => {
+    const { id, userDeleteData } = data;
+    // console.log("id ----->>>", id) OK
+    // console.log("userDeleteData ----->>>>", userDeleteData) OK
+
+
+
+
     try {
       const token = localStorage.getItem('token')
-      console.log("token : ", token)
-      console.log("id : ", userDeleteData.id)
       const response = await axios.delete(
-        `http://barbaraouisse-server.eddi.cloud:8080/user/${userDeleteData.id}`,
+        `http://barbaraouisse-server.eddi.cloud:8080/user/${id}`,
         userDeleteData,
         {
           headers: {
@@ -110,8 +116,9 @@ export const deleteUser = createAsyncThunk(
           }
         }
       );
-      // console.log('réponse envoyée en login', userData);  ${apiUrl}/user/${userDeleteData.id}
-      // console.log(response.data);
+
+      // console.log('réponse envoyée en login', userData); 
+      console.log("response lors du delete", response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

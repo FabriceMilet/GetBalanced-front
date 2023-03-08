@@ -22,7 +22,7 @@ function Dashboard() {
   useEffect(() => {
     dispatch(getPlanners());
   }, []);
-  console.log(planners);
+  //console.log(planners);
 
   const handleClick = () => {
     dispatch(openModal());

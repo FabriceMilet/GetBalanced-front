@@ -52,7 +52,7 @@ export default function Profile() {
   };
 
   const handleDelete = () => {
-    dispatch(deleteUser({}))
+    dispatch(deleteUser({ id: userConnected.user.id, userDeleteData: {} }))
   }
 
   const handleColors = () => {
