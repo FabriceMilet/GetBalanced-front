@@ -38,12 +38,12 @@ export const addTask = createAsyncThunk(
 );
 export const modifyTask = createAsyncThunk(
   "task/modifyTask",
-  async (task, thunkAPI) => {
+  async ({updatedTask , id}, thunkAPI) => {
     try {
-      console.log('je modifie et jenvoie lid', task
+      console.log('je modifie et jenvoie', updatedTask
       );
         const response = await axios.put(
-          `${apiUrl}/task/${task.id}`, task, 
+          `${apiUrl}/task/${id}`, updatedTask, 
          {
             headers: {
               Authorization: `Bearer ${token}`, 

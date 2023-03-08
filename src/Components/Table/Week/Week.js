@@ -70,29 +70,38 @@ function Week() {
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
   const handleClickOnCheckbox = (event) => {
-    console.log('id de luser', userConnected.user[0].id);
-    console.log('couleur de luser', userConnected.user[0].color);
+    console.log('id de luser', userConnected.user.id);
+    console.log('couleur de luser', userConnected.user.color);
     
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
-    const task = tasks.find((task) => task.id == taskId);
-    console.log(!task.user_id);
+    let task = tasks.find((task) => task.id == taskId);
+    let newTask = {...task};
+    // console.log('taskToModify', taskToModify);
     // on récup la couleur de l'user et on associe la tache à cet user
     // de même pour l'id, on gère les différents cas,
     // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
-    if (!task.user_id) {
-      
-      task.user_id = userConnected.user[0].id;
-      task.border_color = userConnected.user[0].color;
-    } else if (task.user_id && task.user_id !== userConnected.user[0].id) {
-      task.user_id = userConnected.user[0].id;
-      task.border_color = userConnected.user[0].color;
+    if (!newTask.user_id) {
+      newTask.user_id = userConnected.user.id;
+      newTask.border_color = userConnected.user.color;
+      console.log('newTask', newTask);
+    } else if (newTask.user_id && newTask.user_id !== userConnected.user.id) {
+      newTask.user_id = userConnected.user.id;
+      newTask.border_color = userConnected.user.color;
     } else {
-      task.user_id = null;
-      task.border_color = null;
+      newTask.user_id = null;
+      newTask.border_color = null;
     }
+    // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedTask ={}
+    for (const [key, value] of Object.entries(newTask)) {
+      if (value !== task[key] && value !== '') {
+        updatedTask[key] = value;
+      }
+    }
+    const id = task.id
     // on fait la modif dans le store
-    dispatch(modifyTask(task));
+    dispatch(modifyTask({updatedTask, id}));
   };
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
@@ -104,17 +113,25 @@ function Week() {
     const taskId = event.target.dataset.done;
     // récupérer la tache qui a pour id event.target.dataset.done
     const task = tasks.find((task) => task.id == taskId);
-    console.log(task);
+    let newTask = {...task};
+    
     if (task.user_id === null) {
       alert(
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
       );
     } else {
-      task.done = true;
-    // on fait la modif dans le store
-    dispatch(modifyTask(task));
+      newTask.done = true;
+       // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedTask ={}
+    for (const [key, value] of Object.entries(newTask)) {
+      if (value !== task[key] && value !== '') {
+        updatedTask[key] = value;
+      }
     }
-    
+    const id = task.id
+    // on fait la modif dans le store
+    dispatch(modifyTask({updatedTask, id}));
+    }
   };
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {

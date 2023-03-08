@@ -11,19 +11,14 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
-  // const { id } = useSelector((state) => state.user.userConnected);
-  // const userConnected = useSelector((state) => state.user.userConnected);
-  // console.log('from dashboard :', userConnected);
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // récupérer ici l'id du planner
     dispatch(getPlanners());
   }, []);
-  // console.log(planners);
 
   const handleClick = () => {
     dispatch(openModal());
@@ -81,8 +76,6 @@ function Dashboard() {
       <div className="Dashboard-planners">
         {planners.map((planner) => (
 
-          // ici il faudra changer le /1 en une route paramétré avec l'id
-
           <div
             className={
               isOpen
@@ -93,9 +86,6 @@ function Dashboard() {
           >
             <Link to={`/table/${planner.id}`}>
               <h1>{planner.name}</h1> <p>{planner.description}</p>
-              {/* <button className="Dashboard-button" onClick={handleClick}>
-              Modifier
-            </button> */}
             </Link>
             {(planner.id == openPlannerId) && (
               <>

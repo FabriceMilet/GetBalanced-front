@@ -65,9 +65,6 @@ export default function TaskModale() {
             />
           </label>
 
-          {/* TODO !  un bouton supplémentaire non lié à la date
-        où on pourra choisir la date donc sans la ternaire dans value */}
-
           <label htmlFor="date" className="TaskModale-input">
             Date
             <input
@@ -87,14 +84,14 @@ export default function TaskModale() {
             onChange={handleChange}
           >
             <option value="">Choississez un thème</option>
-            <option value="Ménage ">Ménage </option>
+            <option value="Ménage">Ménage </option>
             <option value="Cuisine">Cuisine</option>
             <option value="Travaux extérieurs">Travaux extérieurs</option>
             <option value="Bricolage">Bricolage</option>
             <option value="Animaux">Animaux</option>
             <option value="Enfants">Enfants</option>
             <option value="Administratif">Administratif</option>
-            <option value="Courses ">Courses </option>
+            <option value="Courses">Courses </option>
             <option value="Autre">Autre</option>
           </select>
 
