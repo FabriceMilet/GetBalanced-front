@@ -15,8 +15,6 @@ export default function Parametres() {
 // on va chercher ici à faire apparaitre le tableau dans le dashboard et l'enregitrer en BDD
 const handleSubmit = (event) => {
   event.preventDefault();
-  // console.log(formData);
-  // console.log(planners);
   dispatch(addPlanner(formData)).then(() => {
     dispatch(setFormData({ name: "", description: "", invitation: "" }))});
   dispatch(openModal());

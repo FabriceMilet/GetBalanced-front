@@ -31,16 +31,21 @@ export default function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const editFormData = {
-      data: {
         firstname: inputFirstName.current.value,
         lastname: inputLastName.current.value,
         email: inputEmail.current.value,
         color: chosenColor,
         birthdate: inputBirthdate.current.value,
-      },
-      id: userConnected.user.id
+      }
+     const  id = userConnected.user.id
+    // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedFormData ={}
+    for (const [key, value] of Object.entries(editFormData)) {
+      if (value !== userConnected.user[key] && value !== '') {
+        updatedFormData[key] = value;
+      }
     }
-    dispatch(editUser(editFormData))
+    dispatch(editUser({updatedFormData, id}))
   }
 
   const handleModal = () => {

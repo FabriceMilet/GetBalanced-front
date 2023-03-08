@@ -3,13 +3,18 @@ import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const userId = localStorage.getItem('id')
-const token = localStorage.getItem('token')
+
 
 export const getPlanners = createAsyncThunk(
   "parametre/getPlanners",
   async (_, thunkAPI) => {
+
+    const token = localStorage.getItem('token')
+    console.log("verif-token", token)
+
     try {
-      const response = await axios.get(`http://supafei-server.eddi.cloud:8080/planner/user/${userId}`,{
+      console.log(userId);
+      const response = await axios.get(`${apiUrl}/planner/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
         }
@@ -18,43 +23,41 @@ export const getPlanners = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
-  }
-);
-// reste à s'occupper du .env
-// const apiUrl = process.env.REACT_APP_API_URL;
-export const addPlanner = createAsyncThunk(
-  "parametre/addPlanner",
-  async (formData, thunkAPI) => {
-    try {
-      // il va falloir récup l'id mais formData ne le contient pas, à voir ..
-      // http://supafei-server.eddi.cloud:8080
-      // console.log("token",token);
-      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/planner/user/${userId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
-        }
-      });
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
+
   }
 );
 
+export const addPlanner = createAsyncThunk(
+  "parametre/addPlanner",
+  async (formData, thunkAPI) => {
+    const token = localStorage.getItem('token')
+    try {
+      console.log(formData);
+      const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+        }
+      });
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 export const deletePlanner = createAsyncThunk(
   "parametre/deletePlanner",
   async (id, thunkAPI) => {
+    const token = localStorage.getItem('token')
     try {
-        const response = await axios.delete(
-          `${apiUrl}/planner/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
-            }
+      console.log(id);
+      const response = await axios.delete(
+        `${apiUrl}/planner/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
-          `http://supafei-server.eddi.cloud:8080/planner/${userId}`,
-          id
-        );
+        }
+      );
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -70,6 +73,7 @@ const parametreSlice = createSlice({
     isOpen: false,
     formData: { name: "", description: "", invitation: "" },
     planners: [],
+    id: null,
   },
   reducers: {
     openModal: (state) => {
@@ -78,21 +82,24 @@ const parametreSlice = createSlice({
     setFormData: (state, action) => {
       state.formData = action.payload;
     },
+    setId: (state, action) => {
+      state.id = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getPlanners.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(getPlanners.fulfilled, (state, action) => {
-      state.loading = false;
-      // console.log('réponse de getPlanners', action.payload);
-      state.planners = action.payload;
-    })
-    .addCase(getPlanners.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
+      .addCase(getPlanners.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPlanners.fulfilled, (state, action) => {
+        state.loading = false;
+        // console.log('réponse de getPlanners', action.payload);
+        state.planners = action.payload;
+      })
+      .addCase(getPlanners.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(addPlanner.pending, (state) => {
         state.loading = true;
       })
@@ -109,6 +116,7 @@ const parametreSlice = createSlice({
         state.loading = true;
       })
       .addCase(deletePlanner.fulfilled, (state, action) => {
+        console.log('je supprime un planning');
         state.loading = false;
         // on récupère l'id du planner à supprimer
         const id = action.payload.id;
@@ -125,5 +133,5 @@ const parametreSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData } = parametreSlice.actions;
+export const { openModal, setFormData, setId } = parametreSlice.actions;
 export default parametreSlice.reducer;

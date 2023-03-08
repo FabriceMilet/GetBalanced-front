@@ -1,19 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-//const apiUrl = process.env.REACT_APP_API_URL
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
 // création de la fonction qui post les données du nouvel utilisateur
 export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
-  async (token, thunkAPI) => {
+  async (_, thunkAPI) => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.get("http://barbaraouisse-server.eddi.cloud:8080/token",
+      const response = await axios.get(`${apiUrl}/token`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         });
-      // je le fais ici car mon login ne fonctionne pas, à remettre seulement au login normalement
-      localStorage.setItem('id', response.data.user.id);
+
+      console.log("response", response.data)
+
+      //localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('id', response.data.user.id);
+
       console.log("response refresh", response.data)
       return response.data
     } catch (err) {
@@ -28,7 +35,9 @@ export const createUser = createAsyncThunk(
     console.log("userData creatAccount", userData)
     try {
       // http://supafei-server.eddi.cloud:8080
-      const response = await axios.post(`http://barbaraouisse-server.eddi.cloud:8080/user`, userData);
+
+      const response = await axios.post(`${apiUrl}/user`, userData);
+
       // console.log('réponse envoyée en createUser', userData); 
       // console.log("response.data",response.data);
       // console.log('.env', env.API_BASE_URL);
@@ -36,7 +45,7 @@ export const createUser = createAsyncThunk(
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
-      //localStorage.setItem('id', response.data.user.id);
+      localStorage.setItem('id', response.data.user.id);
 
       return response.data
     } catch (err) {
@@ -45,7 +54,6 @@ export const createUser = createAsyncThunk(
     }
   }
 );
-
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
@@ -53,14 +61,15 @@ export const loginUser = createAsyncThunk(
       //console.log("userData login", userData)
       console.log("YES le code va bien jusqu'ici !")
       const response = await axios.post(
-        "http://barbaraouisse-server.eddi.cloud:8080/user/login",
+
+        `${apiUrl}/user/login`,
         userData
       );
-
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
-      console.log("loginToken : ", response.data.token)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.user.id);
+      console.log('response.data', response.data);
+
       return response.data;
     } catch (err) {
       console.log("ERREUR ! : ", err)
@@ -71,14 +80,14 @@ export const loginUser = createAsyncThunk(
 // thunk qui envoie les modifs de l'utilisateur a la bdd 
 export const editUser = createAsyncThunk(
   "user/editUser",
-  async (userEditData, thunkAPI) => {
-    console.log("data", userEditData.data)
-    console.log("id", userEditData.id)
+  async ({ updatedFormData, id }, thunkAPI) => {
+    console.log("data", updatedFormData)
+    console.log("id", id)
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
-        `http://barbaraouisse-server.eddi.cloud:8080/user/${userEditData.id}`,
-        userEditData.data,
+        `${apiUrl}/user/${id}`,
+        updatedFormData,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -125,7 +134,6 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
-
 // création du slice
 const userSlice = createSlice({
   name: "user",

@@ -13,8 +13,6 @@ import { useDispatch } from 'react-redux';
 import { userCheckToken } from "../../feature/users.slice";
 import SuccesModal from '../SuccesModal/SuccesModal';
 
-
-
 function App() {
 
   const dispatch = useDispatch();
@@ -25,7 +23,6 @@ function App() {
       return
     }
     dispatch(userCheckToken(token))
-
   }, []);
 
   return (
