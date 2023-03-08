@@ -73,7 +73,7 @@ function Dashboard() {
       </button>
       {isOpen && <Parametres />}
       <div className="Dashboard-planners">
-        {planners.map((planner) => (
+        {planners && planners.map((planner) => (
 
           <div
             className={
