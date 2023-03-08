@@ -3,14 +3,18 @@ import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const userId = localStorage.getItem('id')
-const token = localStorage.getItem('token')
+
 
 export const getPlanners = createAsyncThunk(
   "parametre/getPlanners",
   async (_, thunkAPI) => {
+
+    const token = localStorage.getItem('token')
+    console.log("verif-token", token)
+
     try {
       console.log(userId);
-      const response = await axios.get(`${apiUrl}/planner/user/${userId}`,{
+      const response = await axios.get(`${apiUrl}/planner/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
         }
@@ -19,12 +23,14 @@ export const getPlanners = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
+
   }
 );
 
 export const addPlanner = createAsyncThunk(
   "parametre/addPlanner",
   async (formData, thunkAPI) => {
+    const token = localStorage.getItem('token')
     try {
       console.log(formData);
       const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
@@ -41,16 +47,17 @@ export const addPlanner = createAsyncThunk(
 export const deletePlanner = createAsyncThunk(
   "parametre/deletePlanner",
   async (id, thunkAPI) => {
+    const token = localStorage.getItem('token')
     try {
       console.log(id);
-        const response = await axios.delete(
-          `${apiUrl}/planner/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
-            }
+      const response = await axios.delete(
+        `${apiUrl}/planner/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
-        );
+        }
+      );
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -81,18 +88,18 @@ const parametreSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getPlanners.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(getPlanners.fulfilled, (state, action) => {
-      state.loading = false;
-      // console.log('réponse de getPlanners', action.payload);
-      state.planners = action.payload;
-    })
-    .addCase(getPlanners.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
+      .addCase(getPlanners.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPlanners.fulfilled, (state, action) => {
+        state.loading = false;
+        // console.log('réponse de getPlanners', action.payload);
+        state.planners = action.payload;
+      })
+      .addCase(getPlanners.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(addPlanner.pending, (state) => {
         state.loading = true;
       })

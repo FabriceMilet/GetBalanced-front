@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { userCheckToken } from "../../feature/users.slice";
 import SuccesModal from '../SuccesModal/SuccesModal';
-import { getPlanners } from '../../feature/parametre.slice';
 
 function App() {
 
@@ -23,7 +22,6 @@ function App() {
     if (!token) {
       return
     }
-    dispatch(getPlanners());
     dispatch(userCheckToken(token))
   }, []);
 

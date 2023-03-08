@@ -1,11 +1,15 @@
 import './Login.scss';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { loginUser } from "../../feature/users.slice";
 import { setFormData } from '../../feature/users.slice';
+import { useEffect } from 'react';
 
 function Login() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
 
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
@@ -16,6 +20,12 @@ function Login() {
     const { name, value } = event.target;
     dispatch(setFormData({ ...formData, [name]: value }));
   };
+
+  useEffect(() => {
+    if (isLogged && token) {
+      navigate("/dashboard")
+    }
+  }, [isLogged, token]);
 
   // formData est envoyé en paramètre de createUser au slice userSlice
   const handleSubmit = (event) => {
@@ -56,7 +66,7 @@ function Login() {
         </div>)}
       {/* on veut renvoyer vers le dashboard si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-      {isLogged && (<Navigate to="/dashboard" replace />)}
+      {/*  {isLogged && (<Navigate to="/dashboard" replace />)} */}
     </form>
   );
 }

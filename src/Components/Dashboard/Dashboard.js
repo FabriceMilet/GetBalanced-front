@@ -11,13 +11,16 @@ import { Link } from "react-router-dom";
 import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
-  // useEffect(() => {
-  //   dispatch(getPlanners());
-  // }, []);
+
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const formData = useSelector((state) => state.parametre.formData);
+  const userConnected = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPlanners());
+  }, []);
 
   const handleClick = () => {
     dispatch(openModal());
@@ -26,7 +29,7 @@ function Dashboard() {
     const { name, value } = event.target;
     dispatch(setFormData({ ...formData, [name]: value }));
   };
- 
+
   //on gère ici l'ouverture du planning pour voir apparaitre le formulaire d'invit et bouton supprimer
   // j'essaie de gérer indifféremment le clique sur un planning par rapport à un autre
   const [openPlannerId, setOpenPlannerId] = useState(null);

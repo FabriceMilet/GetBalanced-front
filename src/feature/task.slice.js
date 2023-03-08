@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
-const token = localStorage.getItem('token');
+
 
 export const getTasks = createAsyncThunk(
   "task/getTasks",
   async (id, thunkAPI) => {
     try {
+      const token = localStorage.getItem('token');
       // console.log('id récup', id)
       const response = await axios.get(`${apiUrl}/task/planner/${id}`, {
         headers: {
@@ -22,9 +23,10 @@ export const getTasks = createAsyncThunk(
 );
 export const addTask = createAsyncThunk(
   "task/addTask",
-  async ({formData, id}, thunkAPI) => {
+  async ({ formData, id }, thunkAPI) => {
     try {
-      console.log('envoyé au back',formData);
+      const token = localStorage.getItem('token');
+      console.log('envoyé au back', formData);
       const response = await axios.post(`${apiUrl}/task/planner/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -38,19 +40,20 @@ export const addTask = createAsyncThunk(
 );
 export const modifyTask = createAsyncThunk(
   "task/modifyTask",
-  async ({updatedTask , id}, thunkAPI) => {
+  async ({ updatedTask, id }, thunkAPI) => {
     try {
+      const token = localStorage.getItem('token');
       console.log('je modifie et jenvoie', updatedTask
       );
-        const response = await axios.put(
-          `${apiUrl}/task/${id}`, updatedTask, 
-         {
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            }
+      const response = await axios.put(
+        `${apiUrl}/task/${id}`, updatedTask,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           }
-        );
-        console.log('response.data de modify', response.data);
+        }
+      );
+      console.log('response.data de modify', response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -60,17 +63,18 @@ export const modifyTask = createAsyncThunk(
 export const deleteTask = createAsyncThunk(
   "task/deleteTask",
   async (id, thunkAPI) => {
+    const token = localStorage.getItem('token');
     try {
       console.log("id de la tache à supprimer :", id);
-        const response = await axios.delete(
-          `${apiUrl}/task/${id}`,
-           {
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            }
+      const response = await axios.delete(
+        `${apiUrl}/task/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           }
-        );
-        console.log('response.data de lid à supprimer', response.data);
+        }
+      );
+      console.log('response.data de lid à supprimer', response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -122,7 +126,7 @@ const taskSlice = createSlice({
         state.loading = true;
       })
       .addCase(addTask.fulfilled, (state, action) => {
-        console.log('jajoute ',action.payload );
+        console.log('jajoute ', action.payload);
         state.loading = false;
         state.tasks.push(action.payload);
       })
@@ -135,7 +139,7 @@ const taskSlice = createSlice({
         console.log('en attente');
       })
       .addCase(modifyTask.fulfilled, (state, action) => {
-        console.log('je modifie ',action.payload );
+        console.log('je modifie ', action.payload);
         state.loading = false;
         // console.log("tâche modifiée:", action.payload);
         // on récupère l'id de la tâche à modifier
