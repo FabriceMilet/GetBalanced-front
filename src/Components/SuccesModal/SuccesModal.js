@@ -9,6 +9,8 @@ export default function SuccesModal() {
     const succes = useSelector((state) => state.user.succes);
     const error = useSelector((state) => state.user.erreur);
 
+    console.log("succès : ", succes)
+
     const [modalOpen, setModalOpen] = useState(false)
 
     // Un useEffect qui suit l'évolution des variables erreur et succes dans le state.

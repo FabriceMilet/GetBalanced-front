@@ -6,7 +6,7 @@ export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
   async (token, thunkAPI) => {
     try {
-      const response = await axios.get("http://supafei-server.eddi.cloud:8080/token",
+      const response = await axios.get("http://barbaraouisse-server.eddi.cloud:8080/token",
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -28,7 +28,7 @@ export const createUser = createAsyncThunk(
     console.log("userData creatAccount", userData)
     try {
       // http://supafei-server.eddi.cloud:8080
-      const response = await axios.post(`http://supafei-server.eddi.cloud:8080/user`, userData);
+      const response = await axios.post(`http://barbaraouisse-server.eddi.cloud:8080/user`, userData);
       // console.log('réponse envoyée en createUser', userData); 
       // console.log("response.data",response.data);
       // console.log('.env', env.API_BASE_URL);
@@ -53,11 +53,12 @@ export const loginUser = createAsyncThunk(
       //console.log("userData login", userData)
       console.log("YES le code va bien jusqu'ici !")
       const response = await axios.post(
-        "http://supafei-server.eddi.cloud:8080/user/login",
+        "http://barbaraouisse-server.eddi.cloud:8080/user/login",
         userData
       );
 
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
+      console.log("loginToken : ", response.data.token)
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.user.id);
       return response.data;
@@ -76,7 +77,7 @@ export const editUser = createAsyncThunk(
     try {
       const token = localStorage.getItem('token')
       const response = await axios.patch(
-        `http://supafei-server.eddi.cloud:8080/user/${userEditData.id}`,
+        `http://barbaraouisse-server.eddi.cloud:8080/user/${userEditData.id}`,
         userEditData.data,
         {
           headers: {
@@ -97,11 +98,19 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (userDeleteData, thunkAPI) => {
     try {
+      const token = localStorage.getItem('token')
+      console.log("token : ", token)
+      console.log("id : ", userDeleteData.id)
       const response = await axios.delete(
-        `${apiUrl}/user/${userDeleteData.id}`,
-        userDeleteData
+        `http://barbaraouisse-server.eddi.cloud:8080/user/${userDeleteData.id}`,
+        userDeleteData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
+          }
+        }
       );
-      // console.log('réponse envoyée en login', userData); 
+      // console.log('réponse envoyée en login', userData);  ${apiUrl}/user/${userDeleteData.id}
       // console.log(response.data);
       return response.data;
     } catch (err) {
@@ -149,10 +158,14 @@ const userSlice = createSlice({
         state.loading = false;
         state.isLogged = true;
         state.userConnected = action.payload
+        state.succes = "Création de compte OK !";
+        state.erreur = null;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.succes = null;
+        state.erreur = "Problème de création de compte"
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -175,10 +188,14 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(editUser.fulfilled, (state, action) => { // Test edit ERR401
+        state.succes = "Modification validée ! !";
+        state.erreur = null;
         state.loading = false;
-        state.userConnected = action.payload
+        state.userConnected = action.payload;
       })
       .addCase(editUser.rejected, (state, action) => { // Test edit ERR401
+        state.succes = null;
+        state.erreur = "erreur de modification de compte";
         state.loading = false;
         state.error = action.payload;
       })
