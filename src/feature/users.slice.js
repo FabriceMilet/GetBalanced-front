@@ -106,30 +106,27 @@ export const editUser = createAsyncThunk(
 
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
-  async (data, thunkAPI) => {
-    const { id, userDeleteData } = data;
+  async (id, thunkAPI) => {
+
     // console.log("id ----->>>", id) OK
     // console.log("userDeleteData ----->>>>", userDeleteData) OK
-
-
-
-
+    const token = localStorage.getItem('token')
+    console.log("token", token)
     try {
-      const token = localStorage.getItem('token')
       const response = await axios.delete(
         `http://barbaraouisse-server.eddi.cloud:8080/user/${id}`,
-        userDeleteData,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         }
-      );
+      ).then(() => { localStorage.clear() });
 
       // console.log('réponse envoyée en login', userData); 
-      console.log("response lors du delete", response.data);
-      return response.data;
+      // console.log("response lors du delete", response);
+      return
     } catch (err) {
+      console.log("erreur delete", err)
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -218,13 +215,17 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(deleteUser.fulfilled, (state, action) => { // Test delete ERR401
+        //console.log("OK delete")
+        state.succes = "Utilisateur supprimé !";
         state.loading = false;
         state.isLogged = false;
-        state.userConnected = action.payload;
+        state.userConnected = {};
       })
       .addCase(deleteUser.rejected, (state, action) => { // Test delete ERR401
         state.loading = false;
+        state.erreur = "Erreur de suppresion d'utilisateur";
         state.error = action.payload;
+        //console.log("PROBLÈME delete")
       })
       .addCase(userCheckToken.pending, (state) => { // Test rechargement
         state.loading = true;
