@@ -28,8 +28,6 @@ export default function Profile() {
   const inputEmail = useRef();
   const inputBirthdate = useRef();
 
-
-
   // Fonction appelé au submit
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -89,7 +87,7 @@ export default function Profile() {
           <form className='profile_form' onSubmit={handleSubmit}>
 
             <div className='profile_input_container'>
-              <label htmlFor="firstName">Prénom:</label>
+              <label htmlFor="firstName">Prénom : </label>
               <input className='profile_input'
                 type="text"
                 id="firstName"
@@ -99,7 +97,7 @@ export default function Profile() {
             </div>
 
             <div className='profile_input_container'>
-              <label htmlFor="lastName">Nom:</label>
+              <label htmlFor="lastName">Nom : </label>
               <input className='profile_input'
                 type="text"
                 id="lastName"
@@ -109,7 +107,7 @@ export default function Profile() {
             </div>
 
             <div className='profile_input_container'>
-              <label htmlFor="email">E-mail:</label>
+              <label htmlFor="email">E-mail : </label>
               <input className='profile_input'
                 type="email"
                 id="email"
@@ -119,7 +117,7 @@ export default function Profile() {
             </div>
 
             <div className='profile_input_container'>
-              <label htmlFor="color">Couleur préférée:</label>
+              <label htmlFor="color">Couleur : </label>
               <button
                 style={{ backgroundColor: `` }}
                 type="button" onClick={handleColors} id='color'
@@ -129,7 +127,7 @@ export default function Profile() {
             </div>
 
             <div className='profile_input_container'>
-              <label htmlFor="birthdate">Date de naissance:</label>
+              <label className='' htmlFor="birthdate">Date de <br /> naissance : </label>
               <input className='profile_input'
                 type="date"
                 id="birthdate"
