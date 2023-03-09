@@ -25,11 +25,20 @@ export default function InvitationModale() {
   const handleCancel = () => {
     dispatch(openInvitModal())
   }
+   // on envoie l'email d'invit
+   const handleSubmit = (event) => {
+    event.preventDefault();
+    // gérer ici une fonction pour envoyer l'invit
+    // dispatch(addPlanner(formData)).then(() => {
+    //   dispatch(setFormData({invitation: "" }));
+    // });
+    dispatch(openInvitModal());
+  };
 
   return (
     <div className="InvitationModale">
       <h1 className="InvitationModale-title">Envoyez un mail au membre que vous souhaitez inviter à votre planning</h1>
-     <form className="InvitationModale-form">
+     <form className="InvitationModale-form" onSubmit={handleSubmit}>
         <label
           htmlFor="Envoyer un mail d'invitation"
           className="InvitationModale-input"
