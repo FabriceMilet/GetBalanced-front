@@ -1,0 +1,47 @@
+@use "../../style/vars";
+
+.InvitationModale {
+    background-color: white;
+    height: auto;
+    width: 350px;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #c7c7ca;
+    text-align: center;
+    padding: 1rem;
+    &-title{
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    &-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &-input{
+        display: flex;
+        flex-direction: column;
+        & input{
+            background-color: #ebecf0;
+            border: 1px solid #d9d9db;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            padding: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+    &-button{
+        display: block;
+        margin-bottom: 1rem;
+        background-color: vars.$darkBlue;
+        color: white;
+        font-weight: bold;
+        padding: 0.7rem 2rem;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover{
+            background-color: darken(vars.$darkBlue, 8%)
+        }
+    }
+}

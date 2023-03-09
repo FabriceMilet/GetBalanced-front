@@ -71,6 +71,7 @@ const parametreSlice = createSlice({
     loading: false,
     error: null,
     isOpen: false,
+    isInvitOpen: false,
     formData: { name: "", description: "", invitation: "" },
     planners: [],
     id: null,
@@ -78,6 +79,9 @@ const parametreSlice = createSlice({
   reducers: {
     openModal: (state) => {
       state.isOpen = !state.isOpen;
+    },
+    openInvitModal: (state) => {
+      state.isInvitOpen = !state.isInvitOpen;
     },
     setFormData: (state, action) => {
       state.formData = action.payload;
@@ -133,5 +137,5 @@ const parametreSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData, setId } = parametreSlice.actions;
+export const { openModal, setFormData, setId, openInvitModal } = parametreSlice.actions;
 export default parametreSlice.reducer;

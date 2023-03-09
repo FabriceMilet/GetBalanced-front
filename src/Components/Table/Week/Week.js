@@ -31,6 +31,7 @@ function Week() {
   // on récupère les tâches liées au planning
 
   const tasks = useSelector((state) => state.task.tasks);
+  
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
@@ -135,8 +136,6 @@ function Week() {
     // on fait la modif dans le store
     dispatch(modifyTask({updatedTask, id}));
     }
-
-
 
   };
   // on gère ici la mise en place de l'agenda avec la librairie date-fns

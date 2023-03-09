@@ -1,71 +1,73 @@
 @use "../../style/vars";
 .Dashboard{
     padding: 6%;
-}
-
-.Dashboard-planners {
-    display: flex;
-    justify-content: flex-start;  
-}
-
-
-.Dashboard-button{
-    display: block;
-    background-color: vars.$orange;
-    border: none;
-    border-radius: 5px;
-    color: vars.$floralWhite;
-    font-weight: bold;
-    padding: 1rem 2.5rem;
-    cursor: pointer;
-    &:hover{
-        background-color: darken(vars.$orange, 7%)
+    &-planners{
+        display: flex;
+        justify-content: flex-start;  
+    }
+    &-button{
+        display: block;
+        background-color: vars.$orange;
+        border: none;
+        border-radius: 5px;
+        color: vars.$floralWhite;
+        font-weight: bold;
+        padding: 1rem 2.5rem;
+        cursor: pointer;
+        &:hover{
+            background-color: darken(vars.$orange, 7%)
+        }
+        &--hidden{
+            visibility: hidden;
+        }
+    }
+    &-planner{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: vars.$lightBlue;
+        border: none;
+        padding: 1.5rem;
+        border-radius: 10px;
+        width: 300px;
+        margin: 2rem 1.5rem 1.5rem 0;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        &--hidden{
+            visibility: hidden;
+        }
+        &__title{
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        &__description{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            word-wrap: break-word;
+            margin-bottom: 1rem;
+        }
+        &__block{
+            display: flex;
+            justify-content: space-around;
+            & p{
+                width: 80%;
+            }
+        }
     }
 }
 
-.Dashboard-button:hover{
-    cursor: pointer;
-}
 
-.Dashboard-button--hidden{
-    visibility: hidden;
-}
-.Dashboard-planner{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: vars.$lightBlue;
-    border: none;
-    padding: 1.5rem;
-    border-radius: 10px;
-    width: 300px;
-    margin: 2rem 1.5rem 1.5rem 0;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-.Dashboard-planner--hidden{
-    visibility: hidden;
-}
-.Dashboard-planner h1 {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-}
-.Dashboard-planner p {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    word-wrap: break-word;
-}
-@keyframes slide-2{to{transform:translateY(3px)}}
-.Dashboard-arrow{
-    animation: slide-2 0.5s infinite alternate both cubic-bezier(1,-.01,0,.98);
-    margin: auto;
-    cursor: pointer;
-}
-.Dashboard-arrow-top{
-    margin: auto;
-    cursor: pointer;
-    transform: rotate(-180deg);
-}
+// @keyframes slide-2{to{transform:translateY(3px)}}
+// .Dashboard-arrow{
+//     animation: slide-2 0.5s infinite alternate both cubic-bezier(1,-.01,0,.98);
+//     margin: auto;
+//     cursor: pointer;
+// }
+// .Dashboard-arrow-top{
+//     margin: auto;
+//     cursor: pointer;
+//     transform: rotate(-180deg);
+// }
 
  

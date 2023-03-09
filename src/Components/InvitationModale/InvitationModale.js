@@ -1,4 +1,4 @@
-import "./Parametres.scss";
+import "./InvitationModale.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFormData,
@@ -6,7 +6,7 @@ import {
   addPlanner,
 } from "../../feature/parametre.slice";
 
-export default function Parametres() {
+export default function InvitationModale() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.parametre.formData);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
@@ -16,44 +16,23 @@ export default function Parametres() {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
   // on va chercher ici à faire apparaitre le tableau dans le dashboard et l'enregitrer en BDD
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(addPlanner(formData)).then(() => {
-      dispatch(setFormData({ name: "", description: "", invitation: "" }));
-    });
-    dispatch(openModal());
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   dispatch(addPlanner(formData)).then(() => {
+  //     dispatch(setFormData({ name: "", description: "", invitation: "" }));
+  //   });
+  //   dispatch(openModal());
+  // };
 
   return (
-    <div className="Parametres">
-      <h1 className="Parametres-title">Paramètres du tableau</h1>
-      <form className="Parametres-form" onSubmit={handleSubmit}>
-        <label htmlFor="titre" className="Parametres-input">
-          Titre
-          <input
-            type="text"
-            name="name"
-            placeholder="Famille Belier"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label htmlFor="description" className="Parametres-input">
-          Description
-          <input
-            type="text"
-            name="description"
-            placeholder="Gestion des tâches quotidiennes"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </label>
+    <div className="InvitationModale">
+      <h1 className="InvitationModale-title">Envoyez un mail au membre que vous souhaitez inviter à votre planning</h1>
+     <form className="InvitationModale-form">
         <label
           htmlFor="Envoyer un mail d'invitation"
-          className="Parametres-input"
+          className="InvitationModale-input"
         >
-          Envoyez un mail au membre que vous souhaitez inviter à votre planning
+          
           <input
             type="email"
             name="invitation"
@@ -86,7 +65,7 @@ key={`invitation-${index}`}
 /></label>
 ))}  */}
 
-        <button type="submit" className="Parametres-button">
+        <button type="submit" className="InvitationModale-button">
           Valider
         </button>
       </form>
