@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   openModal,
   openInvitModal,
-  deletePlanner,
+  openConfirmModal,
   getPlanners,
+  setPlannerIdToDelete
 } from "../../feature/parametre.slice";
 import Parametres from "../Parametres/Parametres";
 import { Link } from "react-router-dom";
 import InvitationModale from "../InvitationModale/InvitationModale";
+import ValidModalDashboard from "./ValidModalDashboard/ValidModalDashboard"
 
 function Dashboard() {
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const isInvitOpen = useSelector((state) => state.parametre.isInvitOpen);
+  const isConfirmOpen = useSelector((state) => state.parametre.isConfirmOpen);
   const planners = useSelector((state) => state.parametre.planners);
   const dispatch = useDispatch();
 
@@ -56,9 +59,10 @@ function Dashboard() {
   // };
 
   const handleDelete = (event) => {
-    // récupérer le planner qui a pour id event.target.dataset.delete
-    const plannerId = event.target.dataset.delete;
-    dispatch(deletePlanner(plannerId));
+     // récupérer le planner qui a pour id event.target.dataset.delete
+     const plannerId = event.target.dataset.delete;
+     dispatch(setPlannerIdToDelete(plannerId));
+    dispatch(openConfirmModal());
   };
 
   const handleInvit = () => {
@@ -69,7 +73,7 @@ function Dashboard() {
     <div className="Dashboard">
       <button
         className={
-          (isOpen || isInvitOpen)
+          (isOpen || isInvitOpen || isConfirmOpen)
             ? "Dashboard-button Dashboard-button--hidden"
             : "Dashboard-button"
         }
@@ -79,6 +83,7 @@ function Dashboard() {
       </button>
       {isOpen && <Parametres />}
       {isInvitOpen && <InvitationModale />}
+      {isConfirmOpen && <ValidModalDashboard />}
       <div className="Dashboard-planners">
         {planners &&
           planners.map((planner) => (
