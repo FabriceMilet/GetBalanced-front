@@ -33,6 +33,9 @@ export default function TaskModifyModale() {
       dispatch(setFormData({ name: "", description: "", date: "" }))});
     dispatch(openModifyModal());
   };
+  const handleCancel = () => {
+    dispatch(openModifyModal())
+  }
 
   return (
     <div className="TaskModale-background">
@@ -85,10 +88,14 @@ export default function TaskModifyModale() {
             <option value="Courses">Courses </option>
             <option value="Autre">Autre</option>
           </select>
-        
+          <div className="TaskModale-buttons">
         <button type="submit" className="TaskModale-button">
           Valider
         </button>
+        <button onClick={handleCancel} className="TaskModale-button">
+          X
+        </button>
+        </div>
       </form>
     </div>
     </div>

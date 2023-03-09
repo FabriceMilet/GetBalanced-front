@@ -2,8 +2,7 @@ import "./InvitationModale.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFormData,
-  openModal,
-  addPlanner,
+  openInvitModal,
 } from "../../feature/parametre.slice";
 
 export default function InvitationModale() {
@@ -23,6 +22,9 @@ export default function InvitationModale() {
   //   });
   //   dispatch(openModal());
   // };
+  const handleCancel = () => {
+    dispatch(openInvitModal())
+  }
 
   return (
     <div className="InvitationModale">
@@ -64,10 +66,14 @@ key={`invitation-${index}`}
   onChange={handleChange}
 /></label>
 ))}  */}
-
+<div className="InvitationModale-buttons">
         <button type="submit" className="InvitationModale-button">
           Valider
         </button>
+        <button onClick={handleCancel} className="Parametres-button">
+          X
+        </button>
+        </div>
       </form>
     </div>
   );

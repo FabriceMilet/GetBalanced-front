@@ -39,6 +39,8 @@
             font-size: 1.5rem;
             text-transform: uppercase;
             margin-bottom: 1rem;
+            color: vars.$darkBlue;
+            background-color: transparent;
         }
         &__description{
             overflow: hidden;
@@ -46,6 +48,8 @@
             white-space: normal;
             word-wrap: break-word;
             margin-bottom: 1rem;
+            color: vars.$darkBlue;
+            background-color: transparent;
         }
         &__block{
             display: flex;

@@ -23,6 +23,9 @@ export default function Parametres() {
     });
     dispatch(openModal());
   };
+  const handleCancel = () => {
+    dispatch(openModal())
+  }
 
   return (
     <div className="Parametres">
@@ -85,10 +88,14 @@ key={`invitation-${index}`}
   onChange={handleChange}
 /></label>
 ))}  */}
-
+<div className="Parametres-buttons">
         <button type="submit" className="Parametres-button">
           Valider
         </button>
+        <button onClick={handleCancel} className="Parametres-button">
+          X
+        </button>
+        </div>
       </form>
     </div>
   );

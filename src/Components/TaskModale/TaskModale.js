@@ -38,6 +38,9 @@ export default function TaskModale() {
     });
     dispatch(openModal());
   };
+  const handleCancel = () => {
+    dispatch(openModal())
+  }
 
   return (
     <div className="TaskModale-background">
@@ -95,10 +98,14 @@ export default function TaskModale() {
             <option value="Courses">Courses </option>
             <option value="Autre">Autre</option>
           </select>
-
+          <div className="TaskModale-buttons">
           <button type="submit" className="TaskModale-button">
             Valider
           </button>
+          <button onClick={handleCancel} className="TaskModale-button">
+          X
+        </button>
+        </div>
         </form>
       </div>
     </div>

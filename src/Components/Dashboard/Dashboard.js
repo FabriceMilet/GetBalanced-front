@@ -1,6 +1,6 @@
 import "./Dashboard.scss";
 import { FaTrash, FaMailBulk } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openModal,
@@ -11,13 +11,11 @@ import {
 import Parametres from "../Parametres/Parametres";
 import { Link } from "react-router-dom";
 import InvitationModale from "../InvitationModale/InvitationModale";
-// import { setFormData } from "../../feature/parametre.slice";
 
 function Dashboard() {
   const isOpen = useSelector((state) => state.parametre.isOpen);
   const isInvitOpen = useSelector((state) => state.parametre.isInvitOpen);
   const planners = useSelector((state) => state.parametre.planners);
-  // const formData = useSelector((state) => state.parametre.formData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,9 +56,8 @@ function Dashboard() {
   // };
 
   const handleDelete = (event) => {
-    const plannerId = event.target.dataset.delete;
     // récupérer le planner qui a pour id event.target.dataset.delete
-    // const planner = planners.find((planner) => planner.id == plannerId);
+    const plannerId = event.target.dataset.delete;
     dispatch(deletePlanner(plannerId));
   };
 
