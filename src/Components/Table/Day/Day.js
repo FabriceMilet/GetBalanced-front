@@ -20,7 +20,8 @@ import { useState } from "react";
 function Day() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
-  // const userConnected = useSelector((state) => state.user.userConnected).user;
+  const userConnected = useSelector((state) => state.user.userConnected);
+  console.log('userConnected from week', userConnected);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte
@@ -29,11 +30,12 @@ function Day() {
   const selectedDate = useSelector((state) => state.date.date);
   // on récupère les tâches liées au planning
 
+  const tasks = useSelector((state) => state.task.tasks);
+  
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
-  // console.log(tasks);
-
+  console.log('tasks from week', tasks);
 
   //on va gérer ici l'apparition de la modale des taches
   const handleClick = (event) => {
@@ -42,12 +44,12 @@ function Day() {
     dispatch(openModal(date));
   };
   //on va gérer ici l'apparition de la modale de modification des taches
-  // const handleModify = (event) => {
-  //   const taskId = event.target.dataset.modify;
-  //   // récupérer la tache qui a pour id event.target.dataset.modify
-  //   const task = tasks.find((task) => task.id == taskId);
-  //   dispatch(openModifyModal(task));
-  // };
+  const handleModify = (event) => {
+    const taskId = event.target.dataset.modify;
+    // récupérer la tache qui a pour id event.target.dataset.modify
+    const task = tasks.find((task) => task.id == taskId);
+    dispatch(openModifyModal(task));
+  };
 
   //on gère ici l'ouverture de la tache pour voir apparaitre description et bouton modifier
   // j'essaie de gérer indifféremment le clique sur une tâche par rapport à une autre
@@ -70,50 +72,72 @@ function Day() {
   // on cherche à gérer ici l'attribution d'une tâche, c'est à dire indiquer dans le
   // store à quel utilisateur est attribuée la tâche et visuellement encadrer la tâche
   // avec la couleur de l'user
-  // const handleClickOnCheckbox = (event) => {
-  //   const taskId = event.target.dataset.checkbox;
-  //   // récupérer la tache qui a pour id event.target.dataset.checkbox
-  //   const task = tasks.find((task) => task.id == taskId);
-  //   // on récup la couleur de l'user et on associe la tache à cet user
-  //   // de même pour l'id, on gère les différents cas,
-  //   // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
-  //   if (!task.userId) {
-  //     task.userId = userConnected.id;
-  //     task.borderColor = userConnected.color;
-  //   } else if (task.userId && task.userId !== userConnected.id) {
-  //     task.userId = userConnected.id;
-  //     task.borderColor = userConnected.color;
-  //   } else {
-  //     task.userId = null;
-  //     task.borderColor = null;
-  //   }
-  //   // on fait la modif dans le store
-  //   dispatch(modifyTask(task));
-  // };
+  const handleClickOnCheckbox = (event) => {
+    console.log('id de luser', userConnected.user.id);
+    console.log('couleur de luser', userConnected.user.color);
+    
+    const taskId = event.target.dataset.checkbox;
+    // récupérer la tache qui a pour id event.target.dataset.checkbox
+    let task = tasks.find((task) => task.id == taskId);
+    let newTask = {...task};
+    // console.log('taskToModify', taskToModify);
+    // on récup la couleur de l'user et on associe la tache à cet user
+    // de même pour l'id, on gère les différents cas,
+    // si la tâche est déjà attribuée ou non et si elle est attribuée à quelqu'un d'autre
+    if (!newTask.user_id) {
+      newTask.user_id = userConnected.user.id;
+      newTask.border_color = userConnected.user.color;
+      console.log('newTask', newTask);
+    } else if (newTask.user_id && newTask.user_id !== userConnected.user.id) {
+      newTask.user_id = userConnected.user.id;
+      newTask.border_color = userConnected.user.color;
+    } else {
+      newTask.user_id = null;
+      newTask.border_color = null;
+    }
+    // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedTask ={}
+    for (const [key, value] of Object.entries(newTask)) {
+      if (value !== task[key] && value !== '') {
+        updatedTask[key] = value;
+      }
+    }
+    const id = task.id
+    // on fait la modif dans le store
+    dispatch(modifyTask({updatedTask, id}));
+  };
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
     const taskId = event.target.dataset.delete;
     dispatch(deleteTask(taskId));
   };
   // on veut gérer le fait de concidérer une tâche comme faite
+  const handleDone = (event) => {
+    const taskId = event.target.dataset.done;
+    // récupérer la tache qui a pour id event.target.dataset.done
+    const task = tasks.find((task) => task.id == taskId);
+    let newTask = {...task};
+    
+    if (task.user_id === null) {
+      alert(
+        "Vous devez vous assigner la tâche avant de la considérer comme terminée"
+      );
+    } else {
 
-  // const handleDone = (event) => {
-  //   const taskId = event.target.dataset.done;
-  //   // récupérer la tache qui a pour id event.target.dataset.done
-  //   const task = tasks.find((task) => task.id == taskId);
-  //   console.log(task);
-  //   if (task.userId === null) {
-  //     alert(
-  //       "Vous devez vous assigner la tâche avant de la considérer comme terminée"
-  //     );
-  //   } else {
-  //     task.done = true;
-  //      // on fait la modif dans le store
-  //   dispatch(modifyTask(task));
-  //   }
-  // };
+      newTask.done = true;
+       // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+    const updatedTask ={}
+    for (const [key, value] of Object.entries(newTask)) {
+      if (value !== task[key] && value !== '') {
+        updatedTask[key] = value;
+      }
+    }
+    const id = task.id
+    // on fait la modif dans le store
+    dispatch(modifyTask({updatedTask, id}));
+    }
 
-
+  };
   // on gère ici la mise en place de l'agenda avec la librairie date-fns
   const startOfweek = startOfWeek(selectedDate, {
     weekStartsOn: 1,
@@ -150,7 +174,7 @@ function Day() {
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
         <div datatype={i} className="Day-dayContainer">
-          {/* {tasks.map((task) => {
+          {tasks.map((task) => {
             const taskDate = new Date(task.date);
             // console.log(taskDate.getDay())
             const taskIsWithinWeek = isWithinInterval(taskDate, {
@@ -167,12 +191,12 @@ function Day() {
                   }
                   key={task.id}
                   style={{
-                    borderColor: task.borderColor,
-                    borderTopWidth: task.borderColor ? "5px" : "1px",
+                    borderColor: task.border_color,
+                    borderTopWidth: task.border_color ? "5px" : "1px",
                   }}
                 >
                   <div className="Day-task__closed">
-                    <h1>{task.title}</h1>
+                    <h1>{task.name}</h1>
                     <input
                       type="checkbox"
                       data-checkbox={task.id}
@@ -235,7 +259,7 @@ function Day() {
             } else {
               return "";
             }
-          })} */}
+          })}
         </div>
       </div>
     );
