@@ -9,7 +9,6 @@ function Header() {
   const dispatch = useDispatch();
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(userLogout());

@@ -1,8 +1,7 @@
 @use "../../../style/vars";
 
 .AddTask {
-    margin-left: 2rem;
-
+margin: 20px;
     &-button{
         background-color: vars.$orange;
         padding: 0.5rem;

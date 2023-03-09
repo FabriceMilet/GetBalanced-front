@@ -1,5 +1,5 @@
 .Table {
-  padding: 85px;
+  padding-top: 85px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,10 +13,18 @@
   }
   &-header {
     display: flex;
-    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: space-around;
   }
   &-container{
     width: 100vw;
     overflow-x: auto;
+  }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+
+  .Table-header{
+    flex-direction: column;
   }
 }
