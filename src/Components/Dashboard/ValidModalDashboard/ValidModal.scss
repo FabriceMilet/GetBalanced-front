@@ -1,0 +1,53 @@
+
+.modal_fond{
+    position: fixed;
+    top: 0px;
+    backdrop-filter: blur(5px);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal_container{
+    background-color: white;
+    width:  500px;
+    height: 500px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.modal_title{
+    text-align: center;
+}
+
+.modal_button_container{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.Button_annuler{
+    border: none;
+    background-color: #392f5a;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+}
+
+.Button_Valider{
+    color: white;
+    border: none;
+    background-color: #392f5a;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
