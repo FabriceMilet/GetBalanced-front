@@ -70,3 +70,11 @@
     height: 33px;
     background-color: #fb4d3d;
 }
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+   
+    .colors_container{
+        right: 90px;
+        top: 330px;
+    }
+}
