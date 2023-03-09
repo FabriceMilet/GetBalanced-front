@@ -1,7 +1,9 @@
 @use "../../../style/vars";
 
 .WeekScroll {
-  display: flex;
+   display: flex;
+   width: 100vw;
+   justify-content: center;
   &-week {
     margin: 0 2rem;
     font-size: 2rem;
@@ -26,9 +28,18 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
-  .WeekScroll-size {
-    width: 200px;
-    height: 200px;
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+   .WeekScroll-size {
+    width: 35px;
+    height: 35px;
   }
+
+  .WeekScroll{
+    display: flex;
+    align-items: center;
+  }
+
+  .WeekScroll-week{
+    font-size: large;
+  } 
 }
