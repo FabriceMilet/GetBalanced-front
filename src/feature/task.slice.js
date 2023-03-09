@@ -14,7 +14,7 @@ export const getTasks = createAsyncThunk(
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
         }
       });
-      console.log('response.data', response.data);
+      console.log('je récupère les tasks du back', response);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

@@ -46,7 +46,12 @@
     font-weight: bold;
     padding: 0.7rem 2rem;
     border-radius: 5px;
-}
-.Parametres button:hover {
     cursor: pointer;
+    &:hover{
+        background-color: darken(vars.$darkBlue, 8%)
+    }
+}
+.TaskModale-buttons{
+    display: flex;
+    justify-content: space-between;
 }
