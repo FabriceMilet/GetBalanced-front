@@ -57,3 +57,10 @@
     color: #aeaeb0;
     margin-top: 0.5rem;
 }
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+
+  .Login-container{
+    width: 90vw;
+  }
+}

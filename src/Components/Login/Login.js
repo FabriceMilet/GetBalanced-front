@@ -1,6 +1,6 @@
 import './Login.scss';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from "../../feature/users.slice";
 import { setFormData } from '../../feature/users.slice';
 import { useEffect } from 'react';
@@ -13,7 +13,6 @@ function Login() {
 
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
-  const { id } = useSelector((state) => state.user.userConnected);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {
