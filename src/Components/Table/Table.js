@@ -11,20 +11,12 @@ import { getTasks } from "../../feature/task.slice";
 
 function Table() {
   const dispatch = useDispatch();
-  // const tasks = useSelector((state) => state.task.tasks);
-  // on récupère les tâches liées au planning
-  //    const tasks = useSelector((state) =>
-  //    state.task.tasks.map((task) => ({ ...task }))
-  //  );
   // je récupère l'id du planning
   const { id } = useParams();
   useEffect(() => {
     dispatch(setId(id));
     dispatch(getTasks(id));
   }, []);
-
-  // const userConnected = useSelector((state) => state.user.userConnected);
-  // console.log("userConnected from table :", userConnected);
 
   return (
     <div className="Table">
