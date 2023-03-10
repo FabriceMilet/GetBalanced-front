@@ -32,17 +32,17 @@ function Dashboard() {
 
   const handleDelete = (event) => {
 
-     // récupérer le planner qui a pour id event.target.dataset.delete
-     const plannerIdToDelete = event.currentTarget.dataset.delete;
-     console.log('plannerIdToDelete', plannerIdToDelete);
-     setPlannerId(plannerIdToDelete);
-     dispatch(openConfirmModal());
+    // récupérer le planner qui a pour id event.target.dataset.delete
+    const plannerIdToDelete = event.currentTarget.dataset.delete;
+    console.log('plannerIdToDelete', plannerIdToDelete);
+    setPlannerId(plannerIdToDelete);
+    dispatch(openConfirmModal());
   };
 
   const handleInvit = (event) => {
     // récupérer le planner qui a pour id event.target.dataset.delete
     const plannerIdToInvit = event.currentTarget.dataset.delete;
-    console.log('plannerIdToinvit', plannerIdToInvit);
+    //console.log('plannerIdToinvit', plannerIdToInvit);
     setPlannerId(plannerIdToInvit);
     dispatch(openInvitModal());
   };
@@ -61,7 +61,7 @@ function Dashboard() {
       </button>
       {isOpen && <Parametres />}
       {isInvitOpen && <InvitationModale plannerId={plannerId} />}
-      {isConfirmOpen && <ValidModalDashboard plannerId={plannerId}/>}
+      {isConfirmOpen && <ValidModalDashboard plannerId={plannerId} />}
       <div className="Dashboard-planners">
         {planners &&
           planners.map((planner) => (
@@ -100,7 +100,7 @@ function Dashboard() {
                   </button>
                 </div>
 
-           </div>
+              </div>
 
             </div>
           ))}

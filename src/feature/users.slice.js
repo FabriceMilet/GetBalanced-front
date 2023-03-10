@@ -16,12 +16,12 @@ export const userCheckToken = createAsyncThunk(
           }
         });
 
-      console.log("response", response.data)
+      //console.log("response", response.data)
 
       //localStorage.setItem('token', response.data.token);
       //localStorage.setItem('id', response.data.user.id);
 
-      console.log("response refresh", response.data)
+      //console.log("response refresh", response.data)
       return response.data
     } catch (err) {
       localStorage.removeItem('token');
@@ -59,7 +59,6 @@ export const loginUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       //console.log("userData login", userData)
-      console.log("YES le code va bien jusqu'ici !")
       const response = await axios.post(
 
         `${apiUrl}/user/login`,
@@ -68,11 +67,9 @@ export const loginUser = createAsyncThunk(
       // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('id', response.data.user.id);
-      console.log('response.data', response.data);
 
       return response.data;
     } catch (err) {
-      console.log("ERREUR ! : ", err)
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
@@ -146,7 +143,6 @@ export const inviteUser = createAsyncThunk(
           }
         }
       );
-      console.log('response.data de lid à supprimer', response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);

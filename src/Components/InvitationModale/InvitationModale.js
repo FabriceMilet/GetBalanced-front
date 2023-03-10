@@ -11,7 +11,6 @@ export default function InvitationModale({ plannerId }) {
 
   const dispatch = useDispatch();
 
-  console.log("PlannerId", plannerId)
   const userId = useSelector((state) => state.user.userConnected.user.id); // UserID
 
   const inputInviteEmail = useRef();
@@ -33,7 +32,6 @@ export default function InvitationModale({ plannerId }) {
       dispatch(openInvitModal());
     }
     dispatch(setSucces(""))
-
   };
 
   return (
