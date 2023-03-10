@@ -34,6 +34,10 @@ function Login() {
     });
     //console.log("formData", formData);
   }
+    // on vide les input au cas où on clique sur la redirection vers login
+    const handleClear = () => {
+      dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
+    }
   // console.log("isLogged", isLogged);
   return (
     <form className="Login" onSubmit={handleSubmit}>
@@ -59,7 +63,7 @@ function Login() {
             />
           </label>
           <button type="submit" className="SignUp-button">Se connecter</button>
-          <Link to="/signup">
+          <Link onClick={handleClear} to="/signup">
             <p className="SignUp-link">Vous n'avez pas de compte ?</p>
           </Link>
         </div>)}

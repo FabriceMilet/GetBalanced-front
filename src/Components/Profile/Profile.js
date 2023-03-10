@@ -1,7 +1,7 @@
 import './Profile.scss'
 import avatar from "./avatar.png"
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { editUser, deleteUser } from "../../feature/users.slice";
 import ValidModal from './ValidModal/validModal';

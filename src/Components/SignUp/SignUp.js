@@ -7,7 +7,7 @@ import { setFormData } from '../../feature/users.slice';
 function SignUp() {
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
-  const { id } = useSelector((state) => state.user.userConnected);
+  // const { id } = useSelector((state) => state.user.userConnected);
   const dispatch = useDispatch();
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
   // correspondant à la variable name et sa valeur associée
@@ -27,6 +27,10 @@ function SignUp() {
       // console.log(formData);
       // on va devoir prévoir l'envoie vers la page profil ou dashboard 
     }
+  }
+  // on vide les input au cas où on clique sur la redirection vers login
+  const handleClear = () => {
+    dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
   }
 
   //console.log("isLogged", isLogged);
@@ -81,7 +85,7 @@ function SignUp() {
             />
           </label>
           <button type="submit" className="SignUp-button">S'inscrire</button>
-          <Link to="/login">
+          <Link onClick={handleClear} to="/login">
             <p className="SignUp-link">Vous avez déjà un compte ?</p>
           </Link>
         </div>
