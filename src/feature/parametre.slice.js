@@ -2,13 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const userId = localStorage.getItem('id')
 
 
 export const getPlanners = createAsyncThunk(
   "parametre/getPlanners",
   async (_, thunkAPI) => {
-
+    const userId = localStorage.getItem('id')
     const token = localStorage.getItem('token')
     //console.log("verif-token", token)
 
@@ -33,6 +32,7 @@ export const addPlanner = createAsyncThunk(
     const token = localStorage.getItem('token')
     try {
       //console.log(formData);
+      const userId = localStorage.getItem('id')
       const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête

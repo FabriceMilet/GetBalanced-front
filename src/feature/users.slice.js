@@ -15,13 +15,6 @@ export const userCheckToken = createAsyncThunk(
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         });
-
-      //console.log("response", response.data)
-
-      //localStorage.setItem('token', response.data.token);
-      //localStorage.setItem('id', response.data.user.id);
-
-      //console.log("response refresh", response.data)
       return response.data
     } catch (err) {
       localStorage.removeItem('token');
@@ -136,7 +129,7 @@ export const inviteUser = createAsyncThunk(
     console.log("email", email, "userId", userId, "plannerId", plannerId);
     try {
       const response = await axios.post(
-        `${apiUrl}/invite/${userId}/planner/${plannerId}`, {'email': email},
+        `${apiUrl}/invite/${userId}/planner/${plannerId}`, { 'email': email },
         {
           headers: {
             Authorization: `Bearer ${token}`,
