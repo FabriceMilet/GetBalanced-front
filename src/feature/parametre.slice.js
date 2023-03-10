@@ -10,10 +10,10 @@ export const getPlanners = createAsyncThunk(
   async (_, thunkAPI) => {
 
     const token = localStorage.getItem('token')
-    console.log("verif-token", token)
+    //console.log("verif-token", token)
 
     try {
-      console.log(userId);
+      // console.log(userId);
       const response = await axios.get(`${apiUrl}/planner/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -32,7 +32,7 @@ export const addPlanner = createAsyncThunk(
   async (formData, thunkAPI) => {
     const token = localStorage.getItem('token')
     try {
-      console.log(formData);
+      //console.log(formData);
       const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -72,7 +72,7 @@ const parametreSlice = createSlice({
     error: null,
     isOpen: false,
     isInvitOpen: false,
-    isConfirmOpen : false,
+    isConfirmOpen: false,
     formData: { name: "", description: "", invitation: "" },
     planners: [],
     id: null,
