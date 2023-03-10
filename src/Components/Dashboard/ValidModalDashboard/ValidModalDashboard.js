@@ -2,18 +2,17 @@ import { useDispatch } from "react-redux";
 import { deletePlanner } from "../../../feature/parametre.slice";
 import "./ValidModal.scss";
 import { openConfirmModal } from "../../../feature/parametre.slice";
-import { useSelector } from "react-redux";
 
-export default function ValidModalDashboard() {
-  const plannerIdToDelete = useSelector((state) => state.parametre.plannerIdToDelete);
+
+export default function ValidModalDashboard({plannerId}) {
   const dispatch = useDispatch();
 
   const handleModal = () => {
     dispatch(openConfirmModal());
   };
   const handleDelete = () => {
-    console.log('plannerIdToDelete', plannerIdToDelete);
-    dispatch(deletePlanner(plannerIdToDelete));
+    console.log('plannerIdToDelete', plannerId);
+    dispatch(deletePlanner(plannerId));
     dispatch(openConfirmModal());
   };
   return (
