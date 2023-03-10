@@ -131,6 +131,28 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
+
+export const inviteUser = createAsyncThunk(
+  "user/inviteUser",
+  async ({ email, userId, plannerId }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    console.log("email", email, "userId", userId, "plannerId", plannerId);
+    try {
+      const response = await axios.get(
+        `${apiUrl}/invite/${userId}/planner/${plannerId}`, email,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
+      console.log('response.data de lid à supprimer', response.data);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 // création du slice
 const userSlice = createSlice({
   name: "user",
@@ -159,6 +181,9 @@ const userSlice = createSlice({
       state.userConnected = {};
       state.succes = "Vous êtes déconnecté !";
       state.erreur = null;
+    },
+    setSucces: (state, action) => {
+      state.succes = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -239,11 +264,23 @@ const userSlice = createSlice({
         state.isLogged = false;
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(inviteUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(inviteUser.fulfilled, (state) => {
+        state.succes = "utilisateur invité !";
+        state.loading = false;
+      })
+      .addCase(inviteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.erreur = "erreur d'invitation !";
       });
   },
 });
 
-export const { setFormData, refreshUserConnected, userLogout } = userSlice.actions;
+export const { setFormData, refreshUserConnected, userLogout, setSucces } = userSlice.actions;
 export default userSlice.reducer;
 
 

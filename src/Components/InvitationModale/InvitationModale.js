@@ -4,26 +4,17 @@ import {
   openInvitModal,
 } from "../../feature/parametre.slice";
 import { useRef } from "react";
+import { inviteUser, setSucces } from "../../feature/users.slice";
 
 export default function InvitationModale({ plannerId }) {
 
-  console.log("PlannerId", plannerId)
 
   const dispatch = useDispatch();
 
-  const userConnectedId = useSelector((state) => state.user.userConnected.user.id);
-  const userConnected = useSelector((state) => state.user.userConnected.user.id);
+  console.log("PlannerId", plannerId)
+  const userId = useSelector((state) => state.user.userConnected.user.id); // UserID
 
   const inputInviteEmail = useRef();
-
-  // on va chercher ici à faire apparaitre le tableau dans le dashboard et l'enregitrer en BDD
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   dispatch(addPlanner(formData)).then(() => {
-  //     dispatch(setFormData({ name: "", description: "", invitation: "" }));
-  //   });
-  //   dispatch(openModal());
-  // };
 
   const handleCancel = () => {
     dispatch(openInvitModal())
@@ -33,12 +24,15 @@ export default function InvitationModale({ plannerId }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const inviteEmail = inputInviteEmail.current.value;
+    const email = inputInviteEmail.current.value;
 
-    if (inviteEmail) {
+    if (email) {
+      //console.log("email", email, "userId", userId, "plannerId", plannerId);
+      dispatch(inviteUser({ email, userId, plannerId }))
       // console.log("test", inviteEmail, "UserId", userConnectedId) //OK
       dispatch(openInvitModal());
     }
+    dispatch(setSucces(""))
 
   };
 

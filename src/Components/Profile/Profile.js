@@ -3,10 +3,9 @@ import avatar from "./avatar.png"
 import { useSelector, useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { editUser, deleteUser } from "../../feature/users.slice";
+import { editUser, deleteUser, setSucces } from "../../feature/users.slice";
 import ValidModal from './ValidModal/validModal';
 import ColorsModal from './ColorsModal/ColorsModal';
-
 
 export default function Profile() {
 
@@ -47,6 +46,7 @@ export default function Profile() {
       }
     }
     dispatch(editUser({ updatedFormData, id }))
+    dispatch(setSucces(""))
   }
 
   const handleModal = () => {

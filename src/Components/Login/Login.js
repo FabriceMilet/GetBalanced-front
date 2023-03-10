@@ -1,7 +1,7 @@
 import './Login.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from "../../feature/users.slice";
+import { loginUser, } from "../../feature/users.slice";
 import { setFormData } from '../../feature/users.slice';
 import { useEffect } from 'react';
 
@@ -34,10 +34,10 @@ function Login() {
     });
     //console.log("formData", formData);
   }
-    // on vide les input au cas où on clique sur la redirection vers login
-    const handleClear = () => {
-      dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
-    }
+  // on vide les input au cas où on clique sur la redirection vers login
+  const handleClear = () => {
+    dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
+  }
   // console.log("isLogged", isLogged);
   return (
     <form className="Login" onSubmit={handleSubmit}>
