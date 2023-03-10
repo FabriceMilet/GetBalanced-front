@@ -139,7 +139,7 @@ export const inviteUser = createAsyncThunk(
     console.log("email", email, "userId", userId, "plannerId", plannerId);
     try {
       const response = await axios.post(
-        `${apiUrl}/invite/${userId}/planner/${plannerId}`, email,
+        `${apiUrl}/invite/${userId}/planner/${plannerId}`, {'email': email},
         {
           headers: {
             Authorization: `Bearer ${token}`,
