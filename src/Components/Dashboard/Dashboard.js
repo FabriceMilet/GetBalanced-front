@@ -59,9 +59,9 @@ function Dashboard() {
   // };
 
   const handleDelete = (event) => {
-     // récupérer le planner qui a pour id event.target.dataset.delete
-     const plannerId = event.target.dataset.delete;
-     dispatch(setPlannerIdToDelete(plannerId));
+    // récupérer le planner qui a pour id event.target.dataset.delete
+    const plannerId = event.target.dataset.delete;
+    dispatch(setPlannerIdToDelete(plannerId));
     dispatch(openConfirmModal());
   };
 
@@ -121,7 +121,7 @@ function Dashboard() {
                     <FaTrash />
                   </button>
                 </div>
-                </div>
+              </div>
 
               {/* <form className="Parametres-form" onSubmit={handleSubmit}>
                     <label

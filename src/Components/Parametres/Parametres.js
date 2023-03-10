@@ -52,49 +52,13 @@ export default function Parametres() {
             onChange={handleChange}
           />
         </label>
-        <label
-          htmlFor="Envoyer un mail d'invitation"
-          className="Parametres-input"
-        >
-          Envoyez un mail au membre que vous souhaitez inviter à votre planning
-          <input
-            type="email"
-            name="invitation"
-            placeholder="p.martin@gmail.com"
-            value={formData.invitation}
-            onChange={handleChange}
-          />
-        </label>
-        {/*  cette partie sera à revoir si on souhaite par la suite ajouter plusieurs membres à la fois
-        <div>
-  <p className="Parametres-add">
-  Envoyer une invitation à un membre supplémentaire
-</p>
-<button className="Parametres-add__button" onClick={handleClick}>
-  +
-</button>
-</div>
-{formData.invitations.map((invitation, index) => (
-  <label
-htmlFor="Envoyer un mail d'invitation"
-className="Parametres-input"
-key={`invitation-${index}`}
->
-  <input
-  type="email"
-  name="invitation"
-  placeholder="p.martin@gmail.com"
-  value={formData.invitation}
-  onChange={handleChange}
-/></label>
-))}  */}
-<div className="Parametres-buttons">
-        <button type="submit" className="Parametres-button">
-          Valider
-        </button>
-        <button onClick={handleCancel} className="Parametres-button">
-          X
-        </button>
+        <div className="Parametres-buttons">
+          <button type="submit" className="Parametres-button">
+            Valider
+          </button>
+          <button onClick={handleCancel} className="Parametres-button">
+            X
+          </button>
         </div>
       </form>
     </div>
