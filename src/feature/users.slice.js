@@ -138,7 +138,7 @@ export const inviteUser = createAsyncThunk(
     const token = localStorage.getItem('token');
     console.log("email", email, "userId", userId, "plannerId", plannerId);
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${apiUrl}/invite/${userId}/planner/${plannerId}`, email,
         {
           headers: {
