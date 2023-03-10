@@ -31,6 +31,7 @@ function Dashboard() {
   };
 
   const handleDelete = (event) => {
+
      // récupérer le planner qui a pour id event.target.dataset.delete
      const plannerIdToDelete = event.currentTarget.dataset.delete;
      console.log('plannerIdToDelete', plannerIdToDelete);
@@ -98,7 +99,9 @@ function Dashboard() {
                     <FaTrash />
                   </button>
                 </div>
-                </div>
+
+           </div>
+
             </div>
           ))}
       </div>
