@@ -1,57 +1,48 @@
 @use "../../../style/vars";
-
-.Week {
+.Day {
   background-color: vars.$lightBlue;
   border-radius: 40px;
-  max-width: 95%;
-  margin: auto;
   margin-top: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-
-  &-days {
+  min-height: 100vh;
+  
+  &-days{
     display: flex;
-    background-color: vars.$lightBlue;
-    border-radius: 40px;
-    padding-top: 2rem;
-    justify-content: space-around;
-    height: 80vh;
-    min-width: 100%;
-    // margin: auto;
   }
   &-day {
+    background-color: vars.$lightBlue;
     display: flex;
     flex-direction: column;
-    width: 13%;
+    align-items: center; 
+    padding-top: 1rem;
+    width: 100%;
+    min-height: 100vh;
   }
   &-dayName {
     color: vars.$darkBlue;
     display: flex;
-    font-weight: bold;
-    font-size: 120%;
     justify-content: center;
     align-items: center;
-    margin-right: 5%;
     background-color: vars.$yellow;
+    width: 80vw;
     border-radius: 15px;
-    padding: 0.5rem 0 .5rem 0;
+    padding: 2% 3%;
     span {
-      margin-right: 0.5rem;
+      margin-right: 2%;
     }
   }
   &-dayContainer {
-    border-right: 1px solid rgb(73, 191, 202);
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 3;
+    min-height: 100vh;
     margin-top: 1rem;
-  }
-  &-dayContainer-last {
-    border-right: none;
+    width: 95vw;
   }
   &-button {
-    background-color: transparent;
+    background-color: vars.$yellow;
     border: none;
-    font-size: 2rem;
+    font-size: 150%;
     font-weight: bold;
     color: vars.$darkBlue;
     margin-left: 1rem;
@@ -64,22 +55,22 @@
     background-color: vars.$floralWhite;
     border: 1px solid #00000059;
     border-radius: 10px;
-    font-size: 0.7rem;
+    font-size: 100%;
     font-weight: normal;
     text-align: center;
     padding: 0.5rem 0.1rem;
-    width: 85%;
+    width: 70vw;
     margin-bottom: 1rem;
     &__closed {
       display: flex;
       justify-content: space-around;
     }
     &__description {
-      font-size: 1rem;
+      font-size: 70%;
       color: vars.$darkBlue;
     }
     &__category {
-      font-size: 1.1rem;
+      font-size: 80%;
       font-style: italic;
       color: vars.$darkBlue;
     }
@@ -90,7 +81,7 @@
       margin-top: 0.5rem;
       max-width: 100%;
       justify-content: space-around;
-      font-size: 1rem;
+      font-size: 100%;
     }
     &__button {
       background-color: vars.$lightBlue;
@@ -133,25 +124,8 @@
     transform: translateY(3px);
   }
 }
-@media screen and (max-width: 1380px) {
-  .Week-dayName  {
-    font-size: 80%; 
-  }
-  .Week-button{
-    margin-left: .5rem;
-  }
-}
-@media screen and (max-width: 900px) {
-  .Week-dayName  {
-    font-size: 70%; 
-  }
-  .Week-button{
-    margin-left: .2rem;
-    font-size: 150%;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .Week {
+@media only screen and (min-width: 601px) {
+  .Day{
     display: none;
   }
 }

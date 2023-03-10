@@ -1,14 +1,18 @@
 import './Login.scss';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from 'react-router-dom';
-import { loginUser } from "../../feature/users.slice";
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser, } from "../../feature/users.slice";
 import { setFormData } from '../../feature/users.slice';
+import { useEffect } from 'react';
 
 function Login() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
+
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
-
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {
@@ -16,15 +20,25 @@ function Login() {
     dispatch(setFormData({ ...formData, [name]: value }));
   };
 
+  useEffect(() => {
+    if (isLogged && token) {
+      navigate("/dashboard")
+    }
+  }, [isLogged, token]);
+
   // formData est envoyé en paramètre de createUser au slice userSlice
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginUser(formData)).then(() => {
       dispatch(setFormData({ email: "", password: "" }))
     });
-    console.log("formData", formData);
+    //console.log("formData", formData);
   }
-  console.log("isLogged", isLogged);
+  // on vide les input au cas où on clique sur la redirection vers login
+  const handleClear = () => {
+    dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
+  }
+  // console.log("isLogged", isLogged);
   return (
     <form className="Login" onSubmit={handleSubmit}>
       {!isLogged && (
@@ -49,13 +63,13 @@ function Login() {
             />
           </label>
           <button type="submit" className="SignUp-button">Se connecter</button>
-          <Link to="/signup">
+          <Link onClick={handleClear} to="/signup">
             <p className="SignUp-link">Vous n'avez pas de compte ?</p>
           </Link>
         </div>)}
       {/* on veut renvoyer vers le dashboard si l'utilisateur est logué
  il va falloir ici récupérer son id */}
-      {isLogged && (<Navigate to="/dashboard/1" replace />)}
+      {/*  {isLogged && (<Navigate to="/dashboard" replace />)} */}
     </form>
   );
 }

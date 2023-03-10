@@ -51,6 +51,11 @@
         background-color: darken(vars.$darkBlue, 8%)
     }
 }
+.TaskModale-select{
+    padding: 0.5rem;
+    margin-left: .5rem;
+    background-color: vars.$lightBlue;
+}
 .TaskModale-buttons{
     display: flex;
     justify-content: space-between;

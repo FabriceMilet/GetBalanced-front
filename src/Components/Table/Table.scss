@@ -1,13 +1,31 @@
 .Table {
-  margin-top: 1.5rem;
+  padding-top: 85px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
   &-more {
     cursor: pointer;
   }
   &-less {
     cursor: pointer;
+  }
+  &-header {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-container{
+    width: 100vw;
+    overflow-x: auto;
+  }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+
+  .Table-header{
+    flex-direction: column;
   }
 }

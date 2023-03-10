@@ -1,4 +1,4 @@
-import "./Week.scss";
+import "./Day.scss";
 import {
   startOfWeek,
   addDays,
@@ -17,7 +17,7 @@ import TaskModale from "../../TaskModale/TaskModale";
 import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
 import { useState } from "react";
 
-function Week() {
+function Day() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
@@ -31,7 +31,7 @@ function Week() {
   // on récupère les tâches liées au planning
 
   const tasks = useSelector((state) => state.task.tasks);
-  
+
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
@@ -75,11 +75,11 @@ function Week() {
   const handleClickOnCheckbox = (event) => {
     console.log('id de luser', userConnected.user.id);
     console.log('couleur de luser', userConnected.user.color);
-    
+
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     let task = tasks.find((task) => task.id == taskId);
-    let newTask = {...task};
+    let newTask = { ...task };
     // console.log('taskToModify', taskToModify);
     // on récup la couleur de l'user et on associe la tache à cet user
     // de même pour l'id, on gère les différents cas,
@@ -96,7 +96,7 @@ function Week() {
       newTask.border_color = null;
     }
     // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
-    const updatedTask ={}
+    const updatedTask = {}
     for (const [key, value] of Object.entries(newTask)) {
       if (value !== task[key] && value !== '') {
         updatedTask[key] = value;
@@ -104,7 +104,7 @@ function Week() {
     }
     const id = task.id
     // on fait la modif dans le store
-    dispatch(modifyTask({updatedTask, id}));
+    dispatch(modifyTask({ updatedTask, id }));
   };
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
@@ -116,8 +116,8 @@ function Week() {
     const taskId = event.target.dataset.done;
     // récupérer la tache qui a pour id event.target.dataset.done
     const task = tasks.find((task) => task.id == taskId);
-    let newTask = {...task};
-    
+    let newTask = { ...task };
+
     if (task.user_id === null) {
       alert(
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
@@ -125,16 +125,16 @@ function Week() {
     } else {
 
       newTask.done = true;
-       // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
-    const updatedTask ={}
-    for (const [key, value] of Object.entries(newTask)) {
-      if (value !== task[key] && value !== '') {
-        updatedTask[key] = value;
+      // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+      const updatedTask = {}
+      for (const [key, value] of Object.entries(newTask)) {
+        if (value !== task[key] && value !== '') {
+          updatedTask[key] = value;
+        }
       }
-    }
-    const id = task.id
-    // on fait la modif dans le store
-    dispatch(modifyTask({updatedTask, id}));
+      const id = task.id
+      // on fait la modif dans le store
+      dispatch(modifyTask({ updatedTask, id }));
     }
 
   };
@@ -159,25 +159,21 @@ function Week() {
     const day = addDays(startOfweek, i);
     const formattedDay = format(day, "d");
     const dateOftheday = format(day, "yyyy-MM-dd");
-    // J'ajoute la classe 'Week-dayContainer-last' pour le dernier élément de la boucle pour lui enlever sa bordure
-    const isLast = i === daysInWeek - 1;
-    const dayContainerClasses = `Week-dayContainer ${isLast ? "Week-dayContainer-last" : ""
-      }`;
     days.push(
-      <div className="Week-day" key={i}>
-        <div className="Week-dayName">
+      <div className="Day-day" key={i} >
+        <div className="Day-dayName">
           <span>{daysOfWeek[i]}</span>
           {formattedDay}
           <button
             onClick={handleClick}
-            className="Week-button"
+            className="Day-button"
             data-date={dateOftheday}
           >
             +
           </button>
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
-        <div datatype={i} className={dayContainerClasses}>
+        <div datatype={i} className="Day-dayContainer">
           {tasks.map((task) => {
             const taskDate = new Date(task.date);
             // console.log(taskDate.getDay())
@@ -191,7 +187,7 @@ function Week() {
               return (
                 <div
                   className={
-                    task.done ? "Week-task Week-task__done" : "Week-task"
+                    task.done ? "Day-task Day-task__done" : "Day-task"
                   }
                   key={task.id}
                   style={{
@@ -199,7 +195,7 @@ function Week() {
                     borderTopWidth: task.border_color ? "5px" : "1px",
                   }}
                 >
-                  <div className="Week-task__closed">
+                  <div className="Day-task__closed">
                     <h1>{task.name}</h1>
                     <input
                       type="checkbox"
@@ -208,28 +204,28 @@ function Week() {
                     ></input>
                   </div>
                   {isTaskOpen && (
-                    <div className="Week-task__open">
-                      <p className="Week-task__description">
+                    <div className="Day-task__open">
+                      <p className="Day-task__description">
                         {task.description}
                       </p>
-                      <p className="Week-task__category">{task.category}</p>
-                      <div className="Week-task__buttons">
+                      <p className="Day-task__category">{task.category}</p>
+                      <div className="Day-task__buttons">
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleModify}
                           data-modify={task.id}
                         >
                           Modifier
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDone}
                           data-done={task.id}
                         >
                           Terminer
                         </button>
                         <button
-                          className="Week-task__button"
+                          className="Day-task__button"
                           onClick={handleDelete}
                           data-delete={task.id}
                         >
@@ -240,7 +236,7 @@ function Week() {
                   )}
                   <svg
                     className={
-                      isTaskOpen ? "Week-task__arrow-top" : "Week-task__arrow"
+                      isTaskOpen ? "Day-task__arrow-top" : "Day-task__arrow"
                     }
                     viewBox="0 0 24 24"
                     width="24"
@@ -270,12 +266,17 @@ function Week() {
   }
 
   return (
-    <div className="Week">
+    <div className="Day" >
       {isOpen && <TaskModale />}
       {isModifyOpen && <TaskModifyModale />}
-      {!isOpen && !isModifyOpen && <div className="Week-days">{days}</div>}
+      {!isOpen && !isModifyOpen &&
+        <div className="Day-days">
+          {days}
+        </div>
+      }
     </div>
   );
 }
 
-export default Week;
+export default Day;
+
