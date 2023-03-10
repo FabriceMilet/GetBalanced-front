@@ -50,3 +50,13 @@
         }
     }
 }
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    .InvitationModale{
+       width: 90vw;
+       position: fixed;
+       top: 50%;
+       left: 50%;
+    transform: translate(-50%, -50%);
+    }
+}

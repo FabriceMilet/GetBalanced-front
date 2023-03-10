@@ -31,7 +31,7 @@ function Day() {
   // on récupère les tâches liées au planning
 
   const tasks = useSelector((state) => state.task.tasks);
-  
+
   // const tasks = useSelector((state) =>
   //   state.task.tasks.map((task) => ({ ...task }))
   // );
@@ -75,11 +75,11 @@ function Day() {
   const handleClickOnCheckbox = (event) => {
     console.log('id de luser', userConnected.user.id);
     console.log('couleur de luser', userConnected.user.color);
-    
+
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
     let task = tasks.find((task) => task.id == taskId);
-    let newTask = {...task};
+    let newTask = { ...task };
     // console.log('taskToModify', taskToModify);
     // on récup la couleur de l'user et on associe la tache à cet user
     // de même pour l'id, on gère les différents cas,
@@ -96,7 +96,7 @@ function Day() {
       newTask.border_color = null;
     }
     // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
-    const updatedTask ={}
+    const updatedTask = {}
     for (const [key, value] of Object.entries(newTask)) {
       if (value !== task[key] && value !== '') {
         updatedTask[key] = value;
@@ -104,7 +104,7 @@ function Day() {
     }
     const id = task.id
     // on fait la modif dans le store
-    dispatch(modifyTask({updatedTask, id}));
+    dispatch(modifyTask({ updatedTask, id }));
   };
   // on cherche à gérer ici la supression de la tâche. TODO !
   const handleDelete = (event) => {
@@ -116,8 +116,8 @@ function Day() {
     const taskId = event.target.dataset.done;
     // récupérer la tache qui a pour id event.target.dataset.done
     const task = tasks.find((task) => task.id == taskId);
-    let newTask = {...task};
-    
+    let newTask = { ...task };
+
     if (task.user_id === null) {
       alert(
         "Vous devez vous assigner la tâche avant de la considérer comme terminée"
@@ -125,16 +125,16 @@ function Day() {
     } else {
 
       newTask.done = true;
-       // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
-    const updatedTask ={}
-    for (const [key, value] of Object.entries(newTask)) {
-      if (value !== task[key] && value !== '') {
-        updatedTask[key] = value;
+      // je cherche à créer un nouvel objet avec seulement les paires clé-valeurs modifiées
+      const updatedTask = {}
+      for (const [key, value] of Object.entries(newTask)) {
+        if (value !== task[key] && value !== '') {
+          updatedTask[key] = value;
+        }
       }
-    }
-    const id = task.id
-    // on fait la modif dans le store
-    dispatch(modifyTask({updatedTask, id}));
+      const id = task.id
+      // on fait la modif dans le store
+      dispatch(modifyTask({ updatedTask, id }));
     }
 
   };
