@@ -14,7 +14,7 @@ import { userCheckToken } from "../../feature/user.slice";
 import SuccesModal from "../SuccesModal/SuccesModal";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClimbingBoxLoader";
 
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
       return;
     }
     dispatch(userCheckToken(token));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
@@ -37,9 +37,9 @@ export default function App() {
       {isLoadingUser ? (
         <ClipLoader  
         color="#00BFFF" 
-        size={150}
+        size={50}
         aria-label="Loading Spinner"
-        cssOverride={{ display: "block", margin: "auto", marginTop: "20%" }}
+        cssOverride={{padding: "50%"}}
       />
       ) : (
       <Routes>
