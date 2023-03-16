@@ -2,9 +2,9 @@ import "./InvitationModale.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openInvitModal,
-} from "../../feature/parametre.slice";
+} from "../../../feature/planner.slice";
 import { useRef } from "react";
-import { inviteUser, setSucces } from "../../feature/users.slice";
+import { inviteUser, setSucces } from "../../../feature/user.slice";
 
 export default function InvitationModale({ plannerId }) {
 
@@ -55,7 +55,7 @@ export default function InvitationModale({ plannerId }) {
           <button type="submit" className="InvitationModale-button">
             Valider
           </button>
-          <button onClick={handleCancel} className="Parametres-button">
+          <button onClick={handleCancel} className="InvitationModale-button">
             X
           </button>
         </div>

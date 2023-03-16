@@ -1,7 +1,7 @@
 import './Area2.scss';
 import équité from './équité.png'
 
-function Area2() {
+export default function Area2() {
 
     return (
         <div className="area2_container">
@@ -14,6 +14,4 @@ function Area2() {
             </div>
         </div>
     );
-}
-
-export default Area2;
+};

@@ -58,6 +58,19 @@
                 width: 80%;
             }
         }
+        &__button{
+            display: block;
+            margin-bottom: 1rem;
+            background-color: vars.$darkBlue;
+            color: white;
+            font-weight: bold;
+            padding: 0.7rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover{
+                background-color: darken(vars.$darkBlue, 8%)
+            }
+        }
     }
 }
 @media only screen and (max-width: 600px) {

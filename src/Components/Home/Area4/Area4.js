@@ -1,7 +1,7 @@
 import './Area4.scss';
 import collaboration from './collaboration.png'
 
-function Area4() {
+export default function Area4() {
 
     return (
         <div className="area4_container">
@@ -14,6 +14,4 @@ function Area4() {
             </div>
         </div>
     );
-}
-
-export default Area4;
+};

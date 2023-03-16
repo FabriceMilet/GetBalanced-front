@@ -5,7 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 
 export const getPlanners = createAsyncThunk(
-  "parametre/getPlanners",
+  "planner/getPlanners",
   async (_, thunkAPI) => {
     const userId = localStorage.getItem('id')
     const token = localStorage.getItem('token')
@@ -27,7 +27,7 @@ export const getPlanners = createAsyncThunk(
 );
 
 export const addPlanner = createAsyncThunk(
-  "parametre/addPlanner",
+  "planner/addPlanner",
   async (formData, thunkAPI) => {
     const token = localStorage.getItem('token')
     try {
@@ -45,7 +45,7 @@ export const addPlanner = createAsyncThunk(
   }
 );
 export const deletePlanner = createAsyncThunk(
-  "parametre/deletePlanner",
+  "planner/deletePlanner",
   async (id, thunkAPI) => {
     const token = localStorage.getItem('token')
     try {
@@ -65,8 +65,8 @@ export const deletePlanner = createAsyncThunk(
   }
 );
 // création du slice
-const parametreSlice = createSlice({
-  name: "parametre",
+const plannerSlice = createSlice({
+  name: "planner",
   initialState: {
     loading: false,
     error: null,
@@ -141,5 +141,5 @@ const parametreSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData, setId, openInvitModal, openConfirmModal } = parametreSlice.actions;
-export default parametreSlice.reducer;
+export const { openModal, setFormData, setId, openInvitModal, openConfirmModal } = plannerSlice.actions;
+export default plannerSlice.reducer;

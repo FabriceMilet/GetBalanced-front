@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { deletePlanner } from "../../../feature/parametre.slice";
+import { deletePlanner } from "../../../feature/planner.slice";
 import "./ValidModal.scss";
-import { openConfirmModal } from "../../../feature/parametre.slice";
+import { openConfirmModal } from "../../../feature/planner.slice";
 
 
 export default function ValidModalDashboard({plannerId}) {
