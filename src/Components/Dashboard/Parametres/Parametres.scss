@@ -1,6 +1,6 @@
 @use "../../../style/vars";
 
-.Parametres{
+.Parametres {
     background-color: white;
     height: auto;
     width: 350px;
@@ -10,71 +10,80 @@
     text-align: center;
     padding-bottom: 1rem;
 
-&-title{
-    font-size: 1rem;
-    padding-top: 1rem;
-}
-&-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    &-title {
+        font-size: 1rem;
+        padding-top: 1rem;
+    }
 
-&-input{
-    display: flex;
-    flex-direction: column;
-    margin: 1.5rem;
-}
-&-input input {
-    background-color: #ebecf0;
-    border: 1px solid #d9d9db;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    padding: 0.5rem;
-    font-size: 1rem;
-    &::placeholder{
-        font-size: .8rem; 
+    &-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-  }
-  &-buttons{
-    display: flex;
-    justify-content: space-around;
-    width: 70%;
-  }
-&-button{
-    display: block;
-    margin-bottom: 1rem;
-    background-color: vars.$darkBlue;
-    color: white;
-    font-weight: bold;
-    padding: 0.7rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover{
-        background-color: darken(vars.$darkBlue, 8%)
+
+    &-input {
+        display: flex;
+        flex-direction: column;
+        margin: 1.5rem;
     }
-}
-&-add{
-    display: inline-block;
-    margin-right: 1rem;
-}
-&-add__button{
-    border: none;
-    font-weight: bold;
-    border-radius: 30%;
-}
-& button:hover {
-    cursor: pointer;
-}
+
+    &-input input {
+        background-color: #ebecf0;
+        border: 1px solid #d9d9db;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        padding: 0.5rem;
+        font-size: 1rem;
+
+        &::placeholder {
+            font-size: .8rem;
+        }
+    }
+
+    &-buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 70%;
+    }
+
+    &-button {
+        display: block;
+        margin-bottom: 1rem;
+        background-color: vars.$darkBlue;
+        color: white;
+        font-weight: bold;
+        padding: 0.7rem 2rem;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken(vars.$darkBlue, 8%)
+        }
+    }
+
+    &-add {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    &-add__button {
+        border: none;
+        font-weight: bold;
+        border-radius: 30%;
+    }
+
+    & button:hover {
+        cursor: pointer;
+    }
 }
 
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
-    .Parametres{
-       width: 90vw;
-       position: fixed;
-       top: 50%;
-       left: 50%;
-    transform: translate(-50%, -50%);
+    .Parametres {
+        width: 90vw;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
