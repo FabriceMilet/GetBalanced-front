@@ -36,6 +36,7 @@ export default function InvitationModale({ plannerId }) {
 
   return (
     <div className="InvitationModale">
+    <div className="InvitationModale-container">
       <h1 className="InvitationModale-title">Envoyez un mail au membre que vous souhaitez inviter à votre planning</h1>
       <form className="InvitationModale-form" onSubmit={handleSubmit}>
         <label
@@ -60,6 +61,7 @@ export default function InvitationModale({ plannerId }) {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

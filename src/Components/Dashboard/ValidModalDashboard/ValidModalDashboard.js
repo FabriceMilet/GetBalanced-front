@@ -16,16 +16,16 @@ export default function ValidModalDashboard({plannerId}) {
     dispatch(openConfirmModal());
   };
   return (
-    <div className="modal_fond">
-      <div className="modal_container">
-        <h1 className="modal_title">
+    <div className="ValidModalDashboard">
+      <div className="ValidModalDashboard-container">
+        <h1 className="ValidModalDashboard-title">
           Êtes-vous certain de vouloir supprimer ce planning ?
         </h1>
-        <div className="modal_button_container">
-          <button onClick={handleModal} className="Button_annuler">
+        <div className="ValidModalDashboard-buttons">
+          <button onClick={handleModal} className="ValidModalDashboard-buttons__cancel">
             ANNULER
           </button>
-          <button onClick={handleDelete} className="Button_Valider">
+          <button onClick={handleDelete} className="ValidModalDashboard-buttons__valid">
             Valider
           </button>
         </div>

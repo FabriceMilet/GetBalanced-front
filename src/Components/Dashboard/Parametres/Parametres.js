@@ -29,6 +29,7 @@ export default function Parametres() {
 
   return (
     <div className="Parametres">
+      <div className="Parametres-container">
       <h1 className="Parametres-title">Paramètres du tableau</h1>
       <form className="Parametres-form" onSubmit={handleSubmit}>
         <label htmlFor="titre" className="Parametres-input">
@@ -61,6 +62,7 @@ export default function Parametres() {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }
