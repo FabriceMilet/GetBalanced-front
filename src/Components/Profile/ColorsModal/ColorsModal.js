@@ -3,7 +3,6 @@ import './ColorsModal.scss'
 
 export default function ColorsModal({ colorFunc }) {
 
-
     return (
         <div className='colors_container'>
             <div onClick={() => colorFunc("#ba9a26")} className="colors1"></div>

@@ -1,7 +1,7 @@
 import './Area1.scss';
 import laundryLogo from './laundry.png'
 
-function Area1() {
+export default function Area1() {
   return (
     <div className="area1_container">
       <div className="area1_left_container">
@@ -20,5 +20,3 @@ function Area1() {
     </div>
   );
 }
-
-export default Area1;

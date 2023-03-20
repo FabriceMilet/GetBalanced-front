@@ -27,8 +27,7 @@ export const createUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     console.log("userData creatAccount", userData)
     try {
-      // http://supafei-server.eddi.cloud:8080
-
+      
       const response = await axios.post(`${apiUrl}/user`, userData);
 
       // console.log('réponse envoyée en createUser', userData); 
@@ -104,7 +103,7 @@ export const deleteUser = createAsyncThunk(
     console.log("token", token)
     try {
       const response = await axios.delete(
-        `http://barbaraouisse-server.eddi.cloud:8080/user/${id}`,
+        `${apiUrl}/user/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
