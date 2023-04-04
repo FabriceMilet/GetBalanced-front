@@ -4,7 +4,11 @@ import {
   setFormData,
   openModal,
   addPlanner,
+<<<<<<< HEAD:src/Components/Parametres/Parametres.js
 } from "../../feature/planner.slice";
+=======
+} from "../../../feature/planner.slice";
+>>>>>>> dev:src/Components/Dashboard/Parametres/Parametres.js
 
 export default function Parametres() {
   const dispatch = useDispatch();
@@ -29,6 +33,7 @@ export default function Parametres() {
 
   return (
     <div className="Parametres">
+      <div className="Parametres-container">
       <h1 className="Parametres-title">Paramètres du tableau</h1>
       <form className="Parametres-form" onSubmit={handleSubmit}>
         <label htmlFor="titre" className="Parametres-input">
@@ -61,6 +66,7 @@ export default function Parametres() {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { setFormData } from '../../feature/user.slice';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-function Login() {
+export default function Login() {
   const dispatch = useDispatch();
   const token = Cookies.get('token');
 
@@ -73,6 +73,4 @@ function Login() {
       {/*  {isLogged && (<Navigate to="/dashboard" replace />)} */}
     </form>
   );
-}
-
-export default Login;
+};

@@ -8,13 +8,21 @@ import {
   openConfirmModal,
   getPlanners
 } from "../../feature/planner.slice";
+<<<<<<< HEAD
 import Parametres from "../Parametres/Parametres";
+=======
+import Parametres from "./Parametres/Parametres";
+>>>>>>> dev
 import { Link } from "react-router-dom";
-import InvitationModale from "../InvitationModale/InvitationModale";
+import InvitationModale from "./InvitationModale/InvitationModale";
 import ValidModalDashboard from "./ValidModalDashboard/ValidModalDashboard"
 
+<<<<<<< HEAD
 function Dashboard() {
   // console.log('document.cookie', document.cookie);
+=======
+export default function Dashboard() {
+>>>>>>> dev
   const isOpen = useSelector((state) => state.planner.isOpen);
   const isInvitOpen = useSelector((state) => state.planner.isInvitOpen);
   const isConfirmOpen = useSelector((state) => state.planner.isConfirmOpen);
@@ -84,7 +92,7 @@ function Dashboard() {
                   <button
                     onClick={handleInvit}
                     data-delete={planner.id}
-                    className="Parametres-button"
+                    className="Dashboard-planner__button"
                   >
                     <FaMailBulk />
                   </button>
@@ -95,7 +103,7 @@ function Dashboard() {
                   <button
                     onClick={handleDelete}
                     data-delete={planner.id}
-                    className="Parametres-button"
+                    className="Dashboard-planner__button"
                   >
                     <FaTrash />
                   </button>
@@ -110,4 +118,3 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;

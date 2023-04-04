@@ -7,7 +7,7 @@ import { Waypoint } from 'react-waypoint';
 import { useSpring, animated } from 'react-spring';
 import { useState } from 'react';
 
-function Home() {
+export default function Home() {
     // State qui permet l'affichage du composant s'il est true
     const [toggleElem1, setToggleElem1] = useState(false)
     const [toggleElem2, setToggleElem2] = useState(false)
@@ -70,5 +70,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;

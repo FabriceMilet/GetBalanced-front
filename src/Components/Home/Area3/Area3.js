@@ -1,7 +1,7 @@
 import './Area3.scss';
 import organisation from './organisation.png'
 
-function Area3() {
+export default function Area3() {
 
     return (
         <div className="area3_container">
@@ -14,6 +14,4 @@ function Area3() {
             </div>
         </div>
     );
-}
-
-export default Area3;
+};

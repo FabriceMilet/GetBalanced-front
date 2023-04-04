@@ -2,9 +2,15 @@ import "./InvitationModale.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openInvitModal,
+<<<<<<< HEAD:src/Components/InvitationModale/InvitationModale.js
 } from "../../feature/planner.slice";
 import { useRef } from "react";
 import { inviteUser, setSucces } from "../../feature/user.slice";
+=======
+} from "../../../feature/planner.slice";
+import { useRef } from "react";
+import { inviteUser, setSucces } from "../../../feature/user.slice";
+>>>>>>> dev:src/Components/Dashboard/InvitationModale/InvitationModale.js
 
 export default function InvitationModale({ plannerId }) {
 
@@ -36,6 +42,7 @@ export default function InvitationModale({ plannerId }) {
 
   return (
     <div className="InvitationModale">
+    <div className="InvitationModale-container">
       <h1 className="InvitationModale-title">Envoyez un mail au membre que vous souhaitez inviter à votre planning</h1>
       <form className="InvitationModale-form" onSubmit={handleSubmit}>
         <label
@@ -55,11 +62,12 @@ export default function InvitationModale({ plannerId }) {
           <button type="submit" className="InvitationModale-button">
             Valider
           </button>
-          <button onClick={handleCancel} className="Parametres-button">
+          <button onClick={handleCancel} className="InvitationModale-button">
             X
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

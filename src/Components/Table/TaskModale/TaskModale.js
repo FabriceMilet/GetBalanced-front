@@ -1,6 +1,6 @@
 import "./TaskModale.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, openModal, addTask } from "../../feature/task.slice";
+import { setFormData, openModal, addTask } from "../../../feature/task.slice";
 import { useParams } from 'react-router-dom';
 
 export default function TaskModale() {

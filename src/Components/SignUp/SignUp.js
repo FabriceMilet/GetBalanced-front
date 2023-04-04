@@ -4,7 +4,7 @@ import { createUser } from "../../feature/user.slice";
 import { Link, Navigate } from 'react-router-dom';
 import { setFormData } from '../../feature/user.slice';
 
-function SignUp() {
+export default function SignUp() {
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
   // const { id } = useSelector((state) => state.user.userConnected);
@@ -96,5 +96,3 @@ function SignUp() {
     </form>
   );
 };
-
-export default SignUp;

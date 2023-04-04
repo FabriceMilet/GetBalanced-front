@@ -4,7 +4,7 @@ import { fr } from "date-fns/locale";
 import { setDateToMore, setDateToLess } from "../../../feature/date.slice";
 import { useDispatch, useSelector } from "react-redux";
 
-function WeekScroll() {
+export default function WeekScroll() {
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.date.date);
   const handleDateChangeToMore = () => {
@@ -47,5 +47,4 @@ function WeekScroll() {
       </span>
     </div>
   );
-}
-export default WeekScroll;
+};

@@ -4,9 +4,12 @@ import avatar from "./avatar.png";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { userLogout } from "../../feature/user.slice";
+<<<<<<< HEAD
 import Cookies from 'js-cookie';
+=======
+>>>>>>> dev
 
-function Header() {
+export default function Header() {
   const dispatch = useDispatch();
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
@@ -48,5 +51,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;
