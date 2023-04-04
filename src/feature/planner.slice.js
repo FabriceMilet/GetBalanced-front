@@ -1,18 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-
 
 export const getPlanners = createAsyncThunk(
   "planner/getPlanners",
   async (_, thunkAPI) => {
-    const userId = localStorage.getItem('id')
-    const token = localStorage.getItem('token')
-    //console.log("verif-token", token)
-
+    const userId = Cookies.get('id')
+    const token = Cookies.get('token');
+  
     try {
-      // console.log(userId);
       const response = await axios.get(`${apiUrl}/planner/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -29,10 +27,9 @@ export const getPlanners = createAsyncThunk(
 export const addPlanner = createAsyncThunk(
   "planner/addPlanner",
   async (formData, thunkAPI) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token');
     try {
-      //console.log(formData);
-      const userId = localStorage.getItem('id')
+      const userId = Cookies.get('id')
       const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -47,7 +44,7 @@ export const addPlanner = createAsyncThunk(
 export const deletePlanner = createAsyncThunk(
   "planner/deletePlanner",
   async (id, thunkAPI) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token');
     try {
       console.log(id);
       const response = await axios.delete(
@@ -101,7 +98,6 @@ const plannerSlice = createSlice({
       })
       .addCase(getPlanners.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log('réponse de getPlanners', action.payload);
         state.planners = action.payload;
       })
       .addCase(getPlanners.rejected, (state, action) => {
@@ -113,7 +109,6 @@ const plannerSlice = createSlice({
       })
       .addCase(addPlanner.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("ce qui va etre push dans extrareducer",action.payload);
         state.planners.push(action.payload);
       })
       .addCase(addPlanner.rejected, (state, action) => {
@@ -124,11 +119,9 @@ const plannerSlice = createSlice({
         state.loading = true;
       })
       .addCase(deletePlanner.fulfilled, (state, action) => {
-        console.log('je supprime un planning');
         state.loading = false;
         // on récupère l'id du planner à supprimer
         const id = action.payload.id;
-        console.log("id", action.payload);
         // on récupère l'indice du planner dans le tableau
         const index = state.planners.findIndex((planner) => planner.id == id);
         // on supprime le planner

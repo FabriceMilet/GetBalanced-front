@@ -1,20 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from 'js-cookie';
 const apiUrl = process.env.REACT_APP_API_URL;
-
 
 export const getTasks = createAsyncThunk(
   "task/getTasks",
   async (id, thunkAPI) => {
     try {
-      const token = localStorage.getItem('token');
-      // console.log('id récup', id)
+      const token = Cookies.get('token');
       const response = await axios.get(`${apiUrl}/task/planner/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
         }
       });
-      console.log('je récupère les tasks du back', response);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -25,8 +23,7 @@ export const addTask = createAsyncThunk(
   "task/addTask",
   async ({ formData, id }, thunkAPI) => {
     try {
-      const token = localStorage.getItem('token');
-      console.log('envoyé au back', formData);
+      const token = Cookies.get('token');
       const response = await axios.post(`${apiUrl}/task/planner/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -42,9 +39,7 @@ export const modifyTask = createAsyncThunk(
   "task/modifyTask",
   async ({ updatedTask, id }, thunkAPI) => {
     try {
-      const token = localStorage.getItem('token');
-      console.log('je modifie et jenvoie', updatedTask
-      );
+      const token = Cookies.get('token');
       const response = await axios.put(
         `${apiUrl}/task/${id}`, updatedTask,
         {
@@ -53,7 +48,6 @@ export const modifyTask = createAsyncThunk(
           }
         }
       );
-      console.log('response.data de modify', response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -63,9 +57,8 @@ export const modifyTask = createAsyncThunk(
 export const deleteTask = createAsyncThunk(
   "task/deleteTask",
   async (id, thunkAPI) => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token');
     try {
-      console.log("id de la tache à supprimer :", id);
       const response = await axios.delete(
         `${apiUrl}/task/${id}`,
         {
@@ -74,7 +67,6 @@ export const deleteTask = createAsyncThunk(
           }
         }
       );
-      console.log('response.data de lid à supprimer', response.data);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -114,9 +106,7 @@ const taskSlice = createSlice({
       })
       .addCase(getTasks.fulfilled, (state, action) => {
         state.loading = false;
-        console.log('je récupère', action.payload);
         state.tasks = action.payload;
-        // state.tasks.push(action.payload);
       })
       .addCase(getTasks.rejected, (state, action) => {
         state.loading = false;
@@ -126,7 +116,6 @@ const taskSlice = createSlice({
         state.loading = true;
       })
       .addCase(addTask.fulfilled, (state, action) => {
-        console.log('jajoute ', action.payload);
         state.loading = false;
         state.tasks.push(action.payload);
       })
@@ -136,12 +125,9 @@ const taskSlice = createSlice({
       })
       .addCase(modifyTask.pending, (state) => {
         state.loading = true;
-        console.log('en attente');
       })
       .addCase(modifyTask.fulfilled, (state, action) => {
-        console.log('je modifie ', action.payload);
         state.loading = false;
-        // console.log("tâche modifiée:", action.payload);
         // on récupère l'id de la tâche à modifier
         const id = action.payload.id;
         // on récupère l'indice de la tâche dans le tableau
@@ -158,10 +144,8 @@ const taskSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("tâche à supprimer :", action.payload);
         // on récupère l'id de la tâche à supprimer
         const id = action.payload.id;
-        // quand je vais recevoir les vrais données, il faudra changer par const id = action.payload.id;
         // on récupère l'indice de la tâche dans le tableau
         const index = state.tasks.findIndex((task) => task.id == id);
         // on supprime la tâche

@@ -2,9 +2,15 @@ import "./InvitationModale.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openInvitModal,
+<<<<<<< HEAD:src/Components/InvitationModale/InvitationModale.js
+} from "../../feature/planner.slice";
+import { useRef } from "react";
+import { inviteUser, setSucces } from "../../feature/user.slice";
+=======
 } from "../../../feature/planner.slice";
 import { useRef } from "react";
 import { inviteUser, setSucces } from "../../../feature/user.slice";
+>>>>>>> dev:src/Components/Dashboard/InvitationModale/InvitationModale.js
 
 export default function InvitationModale({ plannerId }) {
 

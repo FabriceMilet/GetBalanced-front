@@ -14,7 +14,11 @@ import { userCheckToken } from "../../feature/user.slice";
 import SuccesModal from "../SuccesModal/SuccesModal";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+<<<<<<< HEAD
+import Cookies from 'js-cookie';
+=======
 import ClipLoader from "react-spinners/ClimbingBoxLoader";
+>>>>>>> dev
 
 
 export default function App() {
@@ -23,7 +27,7 @@ export default function App() {
   const isLoadingUser = useSelector((state) => state.user.loading);
   console.log('isLoadingUser', isLoadingUser);
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get('token');
     if (!token) {
       return;
     }

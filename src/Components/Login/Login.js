@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, } from "../../feature/user.slice";
 import { setFormData } from '../../feature/user.slice';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
 
   const navigate = useNavigate();
 

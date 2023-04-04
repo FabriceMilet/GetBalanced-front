@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-// création de la fonction qui post les données du nouvel utilisateur
+// fonction qui envoie le token au back pour le middleware de login
 export const userCheckToken = createAsyncThunk(
   "user/userCheckToken",
   async (_, thunkAPI) => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token');
     try {
       const response = await axios.get(`${apiUrl}/token`,
         {
@@ -17,8 +18,8 @@ export const userCheckToken = createAsyncThunk(
         });
       return response.data
     } catch (err) {
-      localStorage.removeItem('token');
-      alert("Veuillez vous reconnecter !")
+      Cookies.remove('token');
+      return thunkAPI.rejectWithValue(err.response.data);
     }
   }
 );
@@ -27,17 +28,10 @@ export const createUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     console.log("userData creatAccount", userData)
     try {
-      
       const response = await axios.post(`${apiUrl}/user`, userData);
-
-      // console.log('réponse envoyée en createUser', userData); 
-      // console.log("response.data",response.data);
-      // console.log('.env', env.API_BASE_URL);
-      // console.log(response.data.token);
-
-      // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('id', response.data.user.id);
+      // je stocke le token et l'id dans les cookies
+      Cookies.set('id', response.data.user.id);
+      Cookies.set('token', response.data.token);
 
       return response.data
     } catch (err) {
@@ -50,15 +44,14 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userData, thunkAPI) => {
     try {
-      //console.log("userData login", userData)
       const response = await axios.post(
 
         `${apiUrl}/user/login`,
         userData
       );
-      // J'enregistre en local toutes les données envoyés par le back tant que ma connection est approuvé.
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('id', response.data.user.id);
+       // je stocke le token et l'id dans les cookies
+       Cookies.set('id', response.data.user.id);
+       Cookies.set('token', response.data.token);
 
       return response.data;
     } catch (err) {
@@ -70,10 +63,8 @@ export const loginUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "user/editUser",
   async ({ updatedFormData, id }, thunkAPI) => {
-    console.log("data", updatedFormData)
-    console.log("id", id)
     try {
-      const token = localStorage.getItem('token')
+      const token = Cookies.get('token');
       const response = await axios.patch(
         `${apiUrl}/user/${id}`,
         updatedFormData,
@@ -83,8 +74,6 @@ export const editUser = createAsyncThunk(
           }
         }
       );
-      // console.log('réponse envoyée en login', userData); 
-      // console.log(response.data);
       return response.data;
     } catch (err) {
       console.log(err)
@@ -92,15 +81,10 @@ export const editUser = createAsyncThunk(
     }
   }
 );
-
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (id, thunkAPI) => {
-
-    // console.log("id ----->>>", id) OK
-    // console.log("userDeleteData ----->>>>", userDeleteData) OK
-    const token = localStorage.getItem('token')
-    console.log("token", token)
+    const token = Cookies.get('token');
     try {
       const response = await axios.delete(
         `${apiUrl}/user/${id}`,
@@ -109,11 +93,9 @@ export const deleteUser = createAsyncThunk(
             Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
           }
         }
-      ).then(() => { localStorage.clear() });
+      ).then(() => { Cookies.remove('token'); });
 
-      // console.log('réponse envoyée en login', userData); 
-      // console.log("response lors du delete", response);
-      return
+      return response.data;
     } catch (err) {
       console.log("erreur delete", err)
       return thunkAPI.rejectWithValue(err.response.data);
@@ -124,8 +106,8 @@ export const deleteUser = createAsyncThunk(
 export const inviteUser = createAsyncThunk(
   "user/inviteUser",
   async ({ email, userId, plannerId }, thunkAPI) => {
-    const token = localStorage.getItem('token');
-    console.log("email", email, "userId", userId, "plannerId", plannerId);
+    const token = Cookies.get('token');
+    
     try {
       const response = await axios.post(
         `${apiUrl}/invite/${userId}/planner/${plannerId}`, { 'email': email },
@@ -194,13 +176,13 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
+
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.succes = "vous êtes connecté !";
+        state.succes = "Vous êtes connecté !";
         state.erreur = null;
         state.loading = false;
         state.isLogged = true;
-        // console.log('action.payload', action.payload);
         state.userConnected = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -227,8 +209,7 @@ const userSlice = createSlice({
       .addCase(deleteUser.pending, (state) => { // Test delete ERR401
         state.loading = true;
       })
-      .addCase(deleteUser.fulfilled, (state, action) => { // Test delete ERR401
-        //console.log("OK delete")
+      .addCase(deleteUser.fulfilled, (state) => { // Test delete ERR401
         state.succes = "Utilisateur supprimé !";
         state.loading = false;
         state.isLogged = false;
@@ -238,7 +219,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.erreur = "Erreur de suppresion d'utilisateur";
         state.error = action.payload;
-        //console.log("PROBLÈME delete")
       })
       .addCase(userCheckToken.pending, (state) => { // Test rechargement
         state.loading = true;

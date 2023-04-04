@@ -4,7 +4,11 @@ import {
   setFormData,
   openModal,
   addPlanner,
+<<<<<<< HEAD:src/Components/Parametres/Parametres.js
+} from "../../feature/planner.slice";
+=======
 } from "../../../feature/planner.slice";
+>>>>>>> dev:src/Components/Dashboard/Parametres/Parametres.js
 
 export default function Parametres() {
   const dispatch = useDispatch();
