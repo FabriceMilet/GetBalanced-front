@@ -3,14 +3,15 @@ import logoGetBalanced from "./test.svg";
 import avatar from "./avatar.png";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { userLogout } from "../../feature/users.slice";
+import { userLogout } from "../../feature/user.slice";
+import Cookies from 'js-cookie';
 
 function Header() {
   const dispatch = useDispatch();
   // On récupère les données sur l'utilisateur :
   const isLogged = useSelector((state) => state.user.isLogged);
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    Cookies.remove('token');
     dispatch(userLogout());
   };
 

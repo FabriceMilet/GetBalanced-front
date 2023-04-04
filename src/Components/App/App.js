@@ -10,16 +10,17 @@ import Err404 from "../Err404/Err404";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { userCheckToken } from "../../feature/users.slice";
+import { userCheckToken } from "../../feature/user.slice";
 import SuccesModal from "../SuccesModal/SuccesModal";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function App() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLogged);
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get('token');
     if (!token) {
       return;
     }

@@ -8,13 +8,13 @@ export default function TaskModale() {
   // on va récup l'id en local
   // const [id, setId] = useState(null)
 
-  // const id = useSelector((state) => state.parametre.id);
+  // const id = useSelector((state) => state.planner.id);
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.task.formData);
   //on récupère la date du jour sur lequel on a cliqué pour ajouter une tâche
   const dateOfNewTask = useSelector((state) => state.task.dateOfNewTask);
   // console.log(dateOfNewTask);
-  // const planners = useSelector((state) => state.parametre.planners);
+  // const planners = useSelector((state) => state.planner.planners);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {

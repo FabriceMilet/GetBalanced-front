@@ -6,7 +6,7 @@ import AddTask from "./AddTask/AddTask";
 import Day from "./Day/Day";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { setId } from "../../feature/parametre.slice";
+import { setId } from "../../feature/planner.slice";
 import { getTasks } from "../../feature/task.slice";
 
 function Table() {

@@ -4,11 +4,11 @@ import {
   setFormData,
   openModal,
   addPlanner,
-} from "../../feature/parametre.slice";
+} from "../../feature/planner.slice";
 
 export default function Parametres() {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.parametre.formData);
+  const formData = useSelector((state) => state.planner.formData);
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété
   // correspondant à la variable name et sa valeur associée
   const handleChange = (event) => {
