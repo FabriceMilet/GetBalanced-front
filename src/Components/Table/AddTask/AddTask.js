@@ -2,7 +2,7 @@ import "./AddTask.scss";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../feature/task.slice";
 
-function AddTask() {
+export default function AddTask() {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(openModal());
@@ -14,6 +14,4 @@ function AddTask() {
       </button>
     </div>
   );
-}
-
-export default AddTask;
+};

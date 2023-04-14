@@ -13,11 +13,11 @@ import {
   deleteTask,
   modifyTask,
 } from "../../../feature/task.slice";
-import TaskModale from "../../TaskModale/TaskModale";
-import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
+import TaskModale from "../TaskModale/TaskModale";
+import TaskModifyModale from "../TaskModifyModale/TaskModifyModale";
 import { useState } from "react";
 
-function Week() {
+export default function Week() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
@@ -276,6 +276,4 @@ function Week() {
       {!isOpen && !isModifyOpen && <div className="Week-days">{days}</div>}
     </div>
   );
-}
-
-export default Week;
+};

@@ -1,13 +1,14 @@
 import './Login.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser, } from "../../feature/users.slice";
-import { setFormData } from '../../feature/users.slice';
+import { loginUser, } from "../../feature/user.slice";
+import { setFormData } from '../../feature/user.slice';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-function Login() {
+export default function Login() {
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
 
   const navigate = useNavigate();
 
@@ -72,6 +73,4 @@ function Login() {
       {/*  {isLogged && (<Navigate to="/dashboard" replace />)} */}
     </form>
   );
-}
-
-export default Login;
+};

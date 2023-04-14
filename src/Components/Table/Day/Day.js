@@ -13,11 +13,11 @@ import {
   deleteTask,
   modifyTask,
 } from "../../../feature/task.slice";
-import TaskModale from "../../TaskModale/TaskModale";
-import TaskModifyModale from "../../TaskModifyModale/TaskModifyModale";
+import TaskModale from "../TaskModale/TaskModale";
+import TaskModifyModale from "../TaskModifyModale/TaskModifyModale";
 import { useState } from "react";
 
-function Day() {
+export default function Day() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
@@ -276,7 +276,5 @@ function Day() {
       }
     </div>
   );
-}
-
-export default Day;
+};
 

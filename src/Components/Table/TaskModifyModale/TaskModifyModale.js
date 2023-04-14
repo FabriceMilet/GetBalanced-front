@@ -4,7 +4,7 @@ import {
   setFormData,
   openModifyModal,
   modifyTask,
-} from "../../feature/task.slice";
+} from "../../../feature/task.slice";
 
 export default function TaskModifyModale() {
   const dispatch = useDispatch();

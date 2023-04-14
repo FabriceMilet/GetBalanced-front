@@ -1,19 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const userId = localStorage.getItem('id')
-
 
 export const getPlanners = createAsyncThunk(
-  "parametre/getPlanners",
+  "planner/getPlanners",
   async (_, thunkAPI) => {
-
-    const token = localStorage.getItem('token')
-    //console.log("verif-token", token)
-
+    const userId = Cookies.get('id')
+    const token = Cookies.get('token');
+  
     try {
-      // console.log(userId);
       const response = await axios.get(`${apiUrl}/planner/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -28,11 +25,11 @@ export const getPlanners = createAsyncThunk(
 );
 
 export const addPlanner = createAsyncThunk(
-  "parametre/addPlanner",
+  "planner/addPlanner",
   async (formData, thunkAPI) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token');
     try {
-      //console.log(formData);
+      const userId = Cookies.get('id')
       const response = await axios.post(`${apiUrl}/planner/user/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`, // ajouter le token à l'en-tête de la requête
@@ -45,9 +42,9 @@ export const addPlanner = createAsyncThunk(
   }
 );
 export const deletePlanner = createAsyncThunk(
-  "parametre/deletePlanner",
+  "planner/deletePlanner",
   async (id, thunkAPI) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token');
     try {
       console.log(id);
       const response = await axios.delete(
@@ -65,8 +62,8 @@ export const deletePlanner = createAsyncThunk(
   }
 );
 // création du slice
-const parametreSlice = createSlice({
-  name: "parametre",
+const plannerSlice = createSlice({
+  name: "planner",
   initialState: {
     loading: false,
     error: null,
@@ -101,7 +98,6 @@ const parametreSlice = createSlice({
       })
       .addCase(getPlanners.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log('réponse de getPlanners', action.payload);
         state.planners = action.payload;
       })
       .addCase(getPlanners.rejected, (state, action) => {
@@ -113,7 +109,6 @@ const parametreSlice = createSlice({
       })
       .addCase(addPlanner.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("ce qui va etre push dans extrareducer",action.payload);
         state.planners.push(action.payload);
       })
       .addCase(addPlanner.rejected, (state, action) => {
@@ -124,11 +119,9 @@ const parametreSlice = createSlice({
         state.loading = true;
       })
       .addCase(deletePlanner.fulfilled, (state, action) => {
-        console.log('je supprime un planning');
         state.loading = false;
         // on récupère l'id du planner à supprimer
         const id = action.payload.id;
-        console.log("id", action.payload);
         // on récupère l'indice du planner dans le tableau
         const index = state.planners.findIndex((planner) => planner.id == id);
         // on supprime le planner
@@ -141,5 +134,5 @@ const parametreSlice = createSlice({
   },
 });
 
-export const { openModal, setFormData, setId, openInvitModal, openConfirmModal } = parametreSlice.actions;
-export default parametreSlice.reducer;
+export const { openModal, setFormData, setId, openInvitModal, openConfirmModal } = plannerSlice.actions;
+export default plannerSlice.reducer;
