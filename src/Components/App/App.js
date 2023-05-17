@@ -14,11 +14,8 @@ import { userCheckToken } from "../../feature/user.slice";
 import SuccesModal from "../SuccesModal/SuccesModal";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-<<<<<<< HEAD
 import Cookies from 'js-cookie';
-=======
 import ClipLoader from "react-spinners/ClimbingBoxLoader";
->>>>>>> dev
 
 
 export default function App() {
