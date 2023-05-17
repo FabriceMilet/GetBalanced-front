@@ -25,7 +25,7 @@ export default function Login() {
     if (isLogged && token) {
       navigate("/dashboard")
     }
-  }, [isLogged, token]);
+  }, [isLogged, token, navigate]);
 
   // formData est envoyé en paramètre de createUser au slice userSlice
   const handleSubmit = (event) => {

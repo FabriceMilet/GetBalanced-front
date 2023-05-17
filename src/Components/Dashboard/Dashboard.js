@@ -25,7 +25,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(getPlanners());
-  }, [plannerId]);
+  }, [plannerId, dispatch]);
 
   const handleClick = () => {
     dispatch(openModal());
