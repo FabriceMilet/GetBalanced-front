@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { editUser, deleteUser, setSucces } from "../../feature/user.slice";
-import ValidModal from './ValidModal/validModal';
+import ValidModal from './ValidModal/ValidModal';
 import ColorsModal from './ColorsModal/ColorsModal';
 
 export default function Profile() {
