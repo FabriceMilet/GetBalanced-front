@@ -8,7 +8,7 @@ import {
   openConfirmModal,
   getPlanners
 } from "../../feature/planner.slice";
-import Parametres from "../Parametres/Parametres";
+import Parametres from "./Parametres/Parametres";
 import { Link } from "react-router-dom";
 import InvitationModale from "./InvitationModale/InvitationModale";
 import ValidModalDashboard from "./ValidModalDashboard/ValidModalDashboard"
