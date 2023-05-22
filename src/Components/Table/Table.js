@@ -16,7 +16,7 @@ export default function Table() {
   useEffect(() => {
     dispatch(setId(id));
     dispatch(getTasks(id));
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <div className="Table">

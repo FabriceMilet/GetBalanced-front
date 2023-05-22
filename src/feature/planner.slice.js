@@ -123,7 +123,7 @@ const plannerSlice = createSlice({
         // on récupère l'id du planner à supprimer
         const id = action.payload.id;
         // on récupère l'indice du planner dans le tableau
-        const index = state.planners.findIndex((planner) => planner.id == id);
+        const index = state.planners.findIndex((planner) => planner.id === id);
         // on supprime le planner
         state.planners.splice(index, 1);
       })

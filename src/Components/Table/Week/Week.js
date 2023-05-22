@@ -47,7 +47,7 @@ export default function Week() {
   const handleModify = (event) => {
     const taskId = event.target.dataset.modify;
     // récupérer la tache qui a pour id event.target.dataset.modify
-    const task = tasks.find((task) => task.id == taskId);
+    const task = tasks.find((task) => task.id === taskId);
     dispatch(openModifyModal(task));
   };
 
@@ -78,7 +78,7 @@ export default function Week() {
     
     const taskId = event.target.dataset.checkbox;
     // récupérer la tache qui a pour id event.target.dataset.checkbox
-    let task = tasks.find((task) => task.id == taskId);
+    let task = tasks.find((task) => task.id === taskId);
     let newTask = {...task};
     // console.log('taskToModify', taskToModify);
     // on récup la couleur de l'user et on associe la tache à cet user
@@ -115,7 +115,7 @@ export default function Week() {
   const handleDone = (event) => {
     const taskId = event.target.dataset.done;
     // récupérer la tache qui a pour id event.target.dataset.done
-    const task = tasks.find((task) => task.id == taskId);
+    const task = tasks.find((task) => task.id === taskId);
     let newTask = {...task};
     
     if (task.user_id === null) {
@@ -187,7 +187,7 @@ export default function Week() {
             });
             if (taskIsWithinWeek && i === getISODay(taskDate) - 1) {
               // on regarde si l'id de la tâche correspond à l'evenement cliqué avec clickToOpen
-              const isTaskOpen = task.id == openTaskId;
+              const isTaskOpen = task.id === openTaskId;
               return (
                 <div
                   className={
