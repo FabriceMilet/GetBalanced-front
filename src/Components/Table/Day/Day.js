@@ -168,8 +168,7 @@ export default function Day() {
             onClick={handleClick}
             className="Day-button"
             data-date={dateOftheday}
-          >
-            +
+          > +
           </button>
         </div>
         {/* ici, on fait apparaitre la tâche ajoutée sur le jour correspndant */}
