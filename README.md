@@ -9,3 +9,5 @@ MVP, cahier des charges, wireframes, maquettes, MCD, MLD, création d'une base d
 Conception de l'application au regard du cahier des charges, communication entre les membres de l'équipe 
 ### Sprint 4 - Repérage des bugs, maintenance et mise en production. 
 
+
+Allez visiter le site en cliquant [ici](https://get-balanced.netlify.app/)
