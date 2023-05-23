@@ -147,7 +147,7 @@ const taskSlice = createSlice({
         // on récupère l'id de la tâche à supprimer
         const id = action.payload.id;
         // on récupère l'indice de la tâche dans le tableau
-        const index = state.tasks.findIndex((task) => task.id === id);
+        const index = state.tasks.findIndex((task) => parseInt(task.id) === parseInt(id));
         // on supprime la tâche
         state.tasks.splice(index, 1);
       })
