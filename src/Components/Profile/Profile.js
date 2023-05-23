@@ -45,8 +45,14 @@ export default function Profile() {
         updatedFormData[key] = value;
       }
     }
+    // je vérifie si des modifications ont été apportées
+    if (Object.keys(updatedFormData).length === 0) {
+      navigate('/dashboard')
+      return;
+    }
     dispatch(editUser({ updatedFormData, id }))
     dispatch(setSucces(""))
+    navigate('/dashboard')
   }
 
   const handleModal = () => {
