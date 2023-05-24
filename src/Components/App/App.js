@@ -22,7 +22,8 @@ export default function App() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLogged);
   const isLoadingUser = useSelector((state) => state.user.loading);
-  console.log('isLoadingUser', isLoadingUser);
+  
+  // console.log('isLoadingUser', isLoadingUser);
   useEffect(() => {
     const token = Cookies.get('token');
     if (!token) {

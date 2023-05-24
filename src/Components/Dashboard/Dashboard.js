@@ -12,6 +12,7 @@ import Parametres from "./Parametres/Parametres";
 import { Link } from "react-router-dom";
 import InvitationModale from "./InvitationModale/InvitationModale";
 import ValidModalDashboard from "./ValidModalDashboard/ValidModalDashboard"
+import ClipLoader from "react-spinners/ClimbingBoxLoader";
 
 
 export default function Dashboard() {
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const isInvitOpen = useSelector((state) => state.planner.isInvitOpen);
   const isConfirmOpen = useSelector((state) => state.planner.isConfirmOpen);
   const planners = useSelector((state) => state.planner.planners);
+  const isLoadingPlanner = useSelector((state) => state.planner.loading);
   const dispatch = useDispatch();
   // State de l'id du planner sur lequel on clique
   const [plannerId, setPlannerId] = useState(null);
@@ -32,7 +34,6 @@ export default function Dashboard() {
   };
 
   const handleDelete = (event) => {
-
     // récupérer le planner qui a pour id event.target.dataset.delete
     const plannerIdToDelete = event.currentTarget.dataset.delete;
     console.log('plannerIdToDelete', plannerIdToDelete);
@@ -49,7 +50,16 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="Dashboard">
+  <div className="Dashboard">
+    {isLoadingPlanner ? 
+     ( <ClipLoader  
+      color="#00BFFF" 
+      size={50}
+      aria-label="Loading Spinner"
+      cssOverride={{padding: "50%"}}
+    />)
+    : 
+    (<>
       <button
         className={
           (isOpen || isInvitOpen || isConfirmOpen)
@@ -105,7 +115,8 @@ export default function Dashboard() {
 
             </div>
           ))}
-      </div>
+      </div></>)
+    }
     </div>
   );
 }

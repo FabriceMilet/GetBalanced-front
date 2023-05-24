@@ -7,7 +7,7 @@ import { setFormData } from '../../feature/user.slice';
 export default function SignUp() {
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
-  // const { id } = useSelector((state) => state.user.userConnected);
+ 
   const dispatch = useDispatch();
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
   // correspondant à la variable name et sa valeur associée
@@ -21,11 +21,10 @@ export default function SignUp() {
     if (formData.password !== formData.confirmPassword) {
       alert("Les mots de passe ne correspondent pas");
     } else {
+      
       dispatch(createUser(formData)).then(() => {
         dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
       });
-      // console.log(formData);
-      // on va devoir prévoir l'envoie vers la page profil ou dashboard 
     }
   }
   // on vide les input au cas où on clique sur la redirection vers login
@@ -90,8 +89,7 @@ export default function SignUp() {
           </Link>
         </div>
       )}
-      {/* on veut renvoyer vers la page de profil si l'utilisateur est logué
- il va falloir ici récupérer son id */}
+      {/* on veut renvoyer vers la page de profil si l'utilisateur est logué*/}
       {isLogged && (<Navigate to="/user" replace />)}
     </form>
   );
