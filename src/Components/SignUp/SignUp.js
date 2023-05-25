@@ -15,7 +15,6 @@ import tutoGetBalancedMobile2 from '../../img/tutoGetBalancedMobile2.jpg';
 import tutoGetBalancedMobile3 from '../../img/tutoGetBalancedMobile3.jpg';
 import tutoGetBalancedMobile4 from '../../img/tutoGetBalancedMobile4.jpg';
 import tutoGetBalancedMobile5 from '../../img/tutoGetBalancedMobile5.jpg';
-import tutoGetBalancedMobile6 from '../../img/tutoGetBalancedMobile6.jpg';
 import { useState } from "react";
 
 
@@ -36,8 +35,7 @@ export default function SignUp() {
     tutoGetBalancedMobile2,
     tutoGetBalancedMobile3,
     tutoGetBalancedMobile4,
-    tutoGetBalancedMobile5,
-    tutoGetBalancedMobile6,
+    tutoGetBalancedMobile5
   ]
   // j'ajoute un état  état pour gérer l'affichage du tutoriel et la position actuelle de l'image dans le tableau
   const [showTutorial, setShowTutorial] = useState(false);
