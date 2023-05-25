@@ -13,6 +13,7 @@ export default function Profile() {
   const userConnected = useSelector((state) => state.user.userConnected);
   // State de gestion du choix de couleur
   const [chosenColor, setChosenColor] = useState("");
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,8 +46,14 @@ export default function Profile() {
         updatedFormData[key] = value;
       }
     }
+    // je vérifie si des modifications ont été apportées
+    if (Object.keys(updatedFormData).length === 0) {
+      navigate('/dashboard')
+      return;
+    }
     dispatch(editUser({ updatedFormData, id }))
     dispatch(setSucces(""))
+    navigate('/dashboard')
   }
 
   const handleModal = () => {
@@ -119,11 +126,11 @@ export default function Profile() {
             <div className='profile_input_container'>
               <label htmlFor="color">Couleur : </label>
               <button
-                style={{ backgroundColor: `` }}
+                style={{ backgroundColor: chosenColor }}
                 type="button" onClick={handleColors} id='color'
                 className='profile_input colors_button'>
                 changer sa couleur</button>
-              {isColorsModalOpen && <ColorsModal colorFunc={colorFunc} />}
+              {isColorsModalOpen && <ColorsModal colorFunc={colorFunc} selectedColor={chosenColor} />}
             </div>
 
             <div className='profile_input_container'>

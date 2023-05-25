@@ -154,7 +154,7 @@ const userSlice = createSlice({
     },
     setSucces: (state, action) => {
       state.succes = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -248,7 +248,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setFormData, refreshUserConnected, userLogout, setSucces } = userSlice.actions;
+export const { setFormData, refreshUserConnected, userLogout, setSucces} = userSlice.actions;
 export default userSlice.reducer;
 
 
