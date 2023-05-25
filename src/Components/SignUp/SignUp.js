@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../feature/user.slice";
 import { Link, Navigate } from 'react-router-dom';
 import { setFormData } from '../../feature/user.slice';
+import tutoGetBalanced from '../../img/tutoGetBalanced.jpg';
 import tutoGetBalanced1 from '../../img/tutoGetBalanced1.png';
 import tutoGetBalanced2 from '../../img/tutoGetBalanced2.png';
 import tutoGetBalanced3 from '../../img/tutoGetBalanced3.png';
@@ -10,10 +11,12 @@ import tutoGetBalanced4 from '../../img/tutoGetBalanced4.png';
 import tutoGetBalanced5 from '../../img/tutoGetBalanced5.png';
 import { useState } from "react";
 
+
 export default function SignUp() {
   const isLogged = useSelector((state) => state.user.isLogged);
   const formData = useSelector((state) => state.user.formData);
   const tutorialImages = [
+    tutoGetBalanced,
     tutoGetBalanced1,
     tutoGetBalanced2,
     tutoGetBalanced3,
@@ -31,14 +34,17 @@ export default function SignUp() {
     }
     if (currentImageIndex === tutorialImages.length - 1) {
       setShowTutorial(false);
+      dispatch(createUser(formData)).then(() => {
+        dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
+      });
     }
   };
   
-  const prevImage = () => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-    }
-  };
+  // const prevImage = () => {
+  //   if (currentImageIndex > 0) {
+  //     setCurrentImageIndex(currentImageIndex - 1);
+  //   }
+  // };
 
   const dispatch = useDispatch();
   // on veut créer ici une nouvelle copie de l'objet formData avec la propriété 
@@ -54,11 +60,9 @@ export default function SignUp() {
       alert("Les mots de passe ne correspondent pas");
     } else {
       setShowTutorial(true);
-      dispatch(createUser(formData)).then(() => {
-        dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
-      });
     }
   }
+
   // on vide les input au cas où on clique sur la redirection vers login
   const handleClear = () => {
     dispatch(setFormData({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" }))
@@ -67,10 +71,10 @@ export default function SignUp() {
   return (
     <div>
       {showTutorial ? (
-         <div>
+         <div className="SignUp-tuto">
          <img src={tutorialImages[currentImageIndex]} alt="Tutorial Step" />
-         <button onClick={prevImage}>Précédent</button>
-           <button onClick={nextImage}>Suivant</button>
+         {/* <button onClick={prevImage}>Précédent</button> */}
+           <button className="SignUp-next" onClick={nextImage}>Suivant</button>
            </div>
          ) : (
     <form className="SignUp" onSubmit={handleSubmit}>

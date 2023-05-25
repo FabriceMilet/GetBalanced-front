@@ -60,6 +60,23 @@
     color: #aeaeb0;
     margin-top: 0.5rem;
 }
+.SignUp-tuto{
+min-height: 100vh;
+& img {
+  min-height: 100vh;
+}
+}
+
+.SignUp-next{
+  background-color: vars.$darkBlue;
+  color: white;
+  font-weight: bold;
+  padding: 0.7rem 2rem;
+  border-radius: 5px;
+  position : fixed;
+  bottom: 35px;
+  right: 35px;
+}
 
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
 
