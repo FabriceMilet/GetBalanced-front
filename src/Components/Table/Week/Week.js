@@ -21,7 +21,7 @@ export default function Week() {
   const dispatch = useDispatch();
   // on récupère les données de l'utilisateur connecté
   const userConnected = useSelector((state) => state.user.userConnected);
-  console.log('userConnected from week', userConnected);
+  // console.log('userConnected from week', userConnected);
   // on récupère la valeur de isOpen pour savoir si la modale d'ajout de tâche est ouverte
   const isOpen = useSelector((state) => state.task.isOpen);
   // on récupère la valeur de isModifyOpen pour savoir si la modale de modification de tâche est ouverte

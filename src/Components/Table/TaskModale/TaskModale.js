@@ -32,7 +32,7 @@ export default function TaskModale() {
   const handleSubmit = (event) => {
     
     event.preventDefault();
-    console.log('formData', formData);
+    // console.log('formData', formData);
     dispatch(addTask({ formData, id })).then(() => {
       dispatch(setFormData({ name: "", description: "", date: "" }));
     });

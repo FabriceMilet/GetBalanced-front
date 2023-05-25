@@ -27,7 +27,7 @@ export default function TaskModifyModale() {
       }
     }
     const id = task.id
-    console.log('updatedTask',updatedTask);
+    // console.log('updatedTask',updatedTask);
     // j'envoie un objet avec deux propriétés car j'en aurai besoin dans mon createAsyncThunk
     dispatch(modifyTask({updatedTask, id})).then(() => {
       dispatch(setFormData({ name: "", description: "", date: "" }))});
